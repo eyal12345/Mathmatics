@@ -2,7 +2,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class System_Linear_Equations {
+public class System_Linear_Equations_V3 {
 
     // display system Ax = b in linear equations format
     private static void Display_Exercise(float[][] A ,float[] b) {
