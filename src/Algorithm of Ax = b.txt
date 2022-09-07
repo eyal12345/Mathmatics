@@ -1,0 +1,62 @@
+system linear equations: algorithm for solution system Ax = b
+* A -> matrix of coefficients
+* b -> vector of coefficients
+* n -> vector space
+* x -> solution of system
+
+number of possible vectors for solution system linear equations:
+* zero -> not exist solutions for system Ax = b
+* one -> exist single solution for system Ax = b vector space R(n)
+* infinite under vector space R(n) -> the system linear equations is homogeneus
+
+given system linear equations Ax = b so (let us define for cases that n = 0 or n = 1: A[0][0] = a ,b[0] = b as scalars):
+* if n = 0 then:
+	* if a = 0 and b = 0 then exists infinite solutions for equation
+	  (specific case for homogeneus equations: solution is x = k*{1} for any k is real).
+	* if a = 0 and b != 0 then does not exist at all solution for equation.
+* if n = 1 and a != 0 then exist single solution for equation ax = b in vector space R1 (solution is x = {b/a}).
+* if n > 1 then:
+	* if det(A) = 0 then:
+		* if b = 0 (zero vector) then system equations is homogeneus so that kx is solution for any k is real
+		  and x that found in X (X is vector's collection that linear dependent in x).
+		* if b != 0 then does not exist at all x that belongs to X for system equations Ax = b.
+	* if det(A) != 0 then exist single vector x for vector space R(n) so that equality Ax = b exists.
+
+algorithm pattern for solution system linear equations:
+input:
+* A -> matrix of coefficients
+* b -> vector of coefficients
+output:
+* x -> solution of system
+
+algorithm solve system is:
+v -> length of A
+initialize vector x
+if n is bigger than 1 then:
+	if determine of A is 0 then:
+		if b is zero vector then:
+			A' its ranking of A matrix
+			suppose that xn = 1
+			for each i from 1 to n - 1 do:
+				move coefficients of xn in A' to right side
+			cutting from A' row n and column n
+			b' its n - 1 first values from b
+			x' its solving of sub-system A'x' = b' in vector space R(n - 1)
+			x its adding of xn to x'
+			the solution is homogenues for any x that found in X
+		else:
+			does not exists solutions for this system
+	else:
+		x its solving of system Ax = b
+		exist single solution for this system in vector space R(n)
+else:
+	if n is exactly 1 and a is not 0 then:
+		exist single solution for this equation in vector space R1: x -> {b/a}
+	else:
+		if a and b they exactly 0 then:
+			the solution is homogenues for any k real so that x = k*{1}
+		if a is exactly 0 and b is not 0:
+			does not exists solutions for this equation
+
+conditions for algorithm:
+* A is square matrix and its length equal to length of vector b
