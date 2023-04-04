@@ -67,11 +67,11 @@ public class Determinant_Calculate {
         return det;
     }
     public static void main(String[] args) {
-        float[][] A1 = {{1}};
-        float[][] A2 = {{1,-3},{2,4}};
-        float[][] A3 = {{1,-3,1},{2,4,-5},{5,5,1}};
-        float[][] A41 = {{2,-1,3,3},{4,-2,6,5},{6,-3,-1,2},{8,-4,-4,-5}};
-        float[][] A42 = {{1,4,-3,-3},{3,0,-1,-1},{5,4,-4,-3},{2,1,-1,-1}};
+        float[][] A1 = {{1}}; // det = 1
+        float[][] A2 = {{1,-3},{2,4}}; // det = 10
+        float[][] A3 = {{1,-3,1},{2,4,-5},{5,5,1}}; // det = 100
+        float[][] A41 = {{2,-1,3,3},{4,-2,6,5},{6,-3,-1,2},{8,-4,-4,-5}}; // det = 0
+        float[][] A42 = {{1,4,-3,-3},{3,0,-1,-1},{5,4,-4,-3},{2,1,-1,-1}}; // det = 4
         System.out.println(Determinant(A41));
         System.out.println(Determinant(A42));
     }
