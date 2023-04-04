@@ -974,14 +974,14 @@ public class System_Linear_Equations_V3 {
                         throw new Exception("was inserted error value for option number solution");
                 }
             } else { // R1 Space
-                User_Menu_Solution();
-                String ch = sc.next();
                 if (A[0][0] == 0) {
                     if (b[0] == 0)
                         System.out.println("exists infinite number of solutions for the equation that is: x = s (free variable) when s find in R");
                     else
                         System.out.println("does not exists any solution to the equation");
                 } else {
+                    User_Menu_Solution();
+                    String ch = sc.next();
                     if ((b[0] / A[0][0]) % 1 == 0)
                         System.out.println("exist single solution for the equation that is: x = " + (int)(b[0] / A[0][0]));
                     else if (ch.equals("d"))
@@ -1051,8 +1051,11 @@ public class System_Linear_Equations_V3 {
         float[][] A44 = {{-2,3,3,-2},{-1,4,2,-2},{1,3,1,3},{-3,-2,4,-5}};
         float[] b44 = {8,5,19,-19};
         // x = ( -7 , 3 , -1 , 6 )
+        float[][] A11 = {{2}};
+        float[] b11 = {3};
+        // x = 1.5 = 3/2
         try {
-            Check_System(A44,b44);
+            Check_System(A11,b11);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
