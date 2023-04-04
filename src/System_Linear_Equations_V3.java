@@ -1048,8 +1048,11 @@ public class System_Linear_Equations_V3 {
         float[][] A43 = {{1,4,-3,-3},{3,0,-1,-1},{5,4,-4,-3},{2,1,-1,-1}};
         float[] b43 = {4,-4,-4,-4};
         // x = ( -4 , -4 , -8 , 0 )
+        float[][] A44 = {{-2,3,3,-2},{-1,4,2,-2},{1,3,1,3},{-3,-2,4,-5}};
+        float[] b44 = {8,5,19,-19};
+        // x = ( -7 , 3 , -1 , 6 )
         try {
-            Check_System(A43,b43);
+            Check_System(A44,b44);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
