@@ -1046,7 +1046,8 @@ public class System_Linear_Equations_V3 {
         float[] b42 = {4,4,14,-4};
         // x = ( 0 , -1 , -3 , 4 ) + λ*( 1 , 2 , 0 , 0 )
         float[][] A43 = {{1,4,-3,-3},{3,0,-1,-1},{5,4,-4,-3},{2,1,-1,-1}};
-        float[] b43 = {4,-4,4,-4};
+        float[] b43 = {4,-4,-4,-4};
+        // x = ( -4 , -4 , -8 , 0 )
         try {
             Check_System(A43,b43);
         } catch (Exception ex) {
