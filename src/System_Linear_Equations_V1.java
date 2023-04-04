@@ -766,7 +766,7 @@ public class System_Linear_Equations_V1 {
                             Print_Solution(x);
                         }
                     } else
-                        System.out.print("does not exists solutions because |A| = 0 and |b| ≠ 0");
+                        System.out.print("does not exists solutions because |A| = 0 and |b| is not 0");
                 } else {
                     x = Get_And_Solve_Exercise(A,b,op);
                     System.out.print("exist single solution for the system that is: x = ");
@@ -826,7 +826,7 @@ public class System_Linear_Equations_V1 {
         float[][] B7 = {{2,3,1,-4,0,-3,0},{-3,1,1,1,0,-4,-1},{0,1,0,-2,1,-1,1},{-4,1,-3,1,0,-2,1},{1,-3,0,-2,-4,1,0},{1,-2,3,0,-4,-2,-4},{0,4,-4,-2,-3,-2,3}};
         float[] b7 = {0,0,0,0,0,0,0};
         try {
-            Check_System(A6,a6);
+            Check_System(B3,b3);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
