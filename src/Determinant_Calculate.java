@@ -1,5 +1,4 @@
 public class Determinant_Calculate {
-
     public static float Determinant(float[][] A) {
         int n = A.length;
         if (n == 1) {
@@ -11,7 +10,6 @@ public class Determinant_Calculate {
             return sum;
         }
     }
-
     public static float[][] Sub_Matrix(float[][] A ,int x ,int y) {
         int n = A.length ,p = 0 ,q = 0;
         float[][] subA = new float[n - 1][n - 1];
@@ -29,7 +27,6 @@ public class Determinant_Calculate {
         }
         return subA;
     }
-
     public static float Determinant_Up_To_3x3(float[][] M) {
         int n = M.length;
         float det = (n > 1) ? 0 : M[0][0];
@@ -55,7 +52,6 @@ public class Determinant_Calculate {
         }
         return det;
     }
-
     public static float Determinant_Up_To_3x3_V2(float[][] M) {
         int n = M.length;
         float det = (n > 1) ? 0 : M[0][0];
@@ -70,12 +66,13 @@ public class Determinant_Calculate {
         }
         return det;
     }
-
     public static void main(String[] args) {
         float[][] A1 = {{1}};
         float[][] A2 = {{1,-3},{2,4}};
         float[][] A3 = {{1,-3,1},{2,4,-5},{5,5,1}};
         float[][] A4 = {{2,-1,3,3},{4,-2,6,5},{6,-3,-1,2},{8,-4,-4,-5}};
-        System.out.println(Determinant_Up_To_3x3_V2(A3));
+        float[][] A42 = {{1,4,-3,-3},{3,0,-1,-1},{5,4,-4,-3},{2,1,-1,-1}};
+//        System.out.println(Determinant(A4));
+        System.out.println(Determinant(A42));
     }
 }

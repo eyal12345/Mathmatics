@@ -184,8 +184,13 @@ public class System_Linear_Equations_V3 {
                         System.out.println("R" + r + " --> " + (int)k + "*R" + r + "\n");
                     else
                         System.out.println("R" + r + " --> " + k + "*R" + r + "\n");
-                } else if (ch.equals("r"))
-                    System.out.println("R" + r + " --> " + convertDecimalToFraction(k) + "*R" + r + "\n");
+                } else if (ch.equals("r")) {
+                    k = (float) (Math.round(k * 10000.0) / 10000.0);
+                    if (k == -1)
+                        System.out.println("R" + r + " --> - R" + r + "\n");
+                    else
+                        System.out.println("R" + r + " --> " + convertDecimalToFraction(k) + "*R" + r + "\n");
+                }
             }
         }
     }
@@ -208,7 +213,7 @@ public class System_Linear_Equations_V3 {
                 int n = x[0].length;
                 System.out.print("solution is infinite set of vectors that linear dependent in line: x = ");
                 for (int t = 1 ;t < n && !Is_Zero_Col(x,t) ;t++) {
-                    s = (Is_Zero_Col(x,2)) ? s + "λ*( " : s + "λ" + t + "*( ";
+                    s = (Is_Zero_Col(x,2)) ? s + "s*( " : s + "s" + t + "*( ";
                     for (int i = 0 ;i < m ;i++) {
                         if (i == m - 1) {
                             if ((Math.round(x[i][t] * 1000.0) / 1000.0) % 1 == 0)
@@ -250,7 +255,7 @@ public class System_Linear_Equations_V3 {
                     }
                 for (int t = 1 ;t < m ;t++) {
                     if (!Is_Zero_Col(x,t)) {
-                        s = (Is_Zero_Col(x,2)) ? s + " + λ*( " : s + " + λ" + t + "*( ";
+                        s = (Is_Zero_Col(x,2)) ? s + " + s*( " : s + " + s" + t + "*( ";
                         for (int i = 0 ;i < m ;i++)
                             if (i == m - 1) {
                                 if ((Math.round(x[i][t] * 1000.0) / 1000.0) % 1 == 0)
@@ -589,7 +594,7 @@ public class System_Linear_Equations_V3 {
     private static String convertDecimalToFraction(float x){
         if (x < 0)
             return "-" + convertDecimalToFraction(-x);
-        float tolerance = (float) 1.0E-5;
+        float tolerance = (float) 1.0E-3;
         float h1 = 1 ,h2 = 0;
         float k1 = 0 ,k2 = 1;
         float b = x;
@@ -973,7 +978,7 @@ public class System_Linear_Equations_V3 {
                 String ch = sc.next();
                 if (A[0][0] == 0) {
                     if (b[0] == 0)
-                        System.out.println("exists infinite number of solutions for the equation that is: x = λ (free variable) when λ ∈ R");
+                        System.out.println("exists infinite number of solutions for the equation that is: x = s (free variable) when s find in R");
                     else
                         System.out.println("does not exists any solution to the equation");
                 } else {
@@ -1004,13 +1009,19 @@ public class System_Linear_Equations_V3 {
 
     // test main
     public static void main(String[] args) {
-        float[][] A71 = {{0,-4,-2,7,7,1,0},{0,2,3,1,2,3,0},{0,-1,-1,-5,2,-3,-1},{2,1,3,0,-5,1,-6},{2,4,0,4,-3,2,4},{4,2,6,3,0,-4,-2},{6,2,5,-3,-3,-4,-2}};
-        float[] b71 = {3,8,9,11,14,18,18};
+        float[][] A71 = {{-1,0,4,-1,-2,5,-1},{6,-7,7,1,-7,-6,5},{0,2,6,1,-7,6,1},{2,2,0,-2,-6,6,-5},{3,3,-3,1,7,-1,-2},{1,-5,1,-4,3,1,-4},{7,-5,5,0,-4,-4,1}};
+        float[] b71 = {6,-12,8,20,-3,-4,-6};
+        // x = ( 2 , 17 , 5 , -29 , -1 , -7 , 8 )
+        float[][] A72 = {{0,-4,-2,7,7,1,0},{0,2,3,1,2,3,0},{0,-1,-1,-5,2,-3,-1},{2,1,3,0,-5,1,-6},{2,4,0,4,-3,2,4},{4,2,6,3,0,-4,-2},{6,2,5,-3,-3,-4,-2}};
+        float[] b72 = {3,8,9,11,14,18,18};
         // x = (4.3, 9, -5.2, 0.4, 3.8, -0.8, -4.8)
-        float[][] A72 = {{2,3,1,-4,0,-3,0},{-3,1,1,1,0,-4,-1},{0,1,0,-2,1,-1,1},{-4,1,-3,1,0,-2,1},{1,-3,0,-2,-4,1,0},{1,-2,3,0,-4,-2,-4},{0,4,-4,-2,-3,-2,3}};
-        float[] b72 = {0,0,0,0,0,0,0};
+        float[][] A73 = {{2,3,1,-4,0,-3,0},{-3,1,1,1,0,-4,-1},{0,1,0,-2,1,-1,1},{-4,1,-3,1,0,-2,1},{1,-3,0,-2,-4,1,0},{1,-2,3,0,-4,-2,-4},{0,4,-4,-2,-3,-2,3}};
+        float[] b73 = {0,0,0,0,0,0,0};
         // upper & parallel: x = λ*( 2.5 , -2.25 , -1.5 , 1.25 , 1 , -2.75 , 1 ) = λ*( 5/2 , -9/4 , -3/2 , 5/4 , 1 , -11/4 , 1 )
         // lower: x = λ*( 1 , -0.9 , -0.6 , 0.5 , 0.4 , -1.1 , 0.4 ) = λ*( 1 , -9/10 , -3/5 , 1/2 , 2/5 , -11/10 , 2/5 )
+        float[][] A74 = {{2,0,-6,2,0,-1,-2},{3,0,-3,6,-3,5,5},{0,0,4,-1,-3,4,5},{-6,0,-4,-3,2,0,-2},{3,0,4,2,-4,-4,-1},{5,0,-6,4,0,3,3},{5,0,0,-2,0,-5,-1}};
+        float[] b74 = {0,0,0,0,0,0,0};
+        // x = λ*( 0 , 1 , 0 , 0 , 0 , 0 , 0 ) => x2 is free variable
         float[][] A81 = {{4,4,-4,-1,-4,-1,4,-1},{0,4,-4,4,0,3,1,4},{-4,3,-3,0,0,1,-2,-2},{0,3,-2,2,4,0,0,0},{1,-1,2,0,-3,2,2,0},{3,-2,0,-1,0,4,-4,1},{-2,3,-1,3,-1,1,4,4},{-4,-1,0,-4,-4,-3,-1,-4}};
         float[] b81 = {0,0,0,0,0,0,0,0};
         // upper & parallel: x = λ*( 1.5 , 6 , 5.5 , 1.5 , -2.5 , -2.5 , -4.5 , 1 ) = λ*( 3/2 , 6 , 11/2 , 3/2 , -5/2 , -5/2 , -9/2 , 1 )
@@ -1019,8 +1030,25 @@ public class System_Linear_Equations_V3 {
         float[] b82 = {0,0,0,0,0,0,0,0};
         // upper & parallel: x = λ*( 9 , -3 , 7 , -8 , -1 , -5 , 10 , 1 ) = λ*( 9 , -3 , 7 , -8 , -1 , -5 , 10 , 1 )
         // lower: x = λ*( 1 , -0.333 , 0.778 , -0.889 , -0.111 , -0.556 , 1.111 , 0.111 ) = λ*( 1 , -1/3 , 7/9 , -8/9 , -1/9 , -5/9 , 10/9 , 1/9 )
+        float[][] A83 = {{0,-1,-1,0,0,0,1,0},{1,3,0,0,-2,-1,0,0},{1,2,-2,1,0,0,-1,-1},{-3,-1,3,3,-3,0,2,2},{-2,3,-1,-2,1,2,-3,-3},{-1,0,-2,-2,1,-3,1,1},{-2,0,-3,0,3,0,-1,-2},{-1,-2,-1,-3,3,-2,-2,3}};
+        float[] b83 = {0,0,0,0,0,0,0,0};
+        // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
+        float[][] A84 = {{-2,0,-1,1,0,-1,-1,3},{2,-3,3,-1,0,3,2,2},{0,2,-2,-3,0,3,-3,2},{3,-3,-3,0,0,1,0,-1},{1,0,0,3,0,-1,-3,3},{-3,-3,1,0,0,2,2,0},{3,3,0,1,0,-2,0,3},{-2,3,0,2,0,2,2,-2}};
+        float[] b84 = {0,0,0,0,0,0,0,0};
+        // x = λ*( 0 , 0 , 0 , 0 , 1 , 0 , 0 , 0 ) => x5 is free variable
+        float[][] A85 = {{-2,-3,0,3,-3,0,4,0},{-2,-3,-2,-3,0,0,-3,0},{4,-4,2,-4,-4,0,-4,-3},{-2,3,0,2,-2,0,-4,1},{0,-3,-1,3,-1,0,3,-4},{0,0,-3,2,3,0,2,-2},{2,3,1,-1,0,0,-2,0},{1,-4,3,0,-2,0,3,-1}};
+        float[] b85 = {0,0,0,0,0,0,0,0};
+        // x = λ*( 0 , 0 , 0 , 0 , 0 , 1 , 0 , 0 ) => x6 is free variable
+        float[][] A41 = {{2,-1,3,3},{4,-2,6,5}};
+        float[] b41 = {4,4};
+        // x = ( 0 , 8 , 0 , 4 ) + λ1*( 0 , 3 , 1 , 0 ) + λ2*( 1 , 2 , 0 , 0 )
+        float[][] A42 = {{2,-1,3,3},{4,-2,6,5},{6,-3,-1,2},{8,-4,-4,-5}};
+        float[] b42 = {4,4,14,-4};
+        // x = ( 0 , -1 , -3 , 4 ) + λ*( 1 , 2 , 0 , 0 )
+        float[][] A43 = {{1,4,-3,-3},{3,0,-1,-1},{5,4,-4,-3},{2,1,-1,-1}};
+        float[] b43 = {4,-4,4,-4};
         try {
-            Check_System(A81,b81);
+            Check_System(A43,b43);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
