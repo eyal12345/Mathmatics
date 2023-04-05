@@ -329,6 +329,33 @@ public class Toolbox {
         }
     }
 
+    private static String IntegerToRomanNumeral(int input) {
+        if (input < 1 || input > 99)
+            return "Invalid Roman Number Value";
+        String s = "";
+        while (input >= 10) {
+            s += "X";
+            input -= 10;
+        }
+        while (input >= 9) {
+            s += "IX";
+            input -= 9;
+        }
+        while (input >= 5) {
+            s += "V";
+            input -= 5;
+        }
+        while (input >= 4) {
+            s += "IV";
+            input -= 4;
+        }
+        while (input >= 1) {
+            s += "I";
+            input -= 1;
+        }
+        return s;
+    }
+
     private static void Random_Determinants(int n ,int r) {
         float[][] A = new float[n][n];
         float det = -1;

@@ -38,28 +38,22 @@ public class System_Linear_Equations_V3 {
             else
                 System.out.println("Solve The Next System Under Space R" + n + ":");
             for (int i = 0 ;i < m ;i++) {
-                boolean flag = true;
+                System.out.print("eq" + (i + 1) + ": ");
                 for (int j = 0 ;j < n ;j++) {
                     if (A[i][j] > 0) {
-                        if (flag) {
-                            System.out.print("  ");
-                            flag = false;
-                        } else
-                            System.out.print(" + ");
+                        System.out.print("+ ");
                         if (Math.abs(A[i][j]) == 1)
-                            System.out.print("x" + (j + 1));
+                            System.out.print("  x" + (j + 1) + " ");
                         else
-                            System.out.print((int) A[i][j] + "*x" + (j + 1));
+                            System.out.print((int) A[i][j] + "*x" + (j + 1) + " ");
                     } else if (A[i][j] < 0) {
-                        if (flag) {
-                            System.out.print("- ");
-                            flag = false;
-                        } else
-                            System.out.print(" - ");
+                        System.out.print("- ");
                         if (Math.abs(A[i][j]) == 1)
-                            System.out.print("x" + (j + 1));
+                            System.out.print("  x" + (j + 1) + " ");
                         else
-                            System.out.print((int) Math.abs(A[i][j]) + "*x" + (j + 1));
+                            System.out.print((int) Math.abs(A[i][j]) + "*x" + (j + 1) + " ");
+                    } else {
+                        System.out.print(" ".repeat(7));
                     }
                 }
                 System.out.println(" = " + (int) b[i]);
@@ -298,33 +292,6 @@ public class System_Linear_Equations_V3 {
             }
             System.out.println(s);
         }
-    }
-
-    private static String IntegerToRomanNumeral(int input) {
-        if (input < 1 || input > 99)
-            return "Invalid Roman Number Value";
-        String s = "";
-        while (input >= 10) {
-            s += "X";
-            input -= 10;
-        }
-        while (input >= 9) {
-            s += "IX";
-            input -= 9;
-        }
-        while (input >= 5) {
-            s += "V";
-            input -= 5;
-        }
-        while (input >= 4) {
-            s += "IV";
-            input -= 4;
-        }
-        while (input >= 1) {
-            s += "I";
-            input -= 1;
-        }
-        return s;
     }
 
     private static float[][] Increase_Rows_in_Matrix(float[][] A ,int m) {
@@ -1027,6 +994,17 @@ public class System_Linear_Equations_V3 {
         float[][] A43 = {{2,-1,3,3},{4,-2,6,5}};
         float[] b43 = {4,4};
         // x = ( 0 , 8 , 0 , 4 ) + λ1*( 0 , 3 , 1 , 0 ) + λ2*( 1 , 2 , 0 , 0 )
+        float[][] A61 = {{6,1,3,3,-11,1},{11,-6,5,11,0,-4},{-2,-2,-4,2,-3,0},{2,12,-1,-7,3,0},{5,-11,-11,8,-8,-2},{3,2,2,-1,-1,1}};
+        float[] b61 = {-1,41,-30,-8,-27,18};
+        // x = ( 4.8 , -3.7 , 3.3 , -3.1 , 2.8 , 4.1 ) = ( 24/5 , -37/10 , 33/10 , -31/10 , 14/5 , 41/10 )
+        float[][] A62 = {{-2,0,-4,-2,5,-6},{6,-1,-2,0,1,0},{6,0,0,-2,5,2},{-2,0,3,2,2,3},{-4,-2,3,-6,4,-4},{5,1,-5,-1,5,-2}};
+        float[] b62 = {0,0,0,0,0,0};
+        // upper & parallel: x = λ*( -0.5 , -1 , -1 , -0.5 , 0 , 1 ) = λ*( -1/2 , -1 , -1 , -1/2 , 0 , 1 )
+        // lower: x = λ*( 1 , 2 , 2 , 1 , 0 , -2 ) = λ*( 1 , 2 , 2 , 1 , 0 , -2 )
+        float[][] A63 = {{5,5,-1,4,-1,-3},{-5,6,-1,6,1,-6},{1,1,-5,4,-5,1},{-1,1,0,0,-2,6},{1,6,2,5,-4,-4},{-5,0,-1,0,-1,6}};
+        float[] b63 = {0,0,0,0,0,0};
+        // upper & parallel: x = λ*( 0.556 , -2.778 , 1.889 , 4.333 , 1.333 , 1 ) = λ*( 5/9 , -25/9 , 17/9 , 13/3 , 4/3 , 1 )
+        // lower: x = λ*( 1 , -5 , 3.4 , 7.8 , 2.4 , 1.8 ) = λ*( 1 , -5 , 17/5 , 39/5 , 12/5 , 9/5 )
         float[][] A71 = {{-1,0,4,-1,-2,5,-1},{6,-7,7,1,-7,-6,5},{0,2,6,1,-7,6,1},{2,2,0,-2,-6,6,-5},{3,3,-3,1,7,-1,-2},{1,-5,1,-4,3,1,-4},{7,-5,5,0,-4,-4,1}};
         float[] b71 = {6,-12,8,20,-3,-4,-6};
         // x = ( 2 , 17 , 5 , -29 , -1 , -7 , 8 )
@@ -1049,7 +1027,7 @@ public class System_Linear_Equations_V3 {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A41,b41);
+            Check_System(A82,b82);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
