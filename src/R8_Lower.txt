@@ -654,7 +654,9 @@ R8 --> -0.3333*R8
 0 ,0 ,0 ,0 ,0 ,0 ,1 ,0 | 0 ,1.111 
 0 ,0 ,0 ,0 ,0 ,0 ,0 ,1 | 0 ,0.111 
 
-solution is infinite set of vectors that linear dependent in line: x = s*( 1 , -0.333 , 0.778 , -0.889 , -0.111 , -0.556 , 1.111 , 0.111 )
+solution is infinite set of vectors that linear dependent in line:
+lower: x = s*( 1 , -0.333 , 0.778 , -0.889 , -0.111 , -0.556 , 1.111 , 0.111 )
+upper: x = s*( 9 , -3 , 7 , -8 , -1 , -5 , 10 , 1 )
 ##################################################################################################################################
 Solve The Next System Under Space R8:
 eq1: + 4*x1 + 4*x2 - 4*x3 - x4   - 4*x5 -   x6 + 4*x7 -   x8 = 0
@@ -1301,7 +1303,9 @@ R8 --> -0.25*R8
 0 ,0 ,0 ,0 ,0 ,0 ,1 ,0 | 0 ,-3 
 0 ,0 ,0 ,0 ,0 ,0 ,0 ,1 | 0 ,0.667 
 
-solution is infinite set of vectors that linear dependent in line: x = s*( 1 , 4 , 3.667 , 1 , -1.667 , -1.667 , -3 , 0.667 )
+solution is infinite set of vectors that linear dependent in line:
+lower: x = s*( 1 , 4 , 3.667 , 1 , -1.667 , -1.667 , -3 , 0.667 )
+upper: x = s*( 1.5 , 6 , 5.5 , 1.5 , -2.5 , -2.5 , -4.5 , 1 )
 ##################################################################################################################################
 Solve The Next System Under Space R8:
 eq1:        -   x2 -   x3                      +   x7        = 0
@@ -1981,4 +1985,5 @@ R8 --> 0.3333*R8
 0 ,0 ,0 ,0 ,0 ,0 ,1 ,0 | 0 ,1 
 0 ,0 ,0 ,0 ,0 ,0 ,0 ,1 | 0 ,1 
 
-solution is infinite set of vectors that linear dependent in line: x = s*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
+solution is infinite set of vectors that linear dependent in line:
+lower & upper: x = s*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
