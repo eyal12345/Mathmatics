@@ -556,16 +556,6 @@ public class System_Linear_Equations_V3 {
         return -1;
     }
 
-    // duplicate matrix value of M to new matrix
-    private static float[][] Copy_Matrix(float[][] A) {
-        int m = A.length ,n = A[0].length;
-        float[][] copyM = new float[m][n];
-        for (int i = 0 ;i < m ;i++)
-            for (int j = 0 ;j < n ;j++)
-                copyM[i][j] = A[i][j];
-        return copyM;
-    }
-
     private static String convertDecimalToFraction(float x){
         if (x < 0)
             return "-" + convertDecimalToFraction(-x);

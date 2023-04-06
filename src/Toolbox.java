@@ -100,10 +100,10 @@ public class Toolbox {
     }
 
     // duplicate matrix value of M to new matrix
-    private static float[][] Copy_Matrix(float[][] M) {
-        int n = M.length;
-        float[][] copyM = new float[n][n];
-        for (int i = 0 ;i < n ;i++)
+    public static float[][] Copy_Matrix(float[][] M) {
+        int m = M.length ,n = M[0].length;
+        float[][] copyM = new float[m][n];
+        for (int i = 0 ;i < m ;i++)
             for (int j = 0 ;j < n ;j++)
                 copyM[i][j] = M[i][j];
         return copyM;
