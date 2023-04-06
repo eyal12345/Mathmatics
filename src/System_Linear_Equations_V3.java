@@ -589,6 +589,8 @@ public class System_Linear_Equations_V3 {
     private static float[][] Upper_Ranking_Method(float[][] A ,float[][] b ,int t ,String ch) throws Exception {
         if (!Is_Upper_Triangular(A))
             System.out.println("transform A matrix to U by elementary actions:");
+        else
+            System.out.println("A is already upper triangular matrix");
         int n = A.length;
         for (int i = 0 ;i < n ;i++) {
             A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
@@ -682,6 +684,8 @@ public class System_Linear_Equations_V3 {
     private static float[][] Lower_Ranking_Method(float[][] A ,float[][] b ,int t ,String ch) throws Exception {
         if (!Is_Lower_Triangular(A))
             System.out.println("transform A matrix to L by elementary actions:");
+        else
+            System.out.println("A is already lower triangular matrix");
         int n = A.length;
         for (int i = n - 1 ;i >= 0 ;i--) {
             A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
@@ -1058,7 +1062,7 @@ public class System_Linear_Equations_V3 {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A83,b83);
+            Check_System(A72,b72);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
