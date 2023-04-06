@@ -279,7 +279,8 @@ public class System_Linear_Equations_V3 {
                 System.out.print("exist single solution for the system that is: x = ");
                 s += "( ";
                 for (int i = 0 ;i < m ;i++) {
-                    x[i][0] = roundTwoDecimals(x[i][0]);
+                    DecimalFormat twoDForm = new DecimalFormat("#.###");
+                    x[i][0] = Float.valueOf(twoDForm.format(x[i][0]));
                     if (i == m - 1) {
                         if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0)
                             s += (int) (Math.round(x[i][0] * 1000.0) / 1000.0) + " )";
@@ -586,11 +587,6 @@ public class System_Linear_Equations_V3 {
             return String.valueOf((int)h1 + "/" + (int)k1);
         else
             return String.valueOf((int)h1);
-    }
-
-    private static float roundTwoDecimals(float d) {
-        DecimalFormat twoDForm = new DecimalFormat("#.###");
-        return Float.valueOf(twoDForm.format(d));
     }
 
     private static float[][] Upper_Ranking_Method(float[][] A ,float[][] b ,int t ,String ch) throws Exception {
