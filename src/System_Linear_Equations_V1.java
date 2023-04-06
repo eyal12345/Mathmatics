@@ -34,36 +34,26 @@ public class System_Linear_Equations_V1 {
         } else {
             System.out.println("solve the next system (" + n + " variables):");
             for (int i = 0 ;i < n ;i++) {
-                boolean flag = true;
+                System.out.print("eq" + (i + 1) + ": ");
                 for (int j = 0 ;j < n ;j++) {
                     if (A[i][j] > 0) {
-                        if (flag) {
-                            System.out.print("");
-                            flag = false;
-                        } else
-                            System.out.print(" +");
+                        System.out.print("+ ");
                         if (Math.abs(A[i][j]) == 1)
-                            System.out.print("x" + (j + 1));
-                        else {
-                            if (A[i][j] % 1 == 0)
-                                System.out.print((int) (Math.round(A[i][j] * 10000.0) / 10000.0) + "*x" + (j + 1));
-                            else
-                                System.out.print((Math.round(A[i][j] * 10000.0) / 10000.0) + "*x" + (j + 1));
-                        }
+                            System.out.print("  x" + (j + 1) + " ");
+                        else if (A[i][j] % 1 == 0)
+                            System.out.print((int) A[i][j] + "*x" + (j + 1) + " ");
+                        else
+                            System.out.print(A[i][j] + "*x" + (j + 1) + " ");
                     } else if (A[i][j] < 0) {
-                        if (flag) {
-                            System.out.print("-");
-                            flag = false;
-                        } else
-                            System.out.print(" -");
+                        System.out.print("- ");
                         if (Math.abs(A[i][j]) == 1)
-                            System.out.print("x" + (j + 1));
-                        else {
-                            if (A[i][j] % 1 == 0)
-                                System.out.print((int) (Math.round(Math.abs(A[i][j]) * 10000.0) / 10000.0) + "*x" + (j + 1));
-                            else
-                                System.out.print((Math.round(Math.abs(A[i][j]) * 10000.0) / 10000.0) + "*x" + (j + 1));
-                        }
+                            System.out.print("  x" + (j + 1) + " ");
+                        else if (A[i][j] % 1 == 0)
+                            System.out.print((int) Math.abs(A[i][j]) + "*x" + (j + 1) + " ");
+                        else
+                            System.out.print(Math.abs(A[i][j]) + "*x" + (j + 1) + " ");
+                    } else {
+                        System.out.print(" ".repeat(7));
                     }
                 }
                 if (b[i] % 1 == 0)
@@ -791,8 +781,8 @@ public class System_Linear_Equations_V1 {
 
     // test main
     public static void main(String[] args) {
-        float[][] A1 = {{4}};
-        float[] a1 = {8};
+        float[][] A1 = {{(float) -0.5}};
+        float[] a1 = {4};
         float[][] B1 = {{0}};
         float[] b1 = {4};
         float[][] A2 = {{1,-4},{-2,8}};

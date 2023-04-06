@@ -31,33 +31,34 @@ public class System_Linear_Equations_V2 {
                     System.out.println(A[0][0] + "x = " + b[0]);
             }
         } else {
-            System.out.println("Solve The Next Exercise (" + n + " Variables):");
-            for (int i = 0; i < n; i++) {
-                boolean flag = true;
-                for (int j = 0; j < n; j++) {
+            System.out.println("solve the next system (" + n + " variables):");
+            for (int i = 0 ;i < n ;i++) {
+                System.out.print("eq" + (i + 1) + ": ");
+                for (int j = 0 ;j < n ;j++) {
                     if (A[i][j] > 0) {
-                        if (flag) {
-                            System.out.print("");
-                            flag = false;
-                        } else
-                            System.out.print(" +");
+                        System.out.print("+ ");
                         if (Math.abs(A[i][j]) == 1)
-                            System.out.print("x" + (j + 1));
+                            System.out.print("  x" + (j + 1) + " ");
+                        else if (A[i][j] % 1 == 0)
+                            System.out.print((int) A[i][j] + "*x" + (j + 1) + " ");
                         else
-                            System.out.print((int) A[i][j] + "*x" + (j + 1));
+                            System.out.print(A[i][j] + "*x" + (j + 1) + " ");
                     } else if (A[i][j] < 0) {
-                        if (flag) {
-                            System.out.print("-");
-                            flag = false;
-                        } else
-                            System.out.print(" -");
+                        System.out.print("- ");
                         if (Math.abs(A[i][j]) == 1)
-                            System.out.print("x" + (j + 1));
+                            System.out.print("  x" + (j + 1) + " ");
+                        else if (A[i][j] % 1 == 0)
+                            System.out.print((int) Math.abs(A[i][j]) + "*x" + (j + 1) + " ");
                         else
-                            System.out.print((int) Math.abs(A[i][j]) + "*x" + (j + 1));
+                            System.out.print(Math.abs(A[i][j]) + "*x" + (j + 1) + " ");
+                    } else {
+                        System.out.print(" ".repeat(7));
                     }
                 }
-                System.out.println(" = " + (int) b[i]);
+                if (b[i] % 1 == 0)
+                    System.out.println(" = " + (int) (Math.round(b[i] * 10000.0) / 10000.0));
+                else
+                    System.out.println(" = " + (Math.round(b[i] * 10000.0) / 10000.0));
             }
         }
         System.out.println();

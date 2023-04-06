@@ -44,19 +44,26 @@ public class System_Linear_Equations_V3 {
                         System.out.print("+ ");
                         if (Math.abs(A[i][j]) == 1)
                             System.out.print("  x" + (j + 1) + " ");
-                        else
+                        else if (A[i][j] % 1 == 0)
                             System.out.print((int) A[i][j] + "*x" + (j + 1) + " ");
+                        else
+                            System.out.print(A[i][j] + "*x" + (j + 1) + " ");
                     } else if (A[i][j] < 0) {
                         System.out.print("- ");
                         if (Math.abs(A[i][j]) == 1)
                             System.out.print("  x" + (j + 1) + " ");
-                        else
+                        else if (A[i][j] % 1 == 0)
                             System.out.print((int) Math.abs(A[i][j]) + "*x" + (j + 1) + " ");
+                        else
+                            System.out.print(Math.abs(A[i][j]) + "*x" + (j + 1) + " ");
                     } else {
                         System.out.print(" ".repeat(7));
                     }
                 }
-                System.out.println(" = " + (int) b[i]);
+                if (b[i] % 1 == 0)
+                    System.out.println(" = " + (int) b[i]);
+                else
+                    System.out.println(" = " + b[i]);
             }
         }
         System.out.println();
