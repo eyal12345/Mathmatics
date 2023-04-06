@@ -540,7 +540,7 @@ public class System_Linear_Equations_V2 {
         if (A.length == A[0].length && A.length == b.length) {
             int n = b.length;
             if (n > 1) {
-                System.out.println("the system equations from the shape Ax = b (A as matrix ,b as vector):");
+                System.out.println("the system linear equations from the shape Ax = b (A as matrix ,b as vector):");
                 if (Determinant(A) == 0) {
                     if (Is_Zero_Vector(b)) {
                         if (Is_Zero_Matrix(A))
