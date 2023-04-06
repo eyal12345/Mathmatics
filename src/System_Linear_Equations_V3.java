@@ -969,19 +969,6 @@ public class System_Linear_Equations_V3 {
             throw new Exception("the input is not exist conditions for system linear equations");
     }
 
-    // solve system 3x3 in O(1) complexity
-    public static void Solve_System_Direct(float[][] A ,float[] b) {
-        float det = A[0][0]*A[1][1]*A[2][2] - A[0][0]*A[1][2]*A[2][1] - A[0][1]*A[1][0]*A[2][2] + A[0][2]*A[1][0]*A[2][1] + A[0][1]*A[1][2]*A[2][0] - A[0][2]*A[1][1]*A[2][0];
-        if (det != 0) {
-            float det1 = b[0]*A[1][1]*A[2][2] - b[0]*A[1][2]*A[2][1] - A[0][1]*b[1]*A[2][2] + A[0][2]*b[1]*A[2][1] + A[0][1]*A[1][2]*b[2] - A[0][2]*A[1][1]*b[2];
-            System.out.println(det1 / det);
-            float det2 = A[0][0]*b[1]*A[2][2] - A[0][0]*A[1][2]*b[2] - b[0]*A[1][0]*A[2][2] + A[0][2]*A[1][0]*b[2] + b[0]*A[1][2]*A[2][0] - A[0][2]*b[1]*A[2][0];
-            System.out.println(det2 / det);
-            float det3 = A[0][0]*A[1][1]*b[2] - A[0][0]*b[1]*A[2][1] - A[0][1]*A[1][0]*b[2] + b[0]*A[1][0]*A[2][1] + A[0][1]*b[1]*A[2][0] - b[0]*A[1][1]*A[2][0];
-            System.out.println(det3 / det);
-        }
-    }
-
     // test main
     public static void main(String[] args) {
         float[][] A11 = {{2}};
