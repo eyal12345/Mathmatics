@@ -72,6 +72,8 @@ public class System_Linear_Equations_V2 {
                     System.out.print((int) (Math.round(A[i][j] * 1000.0) / 1000.0) + " ");
                 else
                     System.out.print(Math.round(A[i][j] * 1000.0) / 1000.0 + " ");
+                if (j != n - 1)
+                    System.out.print(",");
             }
             if ((Math.round(b[i] * 1000.0) / 1000.0) % 1 == 0)
                 System.out.println("| " + (int) (Math.round(b[i] * 1000.0) / 1000.0));
