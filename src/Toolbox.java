@@ -391,6 +391,17 @@ public class Toolbox {
         }
     }
 
+    private static float[][] Decrease_Cols_in_Vector(float[][] b ,int k) {
+        int m = b.length ,n = b[0].length;
+        float[][] nb = new float[m][n - 1];
+        for (int i = 0 ;i < m ;i++) {
+            for (int j = 0; j < n - 1; j++) {
+                nb[i][j] = b[i][j] - b[i][n - 1] * (b[k][j] / b[k][n - 1]);
+            }
+        }
+        return nb;
+    }
+
     private static float[][] resizeArray (float[][] oldArray, int addrows) {
         int oldSize = java.lang.reflect.Array.getLength(oldArray);
         Class elementType = oldArray.getClass().getComponentType();

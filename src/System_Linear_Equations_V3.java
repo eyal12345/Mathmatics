@@ -363,17 +363,6 @@ public class System_Linear_Equations_V3 {
         return nb;
     }
 
-    private static float[][] Decrease_Cols_in_Vector(float[][] b ,int k) {
-        int m = b.length ,n = b[0].length;
-        float[][] nb = new float[m][n - 1];
-        for (int i = 0 ;i < m ;i++) {
-            for (int j = 0; j < n - 1; j++) {
-                nb[i][j] = b[i][j] - b[i][n - 1] * (b[k][j] / b[k][n - 1]);
-            }
-        }
-        return nb;
-    }
-
     // check if b is zero vector
     private static boolean Is_Zero_Vector(float[] b) {
         int n = b.length;
@@ -665,13 +654,6 @@ public class System_Linear_Equations_V3 {
         int n = A.length;
         for (int i = 0 ;i < n ;i++) {
             A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
-            if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A) && !Is_Exist_Vector(A,i)) {
-                System.out.println("define new column in b when x" + (i + 1) + " is free variable in R" + n + ":");
-                b = Increase_Cols_in_Vector(b);
-                A[i][i] = 1;
-                b[i][++t] = 1;
-                Print_State(A,b,ch);
-            }
             if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A)) {
                 int d1 = Intersection_Zero_Row_Col(A,i);
                 int d2 = Get_Linear_Dependent_Columns(A);
@@ -694,14 +676,12 @@ public class System_Linear_Equations_V3 {
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 }
-            }
-            if (A[i][i] == 0) {
+            } if (A[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(A, i, true);
                 int l = Get_Index_Row_from_Matrix(A,i);
                 if (Is_Exist_Vector(A,i) && l < i) {
                     r = Get_Index_UnZero_Value(A, i, false);
-                }
-                if (r >= 0 && r < n && r != i) {
+                } if (r >= 0 && r < n && r != i) {
                     A[r][i] = (A[r][i] >= -0.0001 && A[r][i] <= 0.0001) ? 0 : A[r][i];
                     Retreat_Elementaric_Action(i,r);
                     Retreat_Rows_System(A,b,i,r);
@@ -736,15 +716,6 @@ public class System_Linear_Equations_V3 {
                         Print_State(A,b,ch);
                     }
                 }
-                if (Is_Zero_Row(A,j) && !Is_Zero_Row(b,j)) {
-                    System.out.println("we got certain legality for free variables ,so:\n" +
-                            " * express last free variable created by other elements.\n" +
-                            " * putting him the rest of the elements in each line.\n" +
-                            " * lower a last column from b.");
-                    b = Decrease_Cols_in_Vector(b, j);
-                    Print_State(A,b,ch);
-                    t--;
-                }
             }
             if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
                 return Lower_Ranking_Method(A, b, t, ch);
@@ -765,13 +736,6 @@ public class System_Linear_Equations_V3 {
         int n = A.length;
         for (int i = n - 1 ;i >= 0 ;i--) {
             A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
-            if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A) && !Is_Exist_Vector(A,i)) {
-                System.out.println("define new column in b when x" + (i + 1) + " is free variable in R" + n + ":");
-                b = Increase_Cols_in_Vector(b);
-                A[i][i] = 1;
-                b[i][++t] = 1;
-                Print_State(A,b,ch);
-            }
             if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A)) {
                 int d1 = Intersection_Zero_Row_Col(A,i);
                 int d2 = Get_Linear_Dependent_Columns(A);
@@ -794,14 +758,12 @@ public class System_Linear_Equations_V3 {
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 }
-            }
-            if (A[i][i] == 0) {
+            } if (A[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(A, i, false);
                 int l = Get_Index_Row_from_Matrix(A,i);
                 if (Is_Exist_Vector(A,i) && l < i) {
                     r = Get_Index_UnZero_Value(A, i, true);
-                }
-                if (r >= 0 && r < n && r != i) {
+                } if (r >= 0 && r < n && r != i) {
                     A[r][i] = (A[r][i] >= -0.0001 && A[r][i] <= 0.0001) ? 0 : A[r][i];
                     Retreat_Elementaric_Action(i,r);
                     Retreat_Rows_System(A,b,i,r);
@@ -835,15 +797,6 @@ public class System_Linear_Equations_V3 {
                         A[j][d] = 1;
                         Print_State(A,b,ch);
                     }
-                }
-                if (Is_Zero_Row(A,j) && !Is_Zero_Row(b,j)) {
-                    System.out.println("we got certain legality for free variables ,so:\n" +
-                            " * express last free variable created by other elements.\n" +
-                            " * putting him the rest of the elements in each line.\n" +
-                            " * lower a last column from b.");
-                    b = Decrease_Cols_in_Vector(b, j);
-                    Print_State(A,b,ch);
-                    t--;
                 }
             }
             if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
@@ -885,8 +838,7 @@ public class System_Linear_Equations_V3 {
                         b[i][++t] = 1;
                         Print_State(A,b,ch);
                     }
-                }
-                if (A[i][i] == 0) {
+                } if (A[i][i] == 0) {
                     int r = Get_Index_UnZero_Value(A, i, true);
                     if (r >= 0 && r < n && r != i) {
                         A[r][i] = (A[r][i] >= -0.0001 && A[r][i] <= 0.0001) ? 0 : A[r][i];
@@ -956,8 +908,7 @@ public class System_Linear_Equations_V3 {
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 }
-            }
-            if (A[i][i] == 0) {
+            } if (A[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(A, i, true);
                 if (r >= 0 && r < n && r != i) {
                     A[r][i] = (A[r][i] >= -0.0001 && A[r][i] <= 0.0001) ? 0 : A[r][i];
@@ -991,8 +942,7 @@ public class System_Linear_Equations_V3 {
                     A[j][d] = 1;
                     Print_State(A,b,ch);
                 }
-            }
-            if (j == n - 1) {
+            } if (j == n - 1) {
                 i = (i + 1) % n;
             }
             j = (j + 1) % n;
@@ -1141,7 +1091,7 @@ public class System_Linear_Equations_V3 {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A63,b63);
+            Check_System(A44,b44);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
