@@ -448,7 +448,7 @@ public class System_Linear_Equations_V3 {
         int m = A.length ,n = A[0].length;
         for (int r1 = 0 ;r1 < m - 1 ;r1++) {
             for (int r2 = r1 + 1 ;r2 < m ;r2++) {
-                if (!Is_Unit_Vector(A,r1) && (!Is_Unit_Vector(A,r2))) {
+                if (!Is_Unit_Vector(A,r1) && !Is_Unit_Vector(A,r2)) {
                     Vector<Float> R  = new Vector<Float>();
                     for (int j = 0 ;j < n ;j++) {
                         if (A[r1][j] != 0 || A[r2][j] != 0) {
@@ -1091,7 +1091,7 @@ public class System_Linear_Equations_V3 {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A44,b44);
+            Check_System(A82,b82);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
