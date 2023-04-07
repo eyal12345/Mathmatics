@@ -10,26 +10,30 @@ public class System_Linear_Equations_V1 {
             System.out.println("solve the next equation (" + 1 + " variable):");
             if (A[0][0] % 1 == 0) {
                 if (A[0][0] == 1) {
-                    if (b[0] % 1 == 0)
+                    if (b[0] % 1 == 0) {
                         System.out.println("x = " + (int) b[0]);
-                    else
+                    } else {
                         System.out.println("x = " + b[0]);
+                    }
                 } else if (A[0][0] == -1) {
-                    if (b[0] % 1 == 0)
+                    if (b[0] % 1 == 0) {
                         System.out.println("-x = " + (int) b[0]);
-                    else
+                    } else {
                         System.out.println("-x = " + b[0]);
+                    }
                 } else {
-                    if (b[0] % 1 == 0)
-                        System.out.println((int)A[0][0] + "x = " + (int) b[0]);
-                    else
-                        System.out.println((int)A[0][0] + "x = " + b[0]);
+                    if (b[0] % 1 == 0) {
+                        System.out.println((int) A[0][0] + "x = " + (int) b[0]);
+                    } else {
+                        System.out.println((int) A[0][0] + "x = " + b[0]);
+                    }
                 }
             } else {
-                if (b[0] % 1 == 0)
-                    System.out.println(A[0][0] + "x = " + (int)b[0]);
-                else
+                if (b[0] % 1 == 0) {
+                    System.out.println(A[0][0] + "x = " + (int) b[0]);
+                } else {
                     System.out.println(A[0][0] + "x = " + b[0]);
+                }
             }
         } else {
             System.out.println("solve the next system (" + n + " variables):");
@@ -38,28 +42,31 @@ public class System_Linear_Equations_V1 {
                 for (int j = 0 ;j < n ;j++) {
                     if (A[i][j] > 0) {
                         System.out.print("+ ");
-                        if (Math.abs(A[i][j]) == 1)
+                        if (Math.abs(A[i][j]) == 1) {
                             System.out.print("  x" + (j + 1) + " ");
-                        else if (A[i][j] % 1 == 0)
+                        } else if (A[i][j] % 1 == 0) {
                             System.out.print((int) A[i][j] + "*x" + (j + 1) + " ");
-                        else
+                        } else {
                             System.out.print(A[i][j] + "*x" + (j + 1) + " ");
+                        }
                     } else if (A[i][j] < 0) {
                         System.out.print("- ");
-                        if (Math.abs(A[i][j]) == 1)
+                        if (Math.abs(A[i][j]) == 1) {
                             System.out.print("  x" + (j + 1) + " ");
-                        else if (A[i][j] % 1 == 0)
+                        } else if (A[i][j] % 1 == 0) {
                             System.out.print((int) Math.abs(A[i][j]) + "*x" + (j + 1) + " ");
-                        else
+                        } else {
                             System.out.print(Math.abs(A[i][j]) + "*x" + (j + 1) + " ");
+                        }
                     } else {
                         System.out.print(" ".repeat(7));
                     }
                 }
-                if (b[i] % 1 == 0)
+                if (b[i] % 1 == 0) {
                     System.out.println(" = " + (int) (Math.round(b[i] * 10000.0) / 10000.0));
-                else
+                } else {
                     System.out.println(" = " + (Math.round(b[i] * 10000.0) / 10000.0));
+                }
             }
         }
         System.out.println();
@@ -71,21 +78,24 @@ public class System_Linear_Equations_V1 {
         for (int i = 0 ;i < n ;i++) {
             for (int j = 0 ;j < n ;j++) {
                 if (j == n - 1) {
-                    if ((Math.round(A[i][j] * 10000.0) / 10000.0) % 1 == 0)
-                        System.out.print((int)(Math.round(A[i][j] * 10000.0) / 10000.0) + " ");
-                    else
+                    if ((Math.round(A[i][j] * 10000.0) / 10000.0) % 1 == 0) {
+                        System.out.print((int) (Math.round(A[i][j] * 10000.0) / 10000.0) + " ");
+                    } else {
                         System.out.print(Math.round(A[i][j] * 10000.0) / 10000.0 + " ");
+                    }
                 } else {
-                    if ((Math.round(A[i][j] * 10000.0) / 10000.0) % 1 == 0)
-                        System.out.print((int)(Math.round(A[i][j] * 10000.0) / 10000.0) + " ,");
-                    else
+                    if ((Math.round(A[i][j] * 10000.0) / 10000.0) % 1 == 0) {
+                        System.out.print((int) (Math.round(A[i][j] * 10000.0) / 10000.0) + " ,");
+                    } else {
                         System.out.print(Math.round(A[i][j] * 10000.0) / 10000.0 + " ,");
+                    }
                 }
             }
-            if ((Math.round(b[i] * 10000.0) / 10000.0) % 1 == 0)
-                System.out.println("| " + (int)(Math.round(b[i] * 10000.0) / 10000.0));
-            else
+            if ((Math.round(b[i] * 10000.0) / 10000.0) % 1 == 0) {
+                System.out.println("| " + (int) (Math.round(b[i] * 10000.0) / 10000.0));
+            } else {
                 System.out.println("| " + Math.round(b[i] * 10000.0) / 10000.0);
+            }
         }
         System.out.println();
     }
@@ -106,18 +116,21 @@ public class System_Linear_Equations_V1 {
     public static void Print_Matrix(float[][] A) {
         int n = A.length;
         for (int i = 0 ;i < n ;i++) {
-            for (int j = 0 ;j < n ;j++)
+            for (int j = 0 ;j < n ;j++) {
                 if (j == n - 1) {
-                    if ((Math.round(A[i][j] * 10000.0) / 10000.0) % 1 == 0)
-                        System.out.print((int)(Math.round(A[i][j] * 10000.0) / 10000.0) + " \n");
-                    else
+                    if ((Math.round(A[i][j] * 10000.0) / 10000.0) % 1 == 0) {
+                        System.out.print((int) (Math.round(A[i][j] * 10000.0) / 10000.0) + " \n");
+                    } else {
                         System.out.print(Math.round(A[i][j] * 10000.0) / 10000.0 + " \n");
+                    }
                 } else {
-                    if ((Math.round(A[i][j] * 10000.0) / 10000.0) % 1 == 0)
-                        System.out.print((int)(Math.round(A[i][j] * 10000.0) / 10000.0) + " ,");
-                    else
+                    if ((Math.round(A[i][j] * 10000.0) / 10000.0) % 1 == 0) {
+                        System.out.print((int) (Math.round(A[i][j] * 10000.0) / 10000.0) + " ,");
+                    } else {
                         System.out.print(Math.round(A[i][j] * 10000.0) / 10000.0 + " ,");
+                    }
                 }
+            }
         }
         System.out.println();
     }
@@ -126,10 +139,11 @@ public class System_Linear_Equations_V1 {
     public static void Print_Vector(float[] b) {
         int n = b.length;
         for (int i = 0 ;i < n ;i++) {
-            if ((Math.round(b[i] * 10000.0) / 10000.0) % 1 == 0)
+            if ((Math.round(b[i] * 10000.0) / 10000.0) % 1 == 0) {
                 System.out.println((int) (Math.round(b[i] * 10000.0) / 10000.0));
-            else
+            } else {
                 System.out.println(Math.round(b[i] * 10000.0) / 10000.0);
+            }
         }
         System.out.println();
     }
@@ -138,24 +152,28 @@ public class System_Linear_Equations_V1 {
     public static void Print_Solution(float[] x) {
         int n = x.length;
         if (n == 1) {
-            if ((Math.round(x[0] * 1000.0) / 1000.0) % 1 == 0)
+            if ((Math.round(x[0] * 1000.0) / 1000.0) % 1 == 0) {
                 System.out.println("x = " + (int) (Math.round(x[0] * 1000.0) / 1000.0));
-            else
+            } else {
                 System.out.println("x = " + Math.round(x[0] * 1000.0) / 1000.0);
+            }
         } else {
             String s = "( ";
-            for (int i = 0 ;i < n ;i++)
+            for (int i = 0 ;i < n ;i++) {
                 if (i == n - 1) {
-                    if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0)
+                    if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0) {
                         s += (int) (Math.round(x[i] * 1000.0) / 1000.0) + " )";
-                    else
+                    } else {
                         s += Math.round(x[i] * 1000.0) / 1000.0 + " )";
+                    }
                 } else {
-                    if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0)
+                    if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0) {
                         s += (int) (Math.round(x[i] * 1000.0) / 1000.0) + " , ";
-                    else
+                    } else {
                         s += Math.round(x[i] * 1000.0) / 1000.0 + " , ";
+                    }
                 }
+            }
             System.out.println(s);
         }
     }
@@ -163,29 +181,37 @@ public class System_Linear_Equations_V1 {
     // check if A is zero matrix
     private static boolean Is_Zero_Matrix(float[][] A) {
         int n = A.length;
-        for (int i = 0 ;i < n ;i++)
-            for (int j = 0 ;j < n ;j++)
-                if (A[i][j] != 0)
+        for (int i = 0 ;i < n ;i++) {
+            for (int j = 0; j < n; j++) {
+                if (A[i][j] != 0) {
                     return false;
+                }
+            }
+        }
         return true;
     }
 
     // check if b is zero vector
     private static boolean Is_Zero_Vector(float[] b) {
         int n = b.length;
-        for (int i = 0 ;i < n ;i++)
-            if(b[i] != 0)
+        for (int i = 0 ;i < n ;i++) {
+            if (b[i] != 0) {
                 return false;
+            }
+        }
         return true;
     }
 
     // check if A is zero matrix
     private static boolean Is_Unit_Matrix(float[][] A) {
         int n = A.length;
-        for (int i = 0 ;i < n ;i++)
-            for (int j = 0 ;j < n ;j++)
-                if (A[i][i] != 1 || (i != j && A[i][j] != 0))
+        for (int i = 0 ;i < n ;i++) {
+            for (int j = 0; j < n; j++) {
+                if (A[i][i] != 1 || (i != j && A[i][j] != 0)) {
                     return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -206,29 +232,37 @@ public class System_Linear_Equations_V1 {
 
     // check if vector values is equal to each other
     private static boolean Is_Equals_Values(float[] r) {
-        for (int i = 0 ;i < r.length - 1 ;i++)
-            if (r[i] != r[i + 1])
+        for (int i = 0 ;i < r.length - 1 ;i++) {
+            if (r[i] != r[i + 1]) {
                 return false;
+            }
+        }
         return true;
     }
 
     // check if A matrix is upper-triangular
     private static boolean Is_Upper_Triangular(float[][] A) {
         int n = A.length;
-        for (int i = 0 ;i < n ;i++)
-            for (int j = 0; j < i; j++)
-                if (A[i][j] != 0)
+        for (int i = 0 ;i < n ;i++) {
+            for (int j = 0; j < i; j++) {
+                if (A[i][j] != 0) {
                     return false;
+                }
+            }
+        }
         return true;
     }
 
     // check if A matrix is lower-triangular
     private static boolean Is_Lower_Triangular(float[][] A) {
         int n = A.length;
-        for (int i = 0 ;i < n - 1 ;i++)
-            for (int j = i + 1; j < n; j++)
-                if (A[i][j] != 0)
+        for (int i = 0 ;i < n - 1 ;i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (A[i][j] != 0) {
                     return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -238,10 +272,12 @@ public class System_Linear_Equations_V1 {
         float[] rats = new float[n];
         for (int i1 = 0 ;i1 < n - 1 ;i1++) {
             for (int i2 = i1 + 1 ;i2 < n ;i2++) {
-                for (int j = 0 ;j < n ;j++)
+                for (int j = 0 ;j < n ;j++) {
                     rats[j] = A[i1][j] / A[i2][j];
-                if (Is_Equals_Values(rats))
+                }
+                if (Is_Equals_Values(rats)) {
                     return true;
+                }
             }
         }
         return false;
@@ -250,11 +286,13 @@ public class System_Linear_Equations_V1 {
     // calculate determinant of A
     public static float Determinant(float[][] A) {
         int n = A.length;
-        if (n == 1)
+        if (n == 1) {
             return A[0][0];
+        }
         float sum = 0;
-        for (int i = 0 ;i < n ;i++)
-            sum += A[0][i] * Determinant(Sub_Matrix(A,0,i)) * Math.pow(-1,i);
+        for (int i = 0 ;i < n ;i++) {
+            sum += A[0][i] * Determinant(Sub_Matrix(A, 0, i)) * Math.pow(-1, i);
+        }
         return sum;
     }
 
@@ -281,9 +319,11 @@ public class System_Linear_Equations_V1 {
     public static float[] Sub_Vector(float[] b ,int x) {
         int n = b.length;
         float[] subb = new float[n - 1];
-        for (int i = 0 ;i < n ;i++)
-            if (i != x)
+        for (int i = 0 ;i < n ;i++) {
+            if (i != x) {
                 subb[i] = b[i];
+            }
+        }
         return subb;
     }
 
@@ -291,9 +331,11 @@ public class System_Linear_Equations_V1 {
     public static float[][] Adjoint(float[][] A) {
         int n = A.length;
         float[][] Adj = new float[n][n];
-        for (int i = 0 ;i < n ;i++)
-            for (int j = 0 ;j < n ;j++)
-                Adj[j][i] = (float)(Math.pow(-1,i + j) * Determinant(Sub_Matrix(A,i,j)));
+        for (int i = 0 ;i < n ;i++) {
+            for (int j = 0; j < n; j++) {
+                Adj[j][i] = (float) (Math.pow(-1, i + j) * Determinant(Sub_Matrix(A, i, j)));
+            }
+        }
         return Adj;
     }
 
@@ -302,9 +344,11 @@ public class System_Linear_Equations_V1 {
         int n = A.length;
         float[][] invA = new float[n][n];
         float[][] adj = Adjoint(A);
-        for (int i = 0 ;i < n ;i++)
-            for (int j = 0 ;j < n ;j++)
+        for (int i = 0 ;i < n ;i++) {
+            for (int j = 0; j < n; j++) {
                 invA[i][j] = (1 / Determinant(A)) * adj[i][j];
+            }
+        }
         return invA;
     }
 
@@ -312,10 +356,13 @@ public class System_Linear_Equations_V1 {
     private static float[][] Mult_Mats(float[][] M1 ,float[][] M2) {
         int n = M1.length;
         float[][] M = new float[n][n];
-        for (int i = 0 ;i < n ;i++)
-            for (int j = 0 ;j < n ;j++)
-                for (int k = 0 ;k < n ;k++)
+        for (int i = 0 ;i < n ;i++) {
+            for (int j = 0; j < n; j++) {
+                for (int k = 0; k < n; k++) {
                     M[i][j] += M1[i][k] * M2[k][j];
+                }
+            }
+        }
         return M;
     }
 
@@ -332,10 +379,12 @@ public class System_Linear_Equations_V1 {
                 }
                 float c = rA[j][i] / rA[i][i];
                 Sum_Elementaric_Action(c,j,i);
-                for (int k = 0 ;k < n ;k++)
+                for (int k = 0 ;k < n ;k++) {
                     rA[j][k] = rA[j][k] - rA[i][k] * c;
-                if (c != 0)
+                }
+                if (c != 0) {
                     Print_Matrix(rA);
+                }
             }
         }
         return rA;
@@ -368,26 +417,31 @@ public class System_Linear_Equations_V1 {
     private static float[][] Copy_Matrix(float[][] A) {
         int n = A.length;
         float[][] copyA = new float[n][n];
-        for (int i = 0 ;i < n ;i++)
-            for (int j = 0 ;j < n ;j++)
+        for (int i = 0 ;i < n ;i++) {
+            for (int j = 0; j < n; j++) {
                 copyA[i][j] = A[i][j];
+            }
+        }
         return copyA;
     }
 
     // get the index with number row is not zero value
     private static int Get_Index_UnZero_Value(float[][] A ,int k) {
         int n = A.length;
-        for (int i = k + 1 ;i < n + k ;i++)
-            if (A[i % n][k] != 0)
+        for (int i = k + 1 ;i < n + k ;i++) {
+            if (A[i % n][k] != 0) {
                 return i % n;
+            }
+        }
         return -1;
     }
 
     // create zero vector for "n" size
     private static float[] Zero_Vector(int n) {
         float[] x = new float[n];
-        for (int k = 0 ;k < n ;k++)
+        for (int k = 0 ;k < n ;k++) {
             x[k] = 0;
+        }
         return x;
     }
 
@@ -397,21 +451,25 @@ public class System_Linear_Equations_V1 {
             int r = j + 1;
             int c = i + 1;
             if (k > 0) {
-                if (k % 1 == 0)
-                    if (k == 1)
+                if (k % 1 == 0) {
+                    if (k == 1) {
                         System.out.println("R" + r + " --> R" + r + " - R" + c + "\n");
-                    else
-                        System.out.println("R" + r + " --> R" + r + " - " + (int)k + "*R" + c + "\n");
-                else
+                    } else {
+                        System.out.println("R" + r + " --> R" + r + " - " + (int) k + "*R" + c + "\n");
+                    }
+                } else {
                     System.out.println("R" + r + " --> R" + r + " - " + k + "*R" + c + "\n");
+                }
             } else {
-                if (k % 1 == 0)
-                    if (k == -1)
+                if (k % 1 == 0) {
+                    if (k == -1) {
                         System.out.println("R" + r + " --> R" + r + " + R" + c + "\n");
-                    else
-                        System.out.println("R" + r + " --> R" + r + " + " + (int)(-k) + "*R" + c + "\n");
-                else
+                    } else {
+                        System.out.println("R" + r + " --> R" + r + " + " + (int) (-k) + "*R" + c + "\n");
+                    }
+                } else {
                     System.out.println("R" + r + " --> R" + r + " + " + (-k) + "*R" + c + "\n");
+                }
             }
         }
     }
@@ -420,13 +478,15 @@ public class System_Linear_Equations_V1 {
     private static void Mult_Elementaric_Action(float k ,int j) {
         if (k != 1) {
             int r = j + 1;
-            if (k % 1 == 0)
-                if (k == -1)
+            if (k % 1 == 0) {
+                if (k == -1) {
                     System.out.println("R" + r + " --> - R" + r + "\n");
-                else
-                    System.out.println("R" + r + " --> " + (int)k + "*R" + r + "\n");
-            else
+                } else {
+                    System.out.println("R" + r + " --> " + (int) k + "*R" + r + "\n");
+                }
+            } else {
                 System.out.println("R" + r + " --> " + k + "*R" + r + "\n");
+            }
         }
     }
 
@@ -434,10 +494,11 @@ public class System_Linear_Equations_V1 {
     private static void Retreat_Elementaric_Action(int i , int j) {
         int r1 = i + 1;
         int r2 = j + 1;
-        if (r1 <= r2)
+        if (r1 <= r2) {
             System.out.println("R" + r1 + " <--> R" + r2 + "\n");
-        else
+        } else {
             System.out.println("R" + r2 + " <--> R" + r1 + "\n");
+        }
     }
 
     // solve linear equations system Ax = b by invertible multipication method: x = inv(A)*b
@@ -449,8 +510,9 @@ public class System_Linear_Equations_V1 {
         Print_Matrix(invA);
         Print_Vector(b);
         for (int i = 0 ;i < n ;i++) {
-            for (int j = 0 ;j < n ;j++)
+            for (int j = 0 ;j < n ;j++) {
                 x[i] += b[j] * invA[i][j];
+            }
             x[i] = (float)(Math.round(x[i] * 10000.0) / 10000.0);
         }
         return x;
@@ -472,8 +534,9 @@ public class System_Linear_Equations_V1 {
             float detj = Determinant(A);
             Print_Matrix(A);
             System.out.println("|A" + (j + 1) + "| = " + detj);
-            for (int i = 0 ;i < n ;i++)
+            for (int i = 0 ;i < n ;i++) {
                 A[i][j] = h[i];
+            }
             x[j] = detj / det;
             System.out.println("x" + (j + 1) + " = " + x[j] + "\n");
         }
@@ -489,28 +552,32 @@ public class System_Linear_Equations_V1 {
         System.out.println("second, we will calculate lower ranking of A:");
         float[][] L = Mult_Mats(A, Invertible(U));
         Print_Matrix(L);
-        for (int i = 0 ;i < n - 1 ;i++)
-            for (int j = i + 1 ;j < n ;j++)
+        for (int i = 0 ;i < n - 1 ;i++) {
+            for (int j = i + 1; j < n; j++) {
                 if (L[i][i] == 0) {
-                    Retreat_Rows_System(L,b,i,j);
+                    Retreat_Rows_System(L, b, i, j);
                     break;
                 }
+            }
+        }
         float[] x = new float[n];
         float[] y = new float[n];
         System.out.println("third, we will solve forward system Ly = b:");
         Print_State(L,b);
         for (int i = 0 ;i < n ;i++) {
             y[i] = b[i];
-            for (int j = 0 ;j < i ;j++)
+            for (int j = 0 ;j < i ;j++) {
                 y[i] -= L[i][j] * y[j];
+            }
             y[i] /= L[i][i];
         }
         System.out.println("finally, we will solve backward system Ux = y:");
         Print_State(U,y);
         for (int i = n - 1 ;i >= 0 ;i--) {
             x[i] = y[i];
-            for (int j = i + 1 ;j < n ;j++)
+            for (int j = i + 1 ;j < n ;j++) {
                 x[i] -= U[i][j] * x[j];
+            }
             x[i] /= U[i][i];
             x[i] = (float)(Math.round(x[i] * 10000.0) / 10000.0);
         }
@@ -521,15 +588,16 @@ public class System_Linear_Equations_V1 {
     private static float[] Upper_Ranking_Method(float[][] A ,float[] b) throws Exception {
         float det = Determinant(A);
         if (det != 0) {
-            if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A))
+            if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
                 System.out.println("the matrix is already parallel triangular than now will be change directly to I:");
-            else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
+            } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
                 System.out.println("the matrix is already upper triangular than now we'll go directly to lower ranking");
                 return Lower_Ranking_Method(A,b);
-            } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A))
+            } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
                 System.out.println("transform L matrix to I by elementary actions:\n");
-            else
+            } else {
                 System.out.println("transform A matrix to U by elementary actions:\n");
+            }
             int n = A.length;
             float coef;
             for (int i = 0 ;i < n ;i++) {
@@ -544,18 +612,21 @@ public class System_Linear_Equations_V1 {
                     Mult_Elementaric_Action(coef,i);
                     b[i] /= A[i][i];
                     A[i][i] = 1;
-                    if (coef != 1)
-                        Print_State(A,b);
+                    if (coef != 1) {
+                        Print_State(A, b);
+                    }
                 }
                 for (int j = i + 1 ;j < n ;j++) {
                     coef = A[j][i] / A[i][i];
                     Sum_Elementaric_Action(coef,j,i);
-                    for (int k = 0 ;k < n ;k++)
+                    for (int k = 0 ;k < n ;k++) {
                         A[j][k] -= A[i][k] * coef;
+                    }
                     A[j][i] = 0;
                     b[j] -= b[i] * coef;
-                    if (coef != 0)
-                        Print_State(A,b);
+                    if (coef != 0) {
+                        Print_State(A, b);
+                    }
                 }
             }
             if (!Is_Upper_Triangular(A) || !Is_Lower_Triangular(A)) {
@@ -563,23 +634,25 @@ public class System_Linear_Equations_V1 {
                 return Lower_Ranking_Method(A,b);
             }
             return b;
-        } else
+        } else {
             throw new Exception("this is a singular matrix");
+        }
     }
 
     // solve linear equations system Ax = b by lower-ranking matrix and than upper-ranking matrix
     private static float[] Lower_Ranking_Method(float[][] A ,float[] b) throws Exception {
         float det = Determinant(A);
         if (det != 0) {
-            if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A))
+            if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
                 System.out.println("the matrix is already parallel triangular than now will be change directly to I:");
-            else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+            } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
                 System.out.println("the matrix is already lower triangular than now we'll go directly to upper ranking");
                 return Upper_Ranking_Method(A,b);
-            } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A))
+            } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
                 System.out.println("transform U matrix to I by elementary actions:\n");
-            else
+            } else {
                 System.out.println("transform A matrix to L by elementary actions:\n");
+            }
             int n = A.length;
             float coef;
             for (int i = n - 1 ;i >= 0 ;i--) {
@@ -594,18 +667,21 @@ public class System_Linear_Equations_V1 {
                     Mult_Elementaric_Action(coef,i);
                     b[i] /= A[i][i];
                     A[i][i] = 1;
-                    if (coef != 1)
-                        Print_State(A,b);
+                    if (coef != 1) {
+                        Print_State(A, b);
+                    }
                 }
                 for (int j = i - 1 ;j >= 0 ;j--) {
                     coef = A[j][i] / A[i][i];
                     Sum_Elementaric_Action(coef,j,i);
-                    for (int k = n - 1 ;k >= 0 ;k--)
+                    for (int k = n - 1 ;k >= 0 ;k--) {
                         A[j][k] -= A[i][k] * coef;
+                    }
                     A[j][i] = 0;
                     b[j] -= b[i] * coef;
-                    if (coef != 0)
-                        Print_State(A,b);
+                    if (coef != 0) {
+                        Print_State(A, b);
+                    }
                 }
             }
             if (!Is_Upper_Triangular(A) || !Is_Lower_Triangular(A)) {
@@ -613,8 +689,9 @@ public class System_Linear_Equations_V1 {
                 return Upper_Ranking_Method(A,b);
             }
             return b;
-        } else
+        } else {
             throw new Exception("this is a singular matrix");
+        }
     }
 
     // solve linear equations system Ax = b by direct ranking matrix (iterative method)
@@ -635,26 +712,30 @@ public class System_Linear_Equations_V1 {
                     if (i != j) {
                         c = A[j][i] / A[i][i];
                         Sum_Elementaric_Action(c,j,i);
-                        for (int k = 0 ;k < n ;k++)
+                        for (int k = 0 ;k < n ;k++) {
                             A[j][k] -= A[i][k] * c;
+                        }
                         A[j][i] = 0;
                         b[j] -= b[i] * c;
-                        if (c != 0)
-                            Print_State(A,b);
+                        if (c != 0) {
+                            Print_State(A, b);
+                        }
                     }
                     if (Is_Unit_Vector(A,j)) {
                         c = 1 / A[j][j];
                         Mult_Elementaric_Action(c,j);
                         b[j] /= A[j][j];
                         A[j][j] = 1;
-                        if (c != 1)
-                            Print_State(A,b);
+                        if (c != 1) {
+                            Print_State(A, b);
+                        }
                     }
                 }
             }
             return b;
-        } else
+        } else {
             throw new Exception("this is a singular matrix");
+        }
     }
 
     // solve linear equations system Ax = b by direct ranking matrix (recursive method)
@@ -675,49 +756,55 @@ public class System_Linear_Equations_V1 {
                 if (i != j) {
                     c = A[j][i] / A[i][i];
                     Sum_Elementaric_Action(c,j,i);
-                    for (int k = 0 ;k < n ;k++)
+                    for (int k = 0 ;k < n ;k++) {
                         A[j][k] -= A[i][k] * c;
+                    }
                     A[j][i] = 0;
                     b[j] -= b[i] * c;
-                    if (c != 0)
-                        Print_State(A,b);
+                    if (c != 0) {
+                        Print_State(A, b);
+                    }
                 }
                 if (Is_Unit_Vector(A,j)) {
                     c = 1 / A[j][j];
                     Mult_Elementaric_Action(c,j);
                     b[j] /= A[j][j];
                     A[j][j] = 1;
-                    if (c != 1)
-                        Print_State(A,b);
+                    if (c != 1) {
+                        Print_State(A, b);
+                    }
                 }
-                if (j == n - 1)
+                if (j == n - 1) {
                     i = (i + 1) % n;
+                }
                 j = (j + 1) % n;
                 return Parallel_Ranking_Method_Rec(A,b,i,j);
             }
-        } else
+        } else {
             throw new Exception("this is a singular matrix");
+        }
     }
 
     // choose action in order to solve system Ax = b
     public static float[] Get_And_Solve_Exercise(float[][] A ,float[] b ,int op) throws Exception {
         Print_State(A,b);
-        if (op == 1)
-            return Invertible_Method(A,b);
-        else if (op == 2)
-            return Cramer_Method(A,b);
-        else if (op == 3)
-            return Forward_Backward_Method(A,b);
-        else if (op == 4)
-            return Upper_Ranking_Method(A,b);
-        else if (op == 5)
-            return Lower_Ranking_Method(A,b);
-        else if (op == 6)
-            return Parallel_Ranking_Method_Iter(A,b);
-        else if (op == 7)
+        if (op == 1) {
+            return Invertible_Method(A, b);
+        } else if (op == 2) {
+            return Cramer_Method(A, b);
+        } else if (op == 3) {
+            return Forward_Backward_Method(A, b);
+        } else if (op == 4) {
+            return Upper_Ranking_Method(A, b);
+        } else if (op == 5) {
+            return Lower_Ranking_Method(A, b);
+        } else if (op == 6) {
+            return Parallel_Ranking_Method_Iter(A, b);
+        } else if (op == 7) {
             return Parallel_Ranking_Method_Rec(A, b, 0, 0);
-        else
+        } else {
             throw new Exception("enter error number");
+        }
     }
 
     // check linear equations system Ax = b and solve in method requested
@@ -734,16 +821,17 @@ public class System_Linear_Equations_V1 {
                 if (det == 0) {
                     if (Is_Zero_Vector(b)) {
                         System.out.println("|b| = 0 therefore system is homogeneus");
-                        if (Is_Zero_Matrix(A))
+                        if (Is_Zero_Matrix(A)) {
                             System.out.print("exists infinite number of solutions to the system under space R" + (n));
-                        else if (Is_Linear_Dependent(A)) {
+                        } else if (Is_Linear_Dependent(A)) {
                             System.out.print("exist single solution for the system that is: x = ");
                             Print_Solution(Zero_Vector(n));
                         } else {
                             System.out.println("ranking A matrix by upper ranking:");
                             A = Upper_Ranking_Matrix(A);
-                            for (int i = 0 ;i < n - 1 ;i++)
+                            for (int i = 0 ;i < n - 1 ;i++) {
                                 b[i] -= A[i][n - 1];
+                            }
                             System.out.println("suppose that x" + (n) + " = " + 1 + " and we will move to right wing");
                             A = Sub_Matrix(A,n - 1,n - 1);
                             b = Sub_Vector(b,n - 1);
@@ -755,8 +843,9 @@ public class System_Linear_Equations_V1 {
                             System.out.print("the solution is infinite set of linearly dependent vectors in base ");
                             Print_Solution(x);
                         }
-                    } else
+                    } else {
                         System.out.print("does not exists solutions because |A| = 0 and |b| is not 0");
+                    }
                 } else {
                     x = Get_And_Solve_Exercise(A,b,op);
                     System.out.print("exist single solution for the system that is: x = ");
@@ -764,19 +853,22 @@ public class System_Linear_Equations_V1 {
                 }
             } else { // n == 1
                 if (A[0][0] == 0) {
-                    if (b[0] == 0)
+                    if (b[0] == 0) {
                         System.out.print("exists infinite number of solutions to the equation under space R1");
-                    else
+                    } else {
                         System.out.print("does not exists any solution to the equation");
+                    }
                 } else {
-                    if ((b[0] / A[0][0]) % 1 == 0)
-                        System.out.println("exist single solution for the equation that is: x = " + (int)(b[0] / A[0][0]));
-                    else
+                    if ((b[0] / A[0][0]) % 1 == 0) {
+                        System.out.println("exist single solution for the equation that is: x = " + (int) (b[0] / A[0][0]));
+                    } else {
                         System.out.println("exist single solution for the equation that is: x = " + b[0] / A[0][0]);
+                    }
                 }
             }
-        } else
+        } else {
             throw new Exception("the input is not exist conditions to linear equations");
+        }
     }
 
     // test main

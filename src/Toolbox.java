@@ -356,6 +356,25 @@ public class Toolbox {
         return s;
     }
 
+    public static boolean Correct_Cheking(float[][] A ,float[] b ,float[] x) throws Exception {
+        int n = A.length;
+        double eps = 0.1;
+        float fx = 0;
+        boolean flag = true;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                fx += A[i][j] * x[j];
+            }
+            if (fx >= b[i] - eps && fx <= b[i] + eps) {
+                fx = 0;
+            } else {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
     private static void Random_Determinants(int n ,int r) {
         float[][] A = new float[n][n];
         float det = -1;
