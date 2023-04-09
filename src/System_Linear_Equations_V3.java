@@ -624,7 +624,7 @@ public class System_Linear_Equations_V3 {
         if (x < 0) {
             return "-" + convertDecimalToFraction(-x);
         }
-        float tolerance = (float) 1.0E-3;
+        float tolerance = (float) 1.0E-5;
         float h1 = 1 ,h2 = 0;
         float k1 = 0 ,k2 = 1;
         float b = x;
@@ -956,7 +956,7 @@ public class System_Linear_Equations_V3 {
         if (m <= n && m == k) {
             Scanner sc = new Scanner(System.in);
             Display_Exercise(A,b);
-            if (n > 1) {
+            if (n > 1) { // R2 Space or higher
                 if (Is_Linear_Independent_System(A,b)) {
                     System.out.println("does not exists solutions for this system");
                 } else {
@@ -994,12 +994,13 @@ public class System_Linear_Equations_V3 {
                 } else {
                     User_Menu_Solution();
                     String ch = sc.next();
-                    if ((b[0] / A[0][0]) % 1 == 0) {
-                        System.out.println("exist single solution for the equation that is: x = " + (int) (b[0] / A[0][0]));
+                    float c = b[0] / A[0][0];
+                    if (c % 1 == 0) {
+                        System.out.println("exist single solution for the equation that is: x = " + (int) c);
                     } else if (ch.equals("d")) {
-                        System.out.println("exist single solution for the equation that is: x = " + b[0] / A[0][0]);
+                        System.out.println("exist single solution for the equation that is: x = " + c);
                     } else if (ch.equals("r")) {
-                        System.out.println("exist single solution for the equation that is: x = " + convertDecimalToFraction(b[0] / A[0][0]));
+                        System.out.println("exist single solution for the equation that is: x = " + convertDecimalToFraction(c));
                     }
                 }
             }
@@ -1101,7 +1102,7 @@ public class System_Linear_Equations_V3 {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A52,b52);
+            Check_System(A11,b11);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

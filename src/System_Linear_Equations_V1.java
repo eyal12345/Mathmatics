@@ -908,7 +908,7 @@ public class System_Linear_Equations_V1 {
         float[][] B7 = {{2,3,1,-4,0,-3,0},{-3,1,1,1,0,-4,-1},{0,1,0,-2,1,-1,1},{-4,1,-3,1,0,-2,1},{1,-3,0,-2,-4,1,0},{1,-2,3,0,-4,-2,-4},{0,4,-4,-2,-3,-2,3}};
         float[] b7 = {0,0,0,0,0,0,0};
         try {
-            Check_System(B3,b3);
+            Check_System(B6,b6);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
