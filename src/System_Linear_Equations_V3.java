@@ -480,7 +480,7 @@ public class System_Linear_Equations_V3 {
                         R.add(A[r1][j] / A[r2][j]);
                     }
                 }
-                if (Is_Equals_Values(R) && (b[r1] != 0 || b[r2] != 0) && (b[r1] / b[r2] != R.get(0))) {
+                if (Is_Equals_Values(R) && R.size() > 1 && (b[r1] != 0 || b[r2] != 0) && (b[r1] / b[r2] != R.get(0))) {
                     return true;
                 }
             }
@@ -721,7 +721,7 @@ public class System_Linear_Equations_V3 {
                 return Lower_Ranking_Method(A, b, t, ch);
             }
         }
-        if (!Is_Lower_Triangular(A)) {
+        if (!Is_Lower_Triangular(A) || !Is_Unit_Matrix(A)) {
             return Lower_Ranking_Method(A, b, t, ch);
         }
         return b;
@@ -803,7 +803,7 @@ public class System_Linear_Equations_V3 {
                 return Upper_Ranking_Method(A, b, t, ch);
             }
         }
-        if (!Is_Upper_Triangular(A)) {
+        if (!Is_Upper_Triangular(A) || !Is_Unit_Matrix(A)) {
             return Upper_Ranking_Method(A, b, t, ch);
         }
         return b;
@@ -1102,7 +1102,7 @@ public class System_Linear_Equations_V3 {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A11,b11);
+            Check_System(A52,b52);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
