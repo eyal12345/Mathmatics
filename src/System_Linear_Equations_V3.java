@@ -334,6 +334,12 @@ public class System_Linear_Equations_V3 {
 
     private static float[][] Increase_Rows_in_Matrix(float[][] A ,int m) {
         int n = A[0].length;
+        int rc = n - m;
+        if (rc == 1) {
+            System.out.println("add 1 zero row to get a square matrix:");
+        } else {
+            System.out.println("add " + rc + " zero rows to get a square matrix:");
+        }
         float[][] nA = new float[n][n];
         for (int i = 0 ;i < m ;i++) {
             for (int j = 0; j < n; j++) {
@@ -962,10 +968,10 @@ public class System_Linear_Equations_V3 {
                 } else {
                     User_Menu_System();
                     int op = sc.nextInt();
-                    A = (m < n) ? Increase_Rows_in_Matrix(A,m) : A;
-                    float[][] bt = Increase_Rows_in_Vector(b,n);
                     User_Menu_Solution();
                     String ch = sc.next();
+                    A = (m < n) ? Increase_Rows_in_Matrix(A,m) : A;
+                    float[][] bt = Increase_Rows_in_Vector(b,n);
                     Print_State(A,bt,ch);
                     float[][] x;
                     if (op == 1) {

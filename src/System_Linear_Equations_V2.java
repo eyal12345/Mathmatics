@@ -656,7 +656,7 @@ public class System_Linear_Equations_V2 {
             if (n == 1) { // R1 Space
                 System.out.println("the single value is: ");
                 Get_Single_Value(A, b, 0);
-            } else { // Rn Space (n > 1)
+            } else { // // R2 Space or higher
                 System.out.println("enter number between 1 to " + n + ":");
                 Scanner sc = new Scanner(System.in);
                 int i = sc.nextInt();

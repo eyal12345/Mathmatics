@@ -813,7 +813,7 @@ public class System_Linear_Equations_V1 {
             Display_Exercise(A,b);
             int n = A.length;
             float[] x;
-            if (n > 1) {
+            if (n > 1) { // R2 Space or higher
                 User_Menu();
                 Scanner sc = new Scanner(System.in);
                 int op = sc.nextInt();
@@ -851,7 +851,7 @@ public class System_Linear_Equations_V1 {
                     System.out.print("exist single solution for the system that is: x = ");
                     Print_Solution(x);
                 }
-            } else { // n == 1
+            } else { // R1 Space
                 if (A[0][0] == 0) {
                     if (b[0] == 0) {
                         System.out.print("exists infinite number of solutions to the equation under space R1");
@@ -859,10 +859,11 @@ public class System_Linear_Equations_V1 {
                         System.out.print("does not exists any solution to the equation");
                     }
                 } else {
-                    if ((b[0] / A[0][0]) % 1 == 0) {
-                        System.out.println("exist single solution for the equation that is: x = " + (int) (b[0] / A[0][0]));
+                    float c = b[0] / A[0][0];
+                    if (c % 1 == 0) {
+                        System.out.println("exist single solution for the equation that is: x = " + (int) c);
                     } else {
-                        System.out.println("exist single solution for the equation that is: x = " + b[0] / A[0][0]);
+                        System.out.println("exist single solution for the equation that is: x = " + c);
                     }
                 }
             }
