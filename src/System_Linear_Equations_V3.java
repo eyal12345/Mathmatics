@@ -291,7 +291,9 @@ public class System_Linear_Equations_V3 {
                 for (int t = 1 ;t < m ;t++) {
                     if (!Is_Zero_Col(x,t)) {
                         s = (Is_Zero_Col(x,2)) ? s + " + s*( " : s + " + s" + t + "*( ";
-                        if (t == n - 1) {
+                        if (n == 2) {
+                            st += "s its a free scalar";
+                        } else if (t == n - 1) {
                             st += "s" + t + " its a free scalars";
                         } else {
                             st += "s" + t + ",";
