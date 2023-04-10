@@ -505,13 +505,14 @@ public class System_Linear_Equations_V2 {
 
     public static void Cra_Met_Iter(float[][] A ,float[] b) throws Exception {
         int n = A.length;
-        float det = Determinant(A);
+        float det = Determinant(A), val;
         if (det != 0) {
             if (n == 1) {
-                if ((b[0] / det) % 1 == 0) {
-                    System.out.println("x = " + (int) (b[0] / det));
+                val = b[0] / det;
+                if (val % 1 == 0) {
+                    System.out.println("x = " + (int) val);
                 } else {
-                    System.out.println("x = " + (b[0] / det));
+                    System.out.println("x = " + val);
                 }
             } else {
                 for (int i = 0 ;i < n ;i++) {
@@ -519,10 +520,11 @@ public class System_Linear_Equations_V2 {
                     for (int j = 0; j < n; j++) {
                         sum += Math.pow(-1, i + j) * b[j] * Determinant(Sub_Matrix(A, j, i));
                     }
-                    if ((sum / det) % 1 == 0) {
-                        System.out.println("x" + (i + 1) + " = " + (int) (sum / det));
+                    val = sum / det;
+                    if (val % 1 == 0) {
+                        System.out.println("x" + (i + 1) + " = " + (int) val);
                     } else {
-                        System.out.println("x" + (i + 1) + " = " + (sum / det));
+                        System.out.println("x" + (i + 1) + " = " + val);
                     }
                 }
             }
@@ -536,13 +538,14 @@ public class System_Linear_Equations_V2 {
 
     public static void Cra_Met_Rec(float[][] A ,float[] b ,int i) throws Exception {
         int n = A.length;
-        float det = Determinant(A);
+        float det = Determinant(A), val;
         if (det != 0) {
             if (n == 1) {
-                if ((b[0] / det) % 1 == 0) {
-                    System.out.println("x = " + (int) (b[0] / det));
+                val = b[0] / det;
+                if (val % 1 == 0) {
+                    System.out.println("x = " + (int) val);
                 } else {
-                    System.out.println("x = " + (b[0] / det));
+                    System.out.println("x = " + val);
                 }
             } else {
                 if (i < n) {
@@ -550,10 +553,11 @@ public class System_Linear_Equations_V2 {
                     for (int j = 0 ;j < n ;j++) {
                         sum += Math.pow(-1, i + j) * b[j] * Determinant(Sub_Matrix(A, j, i));
                     }
-                    if ((sum / det) % 1 == 0) {
-                        System.out.println("x" + (i + 1) + " = " + (int) (sum / det));
+                    val = sum / det;
+                    if (val % 1 == 0) {
+                        System.out.println("x" + (i + 1) + " = " + (int) val);
                     } else {
-                        System.out.println("x" + (i + 1) + " = " + (sum / det));
+                        System.out.println("x" + (i + 1) + " = " + val);
                     }
                     Cra_Met_Rec(A,b,i + 1);
                 }
@@ -581,10 +585,11 @@ public class System_Linear_Equations_V2 {
                 for (int j = 1 ;j <= n ;j++) {
                     sum += Math.pow(-1, i + j) * b[j - 1] * Determinant(Sub_Matrix(A, j - 1, i - 1));
                 }
-                if ((sum / det) % 1 == 0) {
-                    System.out.println("x" + i + " = " + (int) (sum / det));
+                float val = sum / det;
+                if (val % 1 == 0) {
+                    System.out.println("x" + i + " = " + (int) val);
                 } else {
-                    System.out.println("x" + i + " = " + sum / det);
+                    System.out.println("x" + i + " = " + val);
                 }
             }
         } else {

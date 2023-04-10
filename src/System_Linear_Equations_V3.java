@@ -336,7 +336,7 @@ public class System_Linear_Equations_V3 {
         int n = A[0].length;
         int rc = n - m;
         if (rc == 1) {
-            System.out.println("add 1 zero row to get a square matrix:");
+            System.out.println("add one zero row to get a square matrix:");
         } else {
             System.out.println("add " + rc + " zero rows to get a square matrix:");
         }
