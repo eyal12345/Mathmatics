@@ -336,9 +336,9 @@ public class System_Linear_Equations_V3 {
         int n = A[0].length;
         int rc = n - m;
         if (rc == 1) {
-            System.out.println("add one zero row to get a square completion:");
+            System.out.println("add one more zero row to get a square completion:");
         } else {
-            System.out.println("add " + rc + " zero rows to get a square completion:");
+            System.out.println("add " + rc + " more zero rows to get a square completion:");
         }
         float[][] nA = new float[n][n];
         for (int i = 0 ;i < m ;i++) {
