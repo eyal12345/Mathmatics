@@ -227,13 +227,20 @@ public class System_Linear_Equations_V3 {
         if (!ch.equals("d") && !ch.equals("r")) {
             throw new Exception("enter error character for representation solution");
         } else {
-            int m = x.length;
-            String s = "";
+            int m = x.length, n = x[0].length;
+            String s = "", st = "";
             if (Is_Zero_Col(x,0) && !Is_Zero_Col(x,1)) { // λu
-                int n = x[0].length;
-                System.out.print("solution is infinite set of vectors that linear dependent in line: x = ");
+                System.out.print("solution is a infinite set of vectors that linear dependent in the vector space: x = ");
+                st += " when ";
                 for (int t = 1 ;t < n && !Is_Zero_Col(x,t) ;t++) {
                     s = (Is_Zero_Col(x,2)) ? s + "s*( " : s + "s" + t + "*( ";
+                    if (n == 2) {
+                        st += "s its a free scalar";
+                    } else if (t == n - 1) {
+                        st += "s" + t + " its a free scalars";
+                    } else {
+                        st += "s" + t + ",";
+                    }
                     for (int i = 0 ;i < m ;i++) {
                         if (i == m - 1) {
                             if ((Math.round(x[i][t] * 1000.0) / 1000.0) % 1 == 0) {
@@ -257,8 +264,9 @@ public class System_Linear_Equations_V3 {
                         s += " + ";
                     }
                 }
+                st += " that belongs to the R set";
             } else if (!Is_Zero_Col(x,0) && !Is_Zero_Col(x,1)) { // x0 + λu
-                System.out.print("solution is infinite set of vectors that linear dependent in line: x = ");
+                System.out.print("solution is a infinite set of vectors that linear dependent in the vector space: x = ");
                 s += "( ";
                 for (int i = 0 ;i < m ;i++) {
                     if (i == m - 1) {
@@ -279,9 +287,15 @@ public class System_Linear_Equations_V3 {
                         }
                     }
                 }
+                st += " when ";
                 for (int t = 1 ;t < m ;t++) {
                     if (!Is_Zero_Col(x,t)) {
                         s = (Is_Zero_Col(x,2)) ? s + " + s*( " : s + " + s" + t + "*( ";
+                        if (t == n - 1) {
+                            st += "s" + t + " its a free scalars";
+                        } else {
+                            st += "s" + t + ",";
+                        }
                         for (int i = 0 ;i < m ;i++) {
                             if (i == m - 1) {
                                 if ((Math.round(x[i][t] * 1000.0) / 1000.0) % 1 == 0) {
@@ -303,6 +317,7 @@ public class System_Linear_Equations_V3 {
                         }
                     }
                 }
+                st += " that belongs to the R set";
             } else { // x0
                 System.out.print("exist single solution for the system that is: x = ");
                 s += "( ";
@@ -328,7 +343,7 @@ public class System_Linear_Equations_V3 {
                     }
                 }
             }
-            System.out.println(s);
+            System.out.println(s + st);
         }
     }
 
@@ -993,7 +1008,7 @@ public class System_Linear_Equations_V3 {
             } else { // R1 Space
                 if (A[0][0] == 0) {
                     if (b[0] == 0) {
-                        System.out.println("exists infinite number of solutions for the equation that is: x = s (free variable) when s find in R");
+                        System.out.println("exists a infinite number of solutions for the equation that is: x = s when s its a free value that belongs to the R set");
                     } else {
                         System.out.println("does not exists any solution to the equation");
                     }
