@@ -402,6 +402,45 @@ public class Toolbox {
         return nb;
     }
 
+    // investigate state of a system Ax = b
+    public static String Return_Number_Vectors(float[][] A, float[] b) throws Exception {
+        if (A.length == A[0].length && A.length == b.length) {
+            if (Determinant(A) == 0) {
+                if (Is_Zero_Vector(b)) {
+                    if (Is_Zero_Matrix(A)) {
+                        return "Ultimate Infinity";
+                    } else {
+                        return "Linear Infinity";
+                    }
+                } else {
+                    return "Not Exist";
+                }
+            } else {
+                return "Single";
+            }
+        } else {
+            throw new Exception("error: The input is not exist conditions to linear equations");
+        }
+    }
+
+    public static float[][] Create_Random_Matrix(int n, int high) {
+        float[][] A = new float[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                A[i][j] = (int) (Math.random() * (2 * high + 1)) - high;
+            }
+        }
+        return A;
+    }
+
+    public static float[] Create_Random_Vector(int n, int high) {
+        float[] b = new float[n];
+        for (int i = 0; i < n; i++) {
+            b[i] = (int) (Math.random() * (2 * high + 1)) - high;
+        }
+        return b;
+    }
+
     private static float[][] resizeArray (float[][] oldArray, int addrows) {
         int oldSize = java.lang.reflect.Array.getLength(oldArray);
         Class elementType = oldArray.getClass().getComponentType();
