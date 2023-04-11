@@ -236,7 +236,7 @@ public class System_Linear_Equations_V3 {
             int m = x.length, n = x[0].length;
             String s = "", st = "";
             if (Is_Zero_Col(x,0) && !Is_Zero_Col(x,1)) { // λu
-                System.out.print("solution is a infinite set of vectors that linear dependent in the vector space: x = ");
+                System.out.print("the solution is a infinite set of vectors which are linearly dependents in the vector space: x = ");
                 st += " when ";
                 for (int t = 1 ;t < n && !Is_Zero_Col(x,t) ;t++) {
                     s = (Is_Zero_Col(x,2)) ? s + "s*( " : s + "s" + t + "*( ";
@@ -272,7 +272,7 @@ public class System_Linear_Equations_V3 {
                 }
                 st += " that belongs to the R set";
             } else if (!Is_Zero_Col(x,0) && !Is_Zero_Col(x,1)) { // x0 + λu
-                System.out.print("solution is a infinite set of vectors that linear dependent in the vector space: x = ");
+                System.out.print("the solution is a infinite set of vectors which are linearly dependents in the vector space: x = ");
                 s += "( ";
                 for (int i = 0 ;i < m ;i++) {
                     if (i == m - 1) {
