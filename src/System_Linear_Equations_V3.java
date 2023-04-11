@@ -77,7 +77,7 @@ public class System_Linear_Equations_V3 {
     }
 
     // display current status of the system Ax = b each time of iteration on an element
-    private static void Print_State(float[][] A, float[][] b, String ch) throws Exception {
+    private static void Print_Status_System(float[][] A, float[][] b, String ch) throws Exception {
         if (!ch.equals("d") && !ch.equals("r")) {
             throw new Exception("you entered invalid value for a representation of system status");
         } else {
@@ -700,19 +700,19 @@ public class System_Linear_Equations_V3 {
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 } else if (d2 != -1) {
                     System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 } else if (!Is_Exist_Vector(A,i)) {
                     System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 }
             } if (A[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(A,i,true);
@@ -723,7 +723,7 @@ public class System_Linear_Equations_V3 {
                     A[r][i] = (A[r][i] >= -0.0001 && A[r][i] <= 0.0001) ? 0 : A[r][i];
                     Retreat_Elementaric_Action(i,r);
                     Retreat_Rows_System(A,b,i,r);
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 }
             }
             for (int j = i + 1; j < n; j++) {
@@ -738,7 +738,7 @@ public class System_Linear_Equations_V3 {
                         }
                     }
                     A[j][i] = (A[j][i] >= -0.0001 && A[j][i] <= 0.0001) ? 0 : A[j][i];
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 }
                 A[j][j] = (A[j][j] >= -0.0001 && A[j][j] <= 0.0001) ? 0 : A[j][j];
                 if (Is_Unit_Vector(A,j)) {
@@ -751,7 +751,7 @@ public class System_Linear_Equations_V3 {
                         }
                         b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
                         A[j][d] = 1;
-                        Print_State(A,b,ch);
+                        Print_Status_System(A,b,ch);
                     }
                 }
             }
@@ -788,19 +788,19 @@ public class System_Linear_Equations_V3 {
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 } else if (d2 != -1) {
                     System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 } else if (!Is_Exist_Vector(A,i)) {
                     System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 }
             } if (A[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(A,i,false);
@@ -811,7 +811,7 @@ public class System_Linear_Equations_V3 {
                     A[r][i] = (A[r][i] >= -0.0001 && A[r][i] <= 0.0001) ? 0 : A[r][i];
                     Retreat_Elementaric_Action(i,r);
                     Retreat_Rows_System(A,b,i,r);
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 }
             }
             for (int j = i - 1; j >= 0; j--) {
@@ -826,7 +826,7 @@ public class System_Linear_Equations_V3 {
                         }
                     }
                     A[j][i] = (A[j][i] >= -0.0001 && A[j][i] <= 0.0001) ? 0 : A[j][i];
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 }
                 A[j][j] = (A[j][j] >= -0.0001 && A[j][j] <= 0.0001) ? 0 : A[j][j];
                 if (Is_Unit_Vector(A,j)) {
@@ -839,7 +839,7 @@ public class System_Linear_Equations_V3 {
                         }
                         b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
                         A[j][d] = 1;
-                        Print_State(A,b,ch);
+                        Print_Status_System(A,b,ch);
                     }
                 }
             }
@@ -869,19 +869,19 @@ public class System_Linear_Equations_V3 {
                         b = Increase_Cols_in_Vector(b);
                         A[i][d1] = 1;
                         b[i][++t] = 1;
-                        Print_State(A,b,ch);
+                        Print_Status_System(A,b,ch);
                     } else if (d2 != -1) {
                         System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                         b = Increase_Cols_in_Vector(b);
                         A[i][d2] = 1;
                         b[i][++t] = 1;
-                        Print_State(A,b,ch);
+                        Print_Status_System(A,b,ch);
                     } else if (!Is_Exist_Vector(A,i)) {
                         System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                         b = Increase_Cols_in_Vector(b);
                         A[i][i] = 1;
                         b[i][++t] = 1;
-                        Print_State(A,b,ch);
+                        Print_Status_System(A,b,ch);
                     }
                 } if (A[i][i] == 0) {
                     int r = Get_Index_UnZero_Value(A,i,true);
@@ -889,7 +889,7 @@ public class System_Linear_Equations_V3 {
                         A[r][i] = (A[r][i] >= -0.0001 && A[r][i] <= 0.0001) ? 0 : A[r][i];
                         Retreat_Elementaric_Action(i,r);
                         Retreat_Rows_System(A,b,i,r);
-                        Print_State(A,b,ch);
+                        Print_Status_System(A,b,ch);
                     }
                 }
                 for (int j = 0; j < n; j++) {
@@ -903,7 +903,7 @@ public class System_Linear_Equations_V3 {
                             }
                         }
                         A[j][i] = (A[j][i] >= -0.0001 && A[j][i] <= 0.0001) ? 0 : A[j][i];
-                        Print_State(A,b,ch);
+                        Print_Status_System(A,b,ch);
                     }
                     A[j][j] = (A[j][j] >= -0.0001 && A[j][j] <= 0.0001) ? 0 : A[j][j];
                     if (Is_Unit_Vector(A,j)) {
@@ -916,7 +916,7 @@ public class System_Linear_Equations_V3 {
                             }
                             b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
                             A[j][d] = 1;
-                            Print_State(A,b,ch);
+                            Print_Status_System(A,b,ch);
                         }
                     }
                 }
@@ -940,19 +940,19 @@ public class System_Linear_Equations_V3 {
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 } else if (d2 != -1) {
                     System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 } else if (!Is_Exist_Vector(A,i)) {
                     System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 }
             } if (A[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(A,i,true);
@@ -960,7 +960,7 @@ public class System_Linear_Equations_V3 {
                     A[r][i] = (A[r][i] >= -0.0001 && A[r][i] <= 0.0001) ? 0 : A[r][i];
                     Retreat_Elementaric_Action(i,r);
                     Retreat_Rows_System(A,b,i,r);
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 }
             }
             if (i != j && A[i][i] != 0 && A[j][i] != 0) {
@@ -973,7 +973,7 @@ public class System_Linear_Equations_V3 {
                     }
                 }
                 A[j][i] = (A[j][i] >= -0.0001 && A[j][i] <= 0.0001) ? 0 : A[j][i];
-                Print_State(A,b,ch);
+                Print_Status_System(A,b,ch);
             }
             A[j][j] = (A[j][j] >= -0.0001 && A[j][j] <= 0.0001) ? 0 : A[j][j];
             if (Is_Unit_Vector(A,j)) {
@@ -986,7 +986,7 @@ public class System_Linear_Equations_V3 {
                     }
                     b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
                     A[j][d] = 1;
-                    Print_State(A,b,ch);
+                    Print_Status_System(A,b,ch);
                 }
             } if (j == n - 1) {
                 i = (i + 1) % n;
@@ -1020,7 +1020,7 @@ public class System_Linear_Equations_V3 {
                         A = Increase_Rows_in_Matrix(A,m);
                     }
                     float[][] bt = Increase_Rows_in_Vector(b,n);
-                    Print_State(A,bt,ch);
+                    Print_Status_System(A,bt,ch);
                     float[][] x;
                     if (op == 1) {
                         x = Upper_Ranking_Method(A,bt,0,ch);
