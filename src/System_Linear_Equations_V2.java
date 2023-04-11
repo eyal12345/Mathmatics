@@ -329,7 +329,7 @@ public class System_Linear_Equations_V2 {
 
     // calculate of sub-matrix from a matrix by cutting row "x" and column "y"
     public static float[][] Sub_Matrix(float[][] A, int x, int y) {
-        int n = A.length ,p = 0 ,q = 0;
+        int n = A.length, p = 0, q = 0;
         float[][] subA = new float[n - 1][n - 1];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -350,8 +350,7 @@ public class System_Linear_Equations_V2 {
     // show elementary actions for sum between rows in the system
     public static void Sum_Elementary_Action(float k, int j, int i) {
         if (k != 0) {
-            int r = j + 1;
-            int c = i + 1;
+            int r = j + 1, c = i + 1;
             if (k > 0) {
                 if (k % 1 == 0) {
                     if (k == 1) {
@@ -395,8 +394,7 @@ public class System_Linear_Equations_V2 {
     /////////////////////////////////////////// Methods to Solution /////////////////////////////////////////////
     // solve system of linear equations Ax = b by multiplication elementary matrix each iteration (iterative method)
     public static float[] Elementary_Method(float[][] A, float[] b) throws Exception {
-        int n = A.length;
-        int i = 0 ,j = 0;
+        int n = A.length, i = 0, j = 0;
         while (!Is_Unit_Matrix(A)) {
             float[][] E = Unit_Matrix(n);
             if (A[i][i] == 0) {
