@@ -8,7 +8,7 @@ public class System_Linear_Equations_V3 {
     private static void Display_Exercise(float[][] A, float[] b) {
         int m = A.length, n = A[0].length;
         if (n == 1) {
-            System.out.println("solve the next equation under space R" + 1 + ":");
+            System.out.println("solve the next equation in R1 space:");
             if (A[0][0] % 1 == 0) {
                 if (A[0][0] == 1) {
                     if (b[0] % 1 == 0) {
@@ -37,13 +37,13 @@ public class System_Linear_Equations_V3 {
             }
         } else {
             if (m == 1) {
-                System.out.println("solve the next equation under space R" + n + ":");
+                System.out.println("solve the next equation in R" + n + " space:");
             } else {
-                System.out.println("solve the next system under space R" + n + ":");
+                System.out.println("solve the next system in R" + n + " space:");
             }
-            for (int i = 0 ;i < m ;i++) {
+            for (int i = 0; i < m; i++) {
                 System.out.print("eq" + (i + 1) + ": ");
-                for (int j = 0 ;j < n ;j++) {
+                for (int j = 0; j < n; j++) {
                     if (A[i][j] > 0) {
                         System.out.print("+ ");
                         if (Math.abs(A[i][j]) == 1) {
@@ -82,8 +82,8 @@ public class System_Linear_Equations_V3 {
             throw new Exception("you entered invalid value for a representation of system status");
         } else {
             int m = A.length, n = A[0].length;
-            for (int i = 0 ;i < m ;i++) {
-                for (int j = 0 ;j < n ;j++) {
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
                     if ((Math.round(A[i][j] * 1000.0) / 1000.0) % 1 == 0) {
                         System.out.print((int) (Math.round(A[i][j] * 1000.0) / 1000.0) + " ");
                     } else if (ch.equals("d")) {
@@ -95,7 +95,7 @@ public class System_Linear_Equations_V3 {
                     }
                 }
                 System.out.print("| ");
-                for (int j = 0 ;j < n + 1 ;j++) {
+                for (int j = 0; j < n + 1; j++) {
                     if ((Math.round(b[i][j] * 1000.0) / 1000.0) % 1 == 0) {
                         System.out.print((int) (Math.round(b[i][j] * 1000.0) / 1000.0) + " ");
                     } else if (ch.equals("d")) {
@@ -236,9 +236,9 @@ public class System_Linear_Equations_V3 {
             int m = x.length, n = x[0].length;
             String s = "", st = "";
             if (Is_Zero_Col(x,0) && !Is_Zero_Col(x,1)) { // λu
-                System.out.print("the solution is a infinite set of vectors which are linearly dependents in the vector space: x = ");
+                System.out.print("the solution is a infinite set of vectors in R" + m + " space which are linearly dependents in the vector space: x = ");
                 st += " when ";
-                for (int t = 1 ;t < n && !Is_Zero_Col(x,t) ;t++) {
+                for (int t = 1; t < n && !Is_Zero_Col(x,t); t++) {
                     s = (Is_Zero_Col(x,2)) ? s + "s*( " : s + "s" + t + "*( ";
                     if (n == 2) {
                         st += "s its a free scalar";
@@ -247,7 +247,7 @@ public class System_Linear_Equations_V3 {
                     } else {
                         st += "s" + t + ",";
                     }
-                    for (int i = 0 ;i < m ;i++) {
+                    for (int i = 0; i < m; i++) {
                         if (i == m - 1) {
                             if ((Math.round(x[i][t] * 1000.0) / 1000.0) % 1 == 0) {
                                 s += (int) (Math.round(x[i][t] * 1000.0) / 1000.0) + " )";
@@ -272,9 +272,9 @@ public class System_Linear_Equations_V3 {
                 }
                 st += " that belongs to the R set";
             } else if (!Is_Zero_Col(x,0) && !Is_Zero_Col(x,1)) { // x0 + λu
-                System.out.print("the solution is a infinite set of vectors which are linearly dependents in the vector space: x = ");
+                System.out.print("the solution is a infinite set of vectors in R" + m + " space which are linearly dependents in the vector space: x = ");
                 s += "( ";
-                for (int i = 0 ;i < m ;i++) {
+                for (int i = 0; i < m; i++) {
                     if (i == m - 1) {
                         if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0) {
                             s += (int) (Math.round(x[i][0] * 1000.0) / 1000.0) + " )";
@@ -294,7 +294,7 @@ public class System_Linear_Equations_V3 {
                     }
                 }
                 st += " when ";
-                for (int t = 1 ;t < m ;t++) {
+                for (int t = 1; t < m; t++) {
                     if (!Is_Zero_Col(x,t)) {
                         s = (Is_Zero_Col(x,2)) ? s + " + s*( " : s + " + s" + t + "*( ";
                         if (n == 2) {
@@ -304,7 +304,7 @@ public class System_Linear_Equations_V3 {
                         } else {
                             st += "s" + t + ",";
                         }
-                        for (int i = 0 ;i < m ;i++) {
+                        for (int i = 0; i < m; i++) {
                             if (i == m - 1) {
                                 if ((Math.round(x[i][t] * 1000.0) / 1000.0) % 1 == 0) {
                                     s += (int) (Math.round(x[i][t] * 1000.0) / 1000.0) + " )";
@@ -327,10 +327,10 @@ public class System_Linear_Equations_V3 {
                 }
                 st += " that belongs to the R set";
             } else { // x0
-                System.out.print("exist a single solution for the system which is: x = ");
+                System.out.print("exist a single solution in R" + m + " space for the system which is: x = ");
                 s += "( ";
                 DecimalFormat twoDForm = new DecimalFormat("#.###");
-                for (int i = 0 ;i < m ;i++) {
+                for (int i = 0; i < m; i++) {
                     x[i][0] = Float.valueOf(twoDForm.format(x[i][0]));
                     if (i == m - 1) {
                         if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0) {
@@ -359,7 +359,7 @@ public class System_Linear_Equations_V3 {
     private static float[][] Increase_Rows_in_Matrix(float[][] A, int m) {
         int n = A[0].length;
         float[][] nA = new float[n][n];
-        for (int i = 0 ;i < m ;i++) {
+        for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 nA[i][j] = A[i][j];
             }
@@ -371,7 +371,7 @@ public class System_Linear_Equations_V3 {
     private static float[][] Increase_Rows_in_Vector(float[] b, int m) {
         int n = b.length;
         float[][] nb = new float[m][1];
-        for (int i = 0 ;i < n ;i++) {
+        for (int i = 0; i < n; i++) {
             nb[i][0] = (i < m) ? b[i] : 0;
         }
         return nb;
@@ -381,7 +381,7 @@ public class System_Linear_Equations_V3 {
     private static float[][] Increase_Cols_in_Vector(float[][] b) {
         int m = b.length, n = b[0].length;
         float[][] nb = new float[m][n + 1];
-        for (int i = 0 ;i < m ;i++) {
+        for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 nb[i][j] = b[i][j];
             }
@@ -392,7 +392,7 @@ public class System_Linear_Equations_V3 {
     // check if the vector is a zero vector
     private static boolean Is_Zero_Vector(float[] b) {
         int n = b.length;
-        for (int i = 0 ;i < n ;i++) {
+        for (int i = 0; i < n; i++) {
             if (b[i] != 0) {
                 return false;
             }
@@ -403,7 +403,7 @@ public class System_Linear_Equations_V3 {
     // check if exist in the matrix a zeros row
     private static boolean Is_Zero_Row(float[][] A, int r) {
         int n = A[0].length;
-        for (int j = 0 ;j < n ;j++) {
+        for (int j = 0; j < n; j++) {
             if (A[r][j] != 0) {
                 return false;
             }
@@ -417,7 +417,7 @@ public class System_Linear_Equations_V3 {
         if (c >= n) {
             return true;
         }
-        for (int i = 0 ;i < m ;i++) {
+        for (int i = 0; i < m; i++) {
             if (b[i][c] != 0) {
                 return false;
             }
@@ -428,7 +428,7 @@ public class System_Linear_Equations_V3 {
     // check if the matrix is an upper triangular
     private static boolean Is_Upper_Triangular(float[][] A) {
         int n = A.length;
-        for (int i = 0 ;i < n ;i++) {
+        for (int i = 0; i < n; i++) {
             for (int j = 0; j < i; j++) {
                 if (A[i][j] != 0) {
                     return false;
@@ -441,7 +441,7 @@ public class System_Linear_Equations_V3 {
     // check if the matrix is a lower triangular
     private static boolean Is_Lower_Triangular(float[][] A) {
         int n = A.length;
-        for (int i = 0 ;i < n - 1 ;i++) {
+        for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
                 if (A[i][j] != 0) {
                     return false;
@@ -454,10 +454,10 @@ public class System_Linear_Equations_V3 {
     // find two columns in the matrix which are linearly dependent
     private static int Get_Linear_Dependent_Columns(float[][] A) {
         int m = A.length, n = A[0].length;
-        for (int c1 = 0 ;c1 < n - 1 ;c1++) {
-            for (int c2 = c1 + 1 ;c2 < n ;c2++) {
+        for (int c1 = 0; c1 < n - 1; c1++) {
+            for (int c2 = c1 + 1; c2 < n; c2++) {
                 Vector<Float> C  = new Vector<Float>();
-                for (int r = 0 ;r < m ;r++) {
+                for (int r = 0; r < m; r++) {
                     if (A[r][c1] != 0 || A[r][c2] != 0) {
                         C.add(A[r][c1] / A[r][c2]);
                     }
@@ -473,11 +473,11 @@ public class System_Linear_Equations_V3 {
     // check if exists two vectors in the matrix which are linearly dependent
     private static boolean Is_Linear_Dependent_Rows(float[][] A) {
         int m = A.length, n = A[0].length;
-        for (int r1 = 0 ;r1 < m - 1 ;r1++) {
-            for (int r2 = r1 + 1 ;r2 < m ;r2++) {
+        for (int r1 = 0; r1 < m - 1; r1++) {
+            for (int r2 = r1 + 1; r2 < m; r2++) {
                 if (!Is_Unit_Vector(A,r1) && !Is_Unit_Vector(A,r2)) {
                     Vector<Float> R  = new Vector<Float>();
-                    for (int j = 0 ;j < n ;j++) {
+                    for (int j = 0; j < n; j++) {
                         if (A[r1][j] != 0 || A[r2][j] != 0) {
                             R.add(A[r1][j] / A[r2][j]);
                             if (r2 == r1 + 1 && Is_Equals_Values(R) && R.size() >= 2) {
@@ -494,15 +494,15 @@ public class System_Linear_Equations_V3 {
     // check if exists two vectors in the matrix which are linearly independent
     private static boolean Is_Linear_Independent_System(float[][] A, float[] b) {
         int m = A.length, n = A[0].length;
-        for (int r = 0 ;r < m ;r++) {
+        for (int r = 0; r < m; r++) {
             if (Is_Zero_Row(A,r) && b[r] != 0) {
                 return true;
             }
         }
-        for (int r1 = 0 ;r1 < m - 1 ;r1++) {
-            for (int r2 = r1 + 1 ;r2 < m ;r2++) {
+        for (int r1 = 0; r1 < m - 1; r1++) {
+            for (int r2 = r1 + 1; r2 < m; r2++) {
                 Vector<Float> R  = new Vector<Float>();
-                for (int j = 0 ;j < n ;j++) {
+                for (int j = 0; j < n; j++) {
                     if (A[r1][j] != 0 || A[r2][j] != 0) {
                         R.add(A[r1][j] / A[r2][j]);
                     }
@@ -518,7 +518,7 @@ public class System_Linear_Equations_V3 {
     // check if all vector values is equal to each other
     private static boolean Is_Equals_Values(Vector<Float> R) {
         int n = R.size();
-        for (int i = 0 ;i < n - 1 ;i++) {
+        for (int i = 0; i < n - 1; i++) {
             if (!R.get(i).equals(R.get(i + 1))) {
                 return false;
             }
@@ -530,7 +530,7 @@ public class System_Linear_Equations_V3 {
     private static float[] Get_Row_from_Matrix(float[][] A, int r) {
         int n = A[0].length;
         float[] v = new float[n];
-        for (int j = 0 ;j < n ;j++) {
+        for (int j = 0; j < n; j++) {
             v[j] = A[r][j];
         }
         return v;
@@ -542,7 +542,7 @@ public class System_Linear_Equations_V3 {
         float[] v = Get_Row_from_Matrix(A,r);
         v[r] = (Is_Zero_Vector(v)) ? 1 : v[r];
         int c1 = Get_Index_for_Unit_Vector(v);
-        for (int i = 0 ;i < n ;i++) {
+        for (int i = 0; i < n; i++) {
             int c2 = Get_Index_for_Unit_Vector(Get_Row_from_Matrix(A,i));
             if (c1 == c2 && c1 != -1) {
                 return i;
@@ -557,7 +557,7 @@ public class System_Linear_Equations_V3 {
         float[] v = Get_Row_from_Matrix(A,r);
         v[r] = (Is_Zero_Vector(v)) ? 1 : v[r];
         int c1 = Get_Index_for_Unit_Vector(v);
-        for (int i = 0 ;i < n ;i++) {
+        for (int i = 0; i < n; i++) {
             if (i != r && Is_Unit_Vector(A,r) && Is_Unit_Vector(A,i)) {
                 int c2 = Get_Index_for_Unit_Vector(Get_Row_from_Matrix(A,i));
                 if (c1 == c2 && c1 != -1) {
@@ -571,7 +571,7 @@ public class System_Linear_Equations_V3 {
     // check if the matrix is a unit matrix
     private static boolean Is_Unit_Matrix(float[][] A) {
         int n = A.length;
-        for (int i = 0 ;i < n ;i++) {
+        for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (A[i][i] != 1 || (i != j && A[i][j] != 0)) {
                     return false;
@@ -585,7 +585,7 @@ public class System_Linear_Equations_V3 {
     private static boolean Is_Unit_Vector(float[][] A, int i) {
         int n = A[0].length;
         int c = 0;
-        for (int j = 0 ;j < n ;j++) {
+        for (int j = 0; j < n; j++) {
             if (A[i][j] != 0) {
                 c++;
             }
@@ -596,7 +596,7 @@ public class System_Linear_Equations_V3 {
     // get the index from the vector that is indicating a unit vector
     private static int Get_Index_for_Unit_Vector(float[] v) {
         int n = v.length;
-        for (int c = 0 ;c < n ;c++) {
+        for (int c = 0; c < n; c++) {
             if (v[c] != 0) {
                 return c;
             }
@@ -607,12 +607,12 @@ public class System_Linear_Equations_V3 {
     // perform replacing between rows in the system
     private static void Retreat_Rows_System(float[][] A, float[][] b, int r1, int r2) {
         int n = A[0].length, m = b[0].length;
-        for (int j = 0 ;j < n ;j++) {
+        for (int j = 0; j < n; j++) {
             float k = A[r1][j];
             A[r1][j] = A[r2][j];
             A[r2][j] = k;
         }
-        for (int j = 0 ;j < m ;j++) {
+        for (int j = 0; j < m; j++) {
             if (!Is_Zero_Col(b,j)) {
                 float k = b[r1][j];
                 b[r1][j] = b[r2][j];
@@ -625,13 +625,13 @@ public class System_Linear_Equations_V3 {
     private static int Get_Index_UnZero_Value(float[][] A, int k, boolean flag) {
         int n = A.length;
         if (flag) {
-            for (int i = k + 1 ;i < n + k ;i++) {
+            for (int i = k + 1; i < n + k; i++) {
                 if (A[i % n][k] != 0) {
                     return i % n;
                 }
             }
         } else {
-            for (int i = n + k - 1 ;i > k - 1 ;i--) {
+            for (int i = n + k - 1; i > k - 1; i--) {
                 if (A[i % n][k] != 0) {
                     return i % n;
                 }
@@ -643,7 +643,7 @@ public class System_Linear_Equations_V3 {
     // get the index column from the specific row in the matrix which are indicating intersection between zero rows and zero columns
     private static int Intersection_Zero_Row_Col(float[][] A, int r) {
         int n = A[0].length;
-        for (int c = 0 ;c < n ;c++) {
+        for (int c = 0; c < n; c++) {
             if (Is_Zero_Col(A,c) && Is_Zero_Row(A,r)) {
                 return c;
             }
@@ -690,25 +690,25 @@ public class System_Linear_Equations_V3 {
             System.out.println("transform A matrix to U by a elementary actions:");
         }
         int n = A.length;
-        for (int i = 0 ;i < n ;i++) {
+        for (int i = 0; i < n; i++) {
             A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
             if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A)) {
                 int d1 = Intersection_Zero_Row_Col(A,i);
                 int d2 = Get_Linear_Dependent_Columns(A);
                 if (d1 != -1) {
-                    System.out.println("define a new column in the vector b when x" + (d1 + 1) + " is a free variable in R" + n + ":");
+                    System.out.println("define a new column in the vector b when x" + (d1 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (d2 != -1) {
-                    System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + ":");
+                    System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (!Is_Exist_Vector(A,i)) {
-                    System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + ":");
+                    System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
@@ -726,11 +726,11 @@ public class System_Linear_Equations_V3 {
                     Print_State(A,b,ch);
                 }
             }
-            for (int j = i + 1 ;j < n ;j++) {
+            for (int j = i + 1; j < n; j++) {
                 if (A[i][i] != 0 && A[j][i] != 0) {
                     float c = A[j][i] / A[i][i];
                     Sum_Elementaric_Action(c,j,i,ch);
-                    for (int k = 0 ;k < n ;k++) {
+                    for (int k = 0; k < n; k++) {
                         A[j][k] -= A[i][k] * c;
                         if (k <= t) {
                             b[j][k] -= b[i][k] * c;
@@ -746,7 +746,7 @@ public class System_Linear_Equations_V3 {
                     if (d != -1 && A[j][d] != 0 && A[j][d] != 1) {
                         float c = 1 / A[j][d];
                         Mult_Elementaric_Action(c,j,ch);
-                        for (int k = 0 ;k <= t ;k++) {
+                        for (int k = 0; k <= t; k++) {
                             b[j][k] /= A[j][d];
                         }
                         b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
@@ -778,25 +778,25 @@ public class System_Linear_Equations_V3 {
             System.out.println("transform A matrix to L by a elementary actions:");
         }
         int n = A.length;
-        for (int i = n - 1 ;i >= 0 ;i--) {
+        for (int i = n - 1; i >= 0; i--) {
             A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
             if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A)) {
                 int d1 = Intersection_Zero_Row_Col(A,i);
                 int d2 = Get_Linear_Dependent_Columns(A);
                 if (d1 != -1) {
-                    System.out.println("define a new column in the vector b when x" + (d1 + 1) + " is a free variable in R" + n + ":");
+                    System.out.println("define a new column in the vector b when x" + (d1 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (d2 != -1) {
-                    System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + ":");
+                    System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (!Is_Exist_Vector(A,i)) {
-                    System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + ":");
+                    System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
@@ -814,11 +814,11 @@ public class System_Linear_Equations_V3 {
                     Print_State(A,b,ch);
                 }
             }
-            for (int j = i - 1 ;j >= 0 ;j--) {
+            for (int j = i - 1; j >= 0; j--) {
                 if (A[i][i] != 0 && A[j][i] != 0) {
                     float c = A[j][i] / A[i][i];
                     Sum_Elementaric_Action(c,j,i,ch);
-                    for (int k = n - 1 ;k >= 0 ;k--) {
+                    for (int k = n - 1; k >= 0; k--) {
                         A[j][k] -= A[i][k] * c;
                         if (k <= t) {
                             b[j][k] -= b[i][k] * c;
@@ -834,7 +834,7 @@ public class System_Linear_Equations_V3 {
                     if (d != -1 && A[j][d] != 0 && A[j][d] != 1) {
                         float c = 1 / A[j][d];
                         Mult_Elementaric_Action(c,j,ch);
-                        for (int k = 0 ;k <= t ;k++) {
+                        for (int k = 0; k <= t; k++) {
                             b[j][k] /= A[j][d];
                         }
                         b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
@@ -859,25 +859,25 @@ public class System_Linear_Equations_V3 {
         int t = 0;
         while (!Is_Unit_Matrix(A)) {
             int n = A.length;
-            for (int i = 0 ;i < n ;i++) {
+            for (int i = 0; i < n; i++) {
                 A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
                 if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A)) {
                     int d1 = Intersection_Zero_Row_Col(A,i);
                     int d2 = Get_Linear_Dependent_Columns(A);
                     if (d1 != -1) {
-                        System.out.println("define a new column in the vector b when x" + (d1 + 1) + " is a free variable in R" + n + ":");
+                        System.out.println("define a new column in the vector b when x" + (d1 + 1) + " is a free variable in R" + n + " space:");
                         b = Increase_Cols_in_Vector(b);
                         A[i][d1] = 1;
                         b[i][++t] = 1;
                         Print_State(A,b,ch);
                     } else if (d2 != -1) {
-                        System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + ":");
+                        System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                         b = Increase_Cols_in_Vector(b);
                         A[i][d2] = 1;
                         b[i][++t] = 1;
                         Print_State(A,b,ch);
                     } else if (!Is_Exist_Vector(A,i)) {
-                        System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + ":");
+                        System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                         b = Increase_Cols_in_Vector(b);
                         A[i][i] = 1;
                         b[i][++t] = 1;
@@ -892,11 +892,11 @@ public class System_Linear_Equations_V3 {
                         Print_State(A,b,ch);
                     }
                 }
-                for (int j = 0 ;j < n ;j++) {
+                for (int j = 0; j < n; j++) {
                     if (i != j && A[i][i] != 0 && A[j][i] != 0) {
                         float c = A[j][i] / A[i][i];
                         Sum_Elementaric_Action(c,j,i,ch);
-                        for (int k = 0 ;k < n ;k++) {
+                        for (int k = 0; k < n; k++) {
                             A[j][k] -= A[i][k] * c;
                             if (k <= t) {
                                 b[j][k] -= b[i][k] * c;
@@ -911,7 +911,7 @@ public class System_Linear_Equations_V3 {
                         if (d != -1 && A[j][d] != 0 && A[j][d] != 1) {
                             float c = 1 / A[j][d];
                             Mult_Elementaric_Action(c,j,ch);
-                            for (int k = 0 ;k <= t ;k++) {
+                            for (int k = 0; k <= t; k++) {
                                 b[j][k] /= A[j][d];
                             }
                             b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
@@ -936,19 +936,19 @@ public class System_Linear_Equations_V3 {
                 int d1 = Intersection_Zero_Row_Col(A,i);
                 int d2 = Get_Linear_Dependent_Columns(A);
                 if (d1 != -1) {
-                    System.out.println("define a new column in the vector b when x" + (d1 + 1) + " is a free variable in R" + n + ":");
+                    System.out.println("define a new column in the vector b when x" + (d1 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (d2 != -1) {
-                    System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + ":");
+                    System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (!Is_Exist_Vector(A,i)) {
-                    System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + ":");
+                    System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
@@ -966,7 +966,7 @@ public class System_Linear_Equations_V3 {
             if (i != j && A[i][i] != 0 && A[j][i] != 0) {
                 float c = A[j][i] / A[i][i];
                 Sum_Elementaric_Action(c,j,i,ch);
-                for (int k = 0 ;k < n ;k++) {
+                for (int k = 0; k < n; k++) {
                     A[j][k] -= A[i][k] * c;
                     if (k <= t) {
                         b[j][k] -= b[i][k] * c;
@@ -981,7 +981,7 @@ public class System_Linear_Equations_V3 {
                 if (d != -1 && A[j][d] != 0 && A[j][d] != 1) {
                     float c = 1 / A[j][d];
                     Mult_Elementaric_Action(c,j,ch);
-                    for (int k = 0 ;k <= t ;k++) {
+                    for (int k = 0; k <= t; k++) {
                         b[j][k] /= A[j][d];
                     }
                     b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
@@ -1041,7 +1041,7 @@ public class System_Linear_Equations_V3 {
             } else { // R1 Space
                 if (A[0][0] == 0) {
                     if (b[0] == 0) {
-                        System.out.println("exists a infinite number of solutions for the equation that is: x = s when s its a free value that belongs to the R set");
+                        System.out.println("exists a infinite number of solutions in R1 space for the equation that is: x = s when s its a free value that belongs to the R set");
                     } else {
                         System.out.println("does not an exists any solution to the equation");
                     }
@@ -1050,11 +1050,11 @@ public class System_Linear_Equations_V3 {
                     String ch = sc.next();
                     float c = b[0] / A[0][0];
                     if (c % 1 == 0) {
-                        System.out.println("exist a single solution for the equation which is: x = " + (int) c);
+                        System.out.println("exist a single solution in R1 space for the equation which is: x = " + (int) c);
                     } else if (ch.equals("d")) {
-                        System.out.println("exist a single solution for the equation which is: x = " + c);
+                        System.out.println("exist a single solution in R1 space for the equation which is: x = " + c);
                     } else if (ch.equals("r")) {
-                        System.out.println("exist a single solution for the equation which is: x = " + convertDecimalToFraction(c));
+                        System.out.println("exist a single solution in R1 space for the equation which is: x = " + convertDecimalToFraction(c));
                     }
                 }
             }
