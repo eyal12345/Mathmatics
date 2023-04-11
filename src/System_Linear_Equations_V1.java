@@ -584,19 +584,19 @@ public class System_Linear_Equations_V1 {
         return x;
     }
 
-    // solve linear equations system Ax = b by upper-ranking matrix and than lower-ranking matrix
+    // solve system linear equations Ax = b by upper-ranking matrix and than lower-ranking matrix
     private static float[] Upper_Ranking_Method(float[][] A ,float[] b) throws Exception {
         float det = Determinant(A);
         if (det != 0) {
             if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-                System.out.println("the matrix is already parallel triangular than now will be change directly to I:");
+                System.out.println("A is already parallel triangular so now will be change directly to I:");
             } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
-                System.out.println("the matrix is already upper triangular than now we'll go directly to lower ranking");
+                System.out.println("A is already upper triangular so now we'll go directly to the lower ranking:");
                 return Lower_Ranking_Method(A,b);
             } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-                System.out.println("transform L matrix to I by elementary actions:\n");
+                System.out.println("transform L matrix to I by a elementary actions:");
             } else {
-                System.out.println("transform A matrix to U by elementary actions:\n");
+                System.out.println("transform A matrix to U by a elementary actions:");
             }
             int n = A.length;
             float coef;
@@ -639,19 +639,19 @@ public class System_Linear_Equations_V1 {
         }
     }
 
-    // solve linear equations system Ax = b by lower-ranking matrix and than upper-ranking matrix
+    // solve system linear equations Ax = b by lower-ranking matrix and than upper-ranking matrix
     private static float[] Lower_Ranking_Method(float[][] A ,float[] b) throws Exception {
         float det = Determinant(A);
         if (det != 0) {
             if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-                System.out.println("the matrix is already parallel triangular than now will be change directly to I:");
+                System.out.println("A is already parallel triangular so now will be change directly to I:");
             } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-                System.out.println("the matrix is already lower triangular than now we'll go directly to upper ranking");
+                System.out.println("A is already lower triangular so now we'll go directly to the upper ranking:");
                 return Upper_Ranking_Method(A,b);
             } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
-                System.out.println("transform U matrix to I by elementary actions:\n");
+                System.out.println("transform U matrix to I by a elementary actions:");
             } else {
-                System.out.println("transform A matrix to L by elementary actions:\n");
+                System.out.println("transform A matrix to L by a elementary actions:");
             }
             int n = A.length;
             float coef;
@@ -694,11 +694,11 @@ public class System_Linear_Equations_V1 {
         }
     }
 
-    // solve linear equations system Ax = b by direct ranking matrix (iterative method)
+    // solve system linear equations Ax = b by direct ranking matrix (iterative method)
     private static float[] Parallel_Ranking_Method_Iter(float[][] A ,float[] b) throws Exception {
         float det = Determinant(A);
         if (det != 0) {
-            System.out.println("transform A matrix to I by elementary actions:");
+            System.out.println("transform A matrix to I by a elementary actions:");
             int n = A.length;
             float c;
             for (int i = 0 ;i < n ;i++) {
@@ -738,7 +738,7 @@ public class System_Linear_Equations_V1 {
         }
     }
 
-    // solve linear equations system Ax = b by direct ranking matrix (recursive method)
+    // solve system linear equations Ax = b by direct ranking matrix (recursive method)
     private static float[] Parallel_Ranking_Method_Rec(float[][] A ,float[] b ,int i ,int j) throws Exception {
         float det = Determinant(A);
         if (det != 0) {

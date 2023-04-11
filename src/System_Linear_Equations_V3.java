@@ -351,12 +351,6 @@ public class System_Linear_Equations_V3 {
 
     private static float[][] Increase_Rows_in_Matrix(float[][] A ,int m) {
         int n = A[0].length;
-        int rc = n - m;
-        if (rc == 1) {
-            System.out.println("add one more zero row to get a square completion:");
-        } else {
-            System.out.println("add " + rc + " more zero rows to get a square completion:");
-        }
         float[][] nA = new float[n][n];
         for (int i = 0 ;i < m ;i++) {
             for (int j = 0; j < n; j++) {
@@ -668,11 +662,17 @@ public class System_Linear_Equations_V3 {
         }
     }
 
+    // solve system linear equations Ax = b by upper-ranking matrix and than lower-ranking matrix
     private static float[][] Upper_Ranking_Method(float[][] A ,float[][] b ,int t ,String ch) throws Exception {
-        if (!Is_Upper_Triangular(A)) {
-            System.out.println("transform A matrix to U by elementary actions:");
+        if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+            System.out.println("A is already parallel triangular so now will be change directly to I:");
+        } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
+            System.out.println("A is already upper triangular so now we'll go directly to the lower ranking:");
+            return Lower_Ranking_Method(A, b, t, ch);
+        } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+            System.out.println("transform L matrix to I by a elementary actions:");
         } else {
-            System.out.println("A is already upper triangular matrix");
+            System.out.println("transform A matrix to U by a elementary actions:");
         }
         int n = A.length;
         for (int i = 0 ;i < n ;i++) {
@@ -681,19 +681,19 @@ public class System_Linear_Equations_V3 {
                 int d1 = Intersection_Zero_Row_Col(A,i);
                 int d2 = Get_Linear_Dependent_Columns(A);
                 if (d1 != -1) {
-                    System.out.println("define new column in b when x" + (d1 + 1) + " is free variable in R" + n + ":");
+                    System.out.println("define a new column in b when x" + (d1 + 1) + " is a free variable in R" + n + ":");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (d2 != -1) {
-                    System.out.println("define new column in b when x" + (d2 + 1) + " is free variable in R" + n + ":");
+                    System.out.println("define a new column in b when x" + (d2 + 1) + " is a free variable in R" + n + ":");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (!Is_Exist_Vector(A,i)) {
-                    System.out.println("define new column in b when x" + (i + 1) + " is free variable in R" + n + ":");
+                    System.out.println("define a new column in b when x" + (i + 1) + " is a free variable in R" + n + ":");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
@@ -750,11 +750,17 @@ public class System_Linear_Equations_V3 {
         return b;
     }
 
+    // solve system linear equations Ax = b by lower-ranking matrix and than upper-ranking matrix
     private static float[][] Lower_Ranking_Method(float[][] A ,float[][] b ,int t ,String ch) throws Exception {
-        if (!Is_Lower_Triangular(A)) {
-            System.out.println("transform A matrix to L by elementary actions:");
+        if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+            System.out.println("A is already parallel triangular so now will be change directly to I:");
+        } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+            System.out.println("A is already lower triangular so now we'll go directly to the upper ranking:");
+            return Upper_Ranking_Method(A, b, t, ch);
+        } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
+            System.out.println("transform U matrix to I by a elementary actions:");
         } else {
-            System.out.println("A is already lower triangular matrix");
+            System.out.println("transform A matrix to L by a elementary actions:");
         }
         int n = A.length;
         for (int i = n - 1 ;i >= 0 ;i--) {
@@ -763,19 +769,19 @@ public class System_Linear_Equations_V3 {
                 int d1 = Intersection_Zero_Row_Col(A,i);
                 int d2 = Get_Linear_Dependent_Columns(A);
                 if (d1 != -1) {
-                    System.out.println("define new column in b when x" + (d1 + 1) + " is free variable in R" + n + ":");
+                    System.out.println("define a new column in b when x" + (d1 + 1) + " is a free variable in R" + n + ":");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (d2 != -1) {
-                    System.out.println("define new column in b when x" + (d2 + 1) + " is free variable in R" + n + ":");
+                    System.out.println("define a new column in b when x" + (d2 + 1) + " is a free variable in R" + n + ":");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (!Is_Exist_Vector(A,i)) {
-                    System.out.println("define new column in b when x" + (i + 1) + " is free variable in R" + n + ":");
+                    System.out.println("define a new column in b when x" + (i + 1) + " is a free variable in R" + n + ":");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
@@ -832,8 +838,9 @@ public class System_Linear_Equations_V3 {
         return b;
     }
 
+    // solve system linear equations Ax = b by direct ranking matrix (iterative method)
     private static float[][] Parallel_Ranking_Method(float[][] A ,float[][] b ,String ch) throws Exception {
-        System.out.println("transform A matrix to I by elementary actions:");
+        System.out.println("transform A matrix to I by a elementary actions:");
         int t = 0;
         while (!Is_Unit_Matrix(A)) {
             int n = A.length;
@@ -843,19 +850,19 @@ public class System_Linear_Equations_V3 {
                     int d1 = Intersection_Zero_Row_Col(A,i);
                     int d2 = Get_Linear_Dependent_Columns(A);
                     if (d1 != -1) {
-                        System.out.println("define new column in b when x" + (d1 + 1) + " is free variable in R" + n + ":");
+                        System.out.println("define a new column in b when x" + (d1 + 1) + " is a free variable in R" + n + ":");
                         b = Increase_Cols_in_Vector(b);
                         A[i][d1] = 1;
                         b[i][++t] = 1;
                         Print_State(A,b,ch);
                     } else if (d2 != -1) {
-                        System.out.println("define new column in b when x" + (d2 + 1) + " is free variable in R" + n + ":");
+                        System.out.println("define a new column in b when x" + (d2 + 1) + " is a free variable in R" + n + ":");
                         b = Increase_Cols_in_Vector(b);
                         A[i][d2] = 1;
                         b[i][++t] = 1;
                         Print_State(A,b,ch);
                     } else if (!Is_Exist_Vector(A,i)) {
-                        System.out.println("define new column in b when x" + (i + 1) + " is free variable in R" + n + ":");
+                        System.out.println("define a new column in b when x" + (i + 1) + " is a free variable in R" + n + ":");
                         b = Increase_Cols_in_Vector(b);
                         A[i][i] = 1;
                         b[i][++t] = 1;
@@ -903,6 +910,7 @@ public class System_Linear_Equations_V3 {
         return b;
     }
 
+    // solve system linear equations Ax = b by direct ranking matrix (recursive method)
     private static float[][] Parallel_Ranking_Method_Rec(float[][] A ,float[][] b ,int i ,int j ,int t ,String ch) throws Exception {
         if (Is_Unit_Matrix(A)) {
             return b;
@@ -913,19 +921,19 @@ public class System_Linear_Equations_V3 {
                 int d1 = Intersection_Zero_Row_Col(A,i);
                 int d2 = Get_Linear_Dependent_Columns(A);
                 if (d1 != -1) {
-                    System.out.println("define new column in b when x" + (d1 + 1) + " is free variable in R" + n + ":");
+                    System.out.println("define a new column in b when x" + (d1 + 1) + " is a free variable in R" + n + ":");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (d2 != -1) {
-                    System.out.println("define new column in b when x" + (d2 + 1) + " is free variable in R" + n + ":");
+                    System.out.println("define a new column in b when x" + (d2 + 1) + " is a free variable in R" + n + ":");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
                     Print_State(A,b,ch);
                 } else if (!Is_Exist_Vector(A,i)) {
-                    System.out.println("define new column in b when x" + (i + 1) + " is free variable in R" + n + ":");
+                    System.out.println("define a new column in b when x" + (i + 1) + " is a free variable in R" + n + ":");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
@@ -987,7 +995,15 @@ public class System_Linear_Equations_V3 {
                     int op = sc.nextInt();
                     User_Menu_Solution();
                     String ch = sc.next();
-                    A = (m < n) ? Increase_Rows_in_Matrix(A,m) : A;
+                    if (m < n) {
+                        int rc = n - m;
+                        if (rc == 1) {
+                            System.out.println("add one more zero row to get a square completion:");
+                        } else {
+                            System.out.println("add " + rc + " more zero rows to get a square completion:");
+                        }
+                        A = Increase_Rows_in_Matrix(A,m);
+                    }
                     float[][] bt = Increase_Rows_in_Vector(b,n);
                     Print_State(A,bt,ch);
                     float[][] x;
@@ -1124,8 +1140,10 @@ public class System_Linear_Equations_V3 {
         float[][] A83 = {{0,-1,-1,0,0,0,1,0},{1,3,0,0,-2,-1,0,0},{1,2,-2,1,0,0,-1,-1},{-3,-1,3,3,-3,0,2,2},{-2,3,-1,-2,1,2,-3,-3},{-1,0,-2,-2,1,-3,1,1},{-2,0,-3,0,3,0,-1,-2},{-1,-2,-1,-3,3,-2,-2,3}};
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
+        float[][] A = {{1,5,6,7},{0,10,7,6},{0,0,2,5},{0,0,0,3}};
+        float[] b = {0,0,0,0};
         try {
-            Check_System(A52,b52);
+            Check_System(A,b);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
