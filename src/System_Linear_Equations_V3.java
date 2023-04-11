@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class System_Linear_Equations_V3 {
 
-    // display system Ax = b in linear equations format
+    // display the system Ax = b in the linear equations format
     private static void Display_Exercise(float[][] A ,float[] b) {
         int m = A.length ,n = A[0].length;
         if (n == 1) {
@@ -76,6 +76,7 @@ public class System_Linear_Equations_V3 {
         System.out.println();
     }
 
+    // display current state of the system Ax = b each time of iteration on an element
     private static void Print_State(float[][] A ,float[][] b ,String ch) throws Exception {
         if (!ch.equals("d") && !ch.equals("r")) {
             throw new Exception("enter error character for representation solution");
@@ -113,7 +114,7 @@ public class System_Linear_Equations_V3 {
         }
     }
 
-    // display select interface for users
+    // display user interface by selection method for solution
     private static void User_Menu_System() {
         System.out.println("choose number method to solution:");
         System.out.println("1. upper -> lower ranking method");
@@ -122,12 +123,14 @@ public class System_Linear_Equations_V3 {
         System.out.println("4. parallel ranking method (recursive method)");
     }
 
+    // display user interface by selection format for solution
     private static void User_Menu_Solution() {
         System.out.println("choose representation format for solution:");
         System.out.println("d. decimal");
         System.out.println("r. rational");
     }
 
+    // show elementary actions for sum between rows in the system
     private static void Sum_Elementaric_Action(float k ,int j ,int i ,String ch) throws Exception {
         if (!ch.equals("d") && !ch.equals("r")) {
             throw new Exception("enter error character for representation solution");
@@ -183,6 +186,7 @@ public class System_Linear_Equations_V3 {
         }
     }
 
+    // show elementary actions for multiplication of a row in the system
     private static void Mult_Elementaric_Action(float k ,int j ,String ch) throws Exception {
         if (!ch.equals("d") && !ch.equals("r")) {
             throw new Exception("enter error character for representation solution");
@@ -214,6 +218,7 @@ public class System_Linear_Equations_V3 {
         }
     }
 
+    // show elementary actions for replacing between rows in the system
     private static void Retreat_Elementaric_Action(int i , int j) {
         int r1 = i + 1 ,r2 = j + 1;
         if (r1 <= r2) {
@@ -223,6 +228,7 @@ public class System_Linear_Equations_V3 {
         }
     }
 
+    // show the resulting solution as a vector representation
     private static void Print_Solution(float[][] x ,String ch) throws Exception {
         if (!ch.equals("d") && !ch.equals("r")) {
             throw new Exception("enter error character for representation solution");
@@ -349,6 +355,7 @@ public class System_Linear_Equations_V3 {
         }
     }
 
+    // add more zero rows in the matrix by needed
     private static float[][] Increase_Rows_in_Matrix(float[][] A ,int m) {
         int n = A[0].length;
         float[][] nA = new float[n][n];
@@ -360,6 +367,7 @@ public class System_Linear_Equations_V3 {
         return nA;
     }
 
+    // add more zero rows in the vector by needed
     private static float[][] Increase_Rows_in_Vector(float[] b ,int m) {
         int n = b.length;
         float[][] nb = new float[m][1];
@@ -369,6 +377,7 @@ public class System_Linear_Equations_V3 {
         return nb;
     }
 
+    // add a new column to the vector
     private static float[][] Increase_Cols_in_Vector(float[][] b) {
         int m = b.length ,n = b[0].length;
         float[][] nb = new float[m][n + 1];
@@ -380,7 +389,7 @@ public class System_Linear_Equations_V3 {
         return nb;
     }
 
-    // check if b is zero vector
+    // check if the vector is a zero vector
     private static boolean Is_Zero_Vector(float[] b) {
         int n = b.length;
         for (int i = 0 ;i < n ;i++) {
@@ -391,7 +400,7 @@ public class System_Linear_Equations_V3 {
         return true;
     }
 
-    // check if exist zero row in A Matrix
+    // check if exist in the matrix a zeros row
     private static boolean Is_Zero_Row(float[][] A ,int r) {
         int n = A[0].length;
         for (int j = 0 ;j < n ;j++) {
@@ -402,7 +411,7 @@ public class System_Linear_Equations_V3 {
         return true;
     }
 
-    // check if exist zero col in b Vector
+    // check if exist in the vector a zeros column
     private static boolean Is_Zero_Col(float[][] b ,int c) {
         int m = b.length ,n = b[0].length;
         if (c >= n) {
@@ -416,7 +425,7 @@ public class System_Linear_Equations_V3 {
         return true;
     }
 
-    // check if A matrix is upper-triangular
+    // check if the matrix is an upper triangular
     private static boolean Is_Upper_Triangular(float[][] A) {
         int n = A.length;
         for (int i = 0 ;i < n ;i++) {
@@ -429,7 +438,7 @@ public class System_Linear_Equations_V3 {
         return true;
     }
 
-    // check if A matrix is lower-triangular
+    // check if the matrix is a lower triangular
     private static boolean Is_Lower_Triangular(float[][] A) {
         int n = A.length;
         for (int i = 0 ;i < n - 1 ;i++) {
@@ -442,6 +451,7 @@ public class System_Linear_Equations_V3 {
         return true;
     }
 
+    // find two columns in the matrix which are linearly dependent
     private static int Get_Linear_Dependent_Columns(float[][] A) {
         int m = A.length ,n = A[0].length;
         for (int c1 = 0 ;c1 < n - 1 ;c1++) {
@@ -460,7 +470,7 @@ public class System_Linear_Equations_V3 {
         return -1;
     }
 
-    // check if two vectors in the A matrix is linear dependents
+    // check if exists two vectors in the matrix which are linearly dependent
     private static boolean Is_Linear_Dependent_Rows(float[][] A) {
         int m = A.length ,n = A[0].length;
         for (int r1 = 0 ;r1 < m - 1 ;r1++) {
@@ -481,7 +491,7 @@ public class System_Linear_Equations_V3 {
         return false;
     }
 
-    // check if two vectors in the A matrix is linear independents
+    // check if exists two vectors in the matrix which are linearly independent
     private static boolean Is_Linear_Independent_System(float[][] A ,float[] b) {
         int m = A.length ,n = A[0].length;
         for (int r = 0 ;r < m ;r++) {
@@ -505,7 +515,7 @@ public class System_Linear_Equations_V3 {
         return false;
     }
 
-    // check if vector values is equal to each other
+    // check if all vector values is equal to each other
     private static boolean Is_Equals_Values(Vector<Float> R) {
         int n = R.size();
         for (int i = 0 ;i < n - 1 ;i++) {
@@ -516,7 +526,7 @@ public class System_Linear_Equations_V3 {
         return true;
     }
 
-    // get row from A
+    // import the specific row from the matrix
     private static float[] Get_Row_from_Matrix(float[][] A , int r) {
         int n = A[0].length;
         float[] v = new float[n];
@@ -526,6 +536,7 @@ public class System_Linear_Equations_V3 {
         return v;
     }
 
+    // get the specific column index of the row requested from the matrix which are indicating a unit vector
     private static int Get_Index_Row_from_Matrix(float[][] A ,int r) {
         int n = A[0].length;
         float[] v = Get_Row_from_Matrix(A,r);
@@ -540,6 +551,7 @@ public class System_Linear_Equations_V3 {
         return -1;
     }
 
+    // check if the specific row in the matrix is a unit vector
     private static boolean Is_Exist_Vector(float[][] A ,int r) {
         int n = A[0].length;
         float[] v = Get_Row_from_Matrix(A,r);
@@ -556,7 +568,7 @@ public class System_Linear_Equations_V3 {
         return false;
     }
 
-    // check if A is zero matrix
+    // check if the matrix is a unit matrix
     private static boolean Is_Unit_Matrix(float[][] A) {
         int n = A.length;
         for (int i = 0 ;i < n ;i++) {
@@ -569,7 +581,7 @@ public class System_Linear_Equations_V3 {
         return true;
     }
 
-    // check if in the A matrix exist row that unit vector
+    // check if the specific row in the matrix is a unit vector
     private static boolean Is_Unit_Vector(float[][] A , int i) {
         int n = A[0].length;
         int c = 0;
@@ -581,7 +593,7 @@ public class System_Linear_Equations_V3 {
         return (c <= 1);
     }
 
-    // get index column for unit vector in A matrix
+    // get the index from the vector that is indicating a unit vector
     private static int Get_Index_for_Unit_Vector(float[] v) {
         int n = v.length;
         for (int c = 0 ;c < n ;c++) {
@@ -592,6 +604,7 @@ public class System_Linear_Equations_V3 {
         return -1;
     }
 
+    // perform replacing between rows in the system
     private static void Retreat_Rows_System(float[][] A ,float[][] b ,int r1 ,int r2) {
         int n = A[0].length ,m = b[0].length;
         for (int j = 0 ;j < n ;j++) {
@@ -608,7 +621,7 @@ public class System_Linear_Equations_V3 {
         }
     }
 
-    // get the index with number row is not zero value
+    // get the index starting from the specific column in the matrix which are him value not equal to 0 with or in the negative direction
     private static int Get_Index_UnZero_Value(float[][] A ,int k ,boolean flag) {
         int n = A.length;
         if (flag) {
@@ -627,6 +640,7 @@ public class System_Linear_Equations_V3 {
         return -1;
     }
 
+    // get the index column from the specific row in the matrix which are indicating intersection between zero rows and zero columns
     private static int Intersection_Zero_Row_Col(float[][] A ,int r) {
         int n = A[0].length;
         for (int c = 0 ;c < n ;c++) {
@@ -637,6 +651,7 @@ public class System_Linear_Equations_V3 {
         return -1;
     }
 
+    // convert a value to a format of rational number
     private static String convertDecimalToFraction(float x){
         if (x < 0) {
             return "-" + convertDecimalToFraction(-x);
@@ -662,7 +677,7 @@ public class System_Linear_Equations_V3 {
         }
     }
 
-    // solve system linear equations Ax = b by upper-ranking matrix and than lower-ranking matrix
+    // solve the system of linear equations Ax = b by an upper ranking and then a lower ranking
     private static float[][] Upper_Ranking_Method(float[][] A ,float[][] b ,int t ,String ch) throws Exception {
         if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
             System.out.println("A is already parallel triangular so now will be change directly to I:");
@@ -750,7 +765,7 @@ public class System_Linear_Equations_V3 {
         return b;
     }
 
-    // solve system linear equations Ax = b by lower-ranking matrix and than upper-ranking matrix
+    // solve the system of linear equations Ax = b by a lower ranking and then an upper ranking
     private static float[][] Lower_Ranking_Method(float[][] A ,float[][] b ,int t ,String ch) throws Exception {
         if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
             System.out.println("A is already parallel triangular so now will be change directly to I:");
@@ -838,7 +853,7 @@ public class System_Linear_Equations_V3 {
         return b;
     }
 
-    // solve system linear equations Ax = b by direct ranking matrix (iterative method)
+    // solve the system of linear equations Ax = b by a parallel ranking (iterative method)
     private static float[][] Parallel_Ranking_Method(float[][] A ,float[][] b ,String ch) throws Exception {
         System.out.println("transform A matrix to I by a elementary actions:");
         int t = 0;
@@ -910,7 +925,7 @@ public class System_Linear_Equations_V3 {
         return b;
     }
 
-    // solve system linear equations Ax = b by direct ranking matrix (recursive method)
+    // solve the system of linear equations Ax = b by a parallel ranking (recursive method)
     private static float[][] Parallel_Ranking_Method_Rec(float[][] A ,float[][] b ,int i ,int j ,int t ,String ch) throws Exception {
         if (Is_Unit_Matrix(A)) {
             return b;
@@ -981,7 +996,7 @@ public class System_Linear_Equations_V3 {
         }
     }
 
-    // check linear equations system Ax = b and solve in method requested
+    // check the system of linear equations Ax = b and solve in the method requested
     private static void Check_System(float[][] A ,float[] b) throws Exception {
         int m = A.length ,n = A[0].length ,k = b.length;
         if (m <= n && m == k) {
