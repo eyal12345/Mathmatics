@@ -73,29 +73,35 @@ public class System_Linear_Equations_V2 {
     }
 
     // display current status of the system Ax = b each time of iteration on an element
-    public static void Print_Status_System(float[][] A, float[] b) {
+    public static void Print_Status_System(float[][] A, float[] b, String fn) {
         int n = A.length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if ((Math.round(A[i][j] * 1000.0) / 1000.0) % 1 == 0) {
                     System.out.print((int) (Math.round(A[i][j] * 1000.0) / 1000.0) + " ");
-                } else {
+                } else if (fn.equals("d")) {
                     System.out.print(Math.round(A[i][j] * 1000.0) / 1000.0 + " ");
+                } else if (fn.equals("r")) {
+                    System.out.print(convertDecimalToFraction(A[i][j]) + " ");
                 } if (j != n - 1) {
                     System.out.print(",");
                 }
             }
+            System.out.print("| ");
             if ((Math.round(b[i] * 1000.0) / 1000.0) % 1 == 0) {
-                System.out.println("| " + (int) (Math.round(b[i] * 1000.0) / 1000.0));
-            } else {
-                System.out.println("| " + Math.round(b[i] * 1000.0) / 1000.0);
+                System.out.print((int) (Math.round(b[i] * 1000.0) / 1000.0));
+            } else if (fn.equals("d")) {
+                System.out.print(Math.round(b[i] * 1000.0) / 1000.0);
+            } else if (fn.equals("r")) {
+                System.out.print(convertDecimalToFraction(b[i]));
             }
+            System.out.println();
         }
         System.out.println();
     }
 
     // display user interface by selection method for solution
-    public static void User_Menu() {
+    public static void User_Menu_System() {
         System.out.println("choose number method to solution:");
         System.out.println("1. elementaric actions in iterative method");
         System.out.println("2. elementaric actions in recursive method");
@@ -105,14 +111,23 @@ public class System_Linear_Equations_V2 {
         System.out.println("6. investigation system linear equations\n");
     }
 
+    // display user interface by selection format for solution
+    public static void User_Menu_Solution() {
+        System.out.println("choose the character of format to representation of solution:");
+        System.out.println("d. decimal");
+        System.out.println("r. rational");
+    }
+
     // display a vector each current status
-    public static void Print_Vector(float[] x) {
+    public static void Print_Solution(float[] x, String fn) {
         int n = x.length;
         if (n == 1) {
             if ((Math.round(x[0] * 1000.0) / 1000.0) % 1 == 0) {
                 System.out.println("x = " + (int) (Math.round(x[0] * 1000.0) / 1000.0));
-            } else {
+            } else if (fn.equals("d")) {
                 System.out.println("x = " + Math.round(x[0] * 1000.0) / 1000.0);
+            } else if (fn.equals("r")) {
+                System.out.println("x = " + convertDecimalToFraction(x[0]));
             }
         } else {
             String s = "x = ( ";
@@ -120,44 +135,18 @@ public class System_Linear_Equations_V2 {
                 if (i == n - 1) {
                     if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0) {
                         s += (int) (Math.round(x[i] * 1000.0) / 1000.0) + " )";
-                    } else {
+                    } else if (fn.equals("d")) {
                         s += Math.round(x[i] * 1000.0) / 1000.0 + " )";
+                    } else if (fn.equals("r")) {
+                        s += convertDecimalToFraction(x[i]) + " )";
                     }
                 } else {
                     if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0) {
                         s += (int) (Math.round(x[i] * 1000.0) / 1000.0) + " , ";
-                    } else {
+                    } else if (fn.equals("d")) {
                         s += Math.round(x[i] * 1000.0) / 1000.0 + " , ";
-                    }
-                }
-            }
-            System.out.println(s);
-        }
-    }
-
-    // show the resulting solution as a vector representation
-    public static void Print_Solution(float[] x) {
-        int n = x.length;
-        if (n == 1) {
-            if ((Math.round(x[0] * 1000.0) / 1000.0) % 1 == 0) {
-                System.out.println("x = " + (int) (Math.round(x[0] * 1000.0) / 1000.0));
-            } else {
-                System.out.println("x = " + Math.round(x[0] * 1000.0) / 1000.0);
-            }
-        } else {
-            String s = "( ";
-            for (int i = 0; i < n; i++) {
-                if (i == n - 1) {
-                    if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0) {
-                        s += (int) (Math.round(x[i] * 1000.0) / 1000.0) + " )";
-                    } else {
-                        s += Math.round(x[i] * 1000.0) / 1000.0 + " )";
-                    }
-                } else {
-                    if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0) {
-                        s += (int) (Math.round(x[i] * 1000.0) / 1000.0) + " , ";
-                    } else {
-                        s += Math.round(x[i] * 1000.0) / 1000.0 + " , ";
+                    } else if (fn.equals("r")) {
+                        s += convertDecimalToFraction(x[i]) + " , ";
                     }
                 }
             }
@@ -346,6 +335,29 @@ public class System_Linear_Equations_V2 {
         return subA;
     }
 
+    // convert a value to a format of rational number
+    public static String convertDecimalToFraction(float x){
+        if (x < 0) {
+            return "-" + convertDecimalToFraction(-x);
+        }
+        float tolerance = (float) 1.0E-5, h1 = 1, h2 = 0, k1 = 0, k2 = 1, b = x;
+        do {
+            float a = (float) Math.floor(b);
+            float aux = h1;
+            h1 = a*h1 + h2;
+            h2 = aux;
+            aux = k1;
+            k1 = a*k1 + k2;
+            k2 = aux;
+            b = 1 / (b - a);
+        } while (Math.abs(x - h1/k1) > x*tolerance);
+        if (k1 != 1) {
+            return String.valueOf((int) h1 + "/" + (int) k1);
+        } else {
+            return String.valueOf((int) h1);
+        }
+    }
+
     //////////////////////////////////////////// Elementary Actions //////////////////////////////////////////////
     // show elementary actions for sum between rows in the system
     public static void Sum_Elementary_Action(float k, int j, int i) {
@@ -393,7 +405,7 @@ public class System_Linear_Equations_V2 {
 
     /////////////////////////////////////////// Methods to Solution /////////////////////////////////////////////
     // solve system of linear equations Ax = b by multiplication elementary matrix each iteration (iterative method)
-    public static float[] Elementary_Method(float[][] A, float[] b) throws Exception {
+    public static float[] Elementary_Method(float[][] A, float[] b, String fn) throws Exception {
         int n = A.length, i = 0, j = 0;
         while (!Is_Unit_Matrix(A)) {
             float[][] E = Unit_Matrix(n);
@@ -409,7 +421,7 @@ public class System_Linear_Equations_V2 {
                     System.out.println("R" + (i + 1) + " <--> R" + (k + 1) + "\n");
                     Retreat_Rows_System(E,b,i,k);
                     A = Mul_Mats(E,A);
-                    Print_Status_System(A,b);
+                    Print_Status_System(A,b,fn);
                 }
             } else {
                 if (i != j) {
@@ -419,7 +431,7 @@ public class System_Linear_Equations_V2 {
                     A = Mul_Mats(E,A);
                     A[j][i] = 0;
                     if (E[j][i] != 0) {
-                        Print_Status_System(A,b);
+                        Print_Status_System(A,b,fn);
                     }
                 } else if (Is_Unit_Vector(A,j)) {
                     E[j][j] = 1 / A[j][j];
@@ -428,7 +440,7 @@ public class System_Linear_Equations_V2 {
                     A = Mul_Mats(E,A);
                     A[j][j] = 1;
                     if (E[j][j] != 1) {
-                        Print_Status_System(A,b);
+                        Print_Status_System(A,b,fn);
                     }
                 }
                 if (j == n - 1) {
@@ -441,7 +453,7 @@ public class System_Linear_Equations_V2 {
     }
 
     // solve system of linear equations Ax = b by multiplication elementary matrix each iteration (recursive method)
-    public static float[] Elementary_Method_Rec(float[][] A, float[] b, int i, int j) throws Exception {
+    public static float[] Elementary_Method_Rec(float[][] A, float[] b, int i, int j, String fn) throws Exception {
         int n = A.length;
         if (Is_Unit_Matrix(A)) {
             return b;
@@ -459,7 +471,7 @@ public class System_Linear_Equations_V2 {
                     System.out.println("R" + (i + 1) + " <--> R" + (k + 1) + "\n");
                     Retreat_Rows_System(E,b,i,k);
                     A = Mul_Mats(E,A);
-                    Print_Status_System(A,b);
+                    Print_Status_System(A,b,fn);
                 }
             } else {
                 if (i != j) {
@@ -469,7 +481,7 @@ public class System_Linear_Equations_V2 {
                     A = Mul_Mats(E,A);
                     A[j][i] = 0;
                     if (E[j][i] != 0) {
-                        Print_Status_System(A,b);
+                        Print_Status_System(A,b,fn);
                     }
                 } else if (Is_Unit_Vector(A,j)) {
                     E[j][j] = 1 / A[j][j];
@@ -478,7 +490,7 @@ public class System_Linear_Equations_V2 {
                     A = Mul_Mats(E,A);
                     A[j][j] = 1;
                     if (E[j][j] != 1) {
-                        Print_Status_System(A,b);
+                        Print_Status_System(A,b,fn);
                     }
                 }
                 if (j == n - 1) {
@@ -486,7 +498,7 @@ public class System_Linear_Equations_V2 {
                 }
                 j = (j + 1) % n;
             }
-            return Elementary_Method_Rec(A,b,i,j);
+            return Elementary_Method_Rec(A,b,i,j,fn);
         }
     }
 
@@ -520,7 +532,7 @@ public class System_Linear_Equations_V2 {
             if (Is_Zero_Vector(b)) {
                 throw new Exception("infinity solutions");
             }
-            throw new Exception("det(A) = 0");
+            throw new Exception("has no solution because det(A) = 0");
         }
     }
 
@@ -555,12 +567,12 @@ public class System_Linear_Equations_V2 {
             if (Is_Zero_Vector(b)) {
                 throw new Exception("infinity solutions");
             }
-            throw new Exception("det(A) = 0");
+            throw new Exception("has no solution because det(A) = 0");
         }
     }
 
     // get one specific value from vector of solution a system Ax = b
-    public static void Get_Single_Value(float[][] A, float[] b, int i) throws Exception {
+    public static void Get_Single_Value(float[][] A, float[] b, int i, String fn) throws Exception {
         int n = A.length;
         float det = Determinant(A), val;
         if (det != 0) {
@@ -568,8 +580,10 @@ public class System_Linear_Equations_V2 {
                 val = b[0] / det;
                 if (val % 1 == 0) {
                     System.out.println("x = " + (int) val);
-                } else {
+                } else if (fn.equals("d")) {
                     System.out.println("x = " + val);
+                } else if (fn.equals("r")) {
+                    System.out.println("x = " + convertDecimalToFraction(val));
                 }
             } else {
                 float sum = 0;
@@ -579,20 +593,22 @@ public class System_Linear_Equations_V2 {
                 val = sum / det;
                 if (val % 1 == 0) {
                     System.out.println("x" + i + " = " + (int) val);
-                } else {
+                } else if (fn.equals("d")) {
                     System.out.println("x" + i + " = " + val);
+                } else if (fn.equals("r")) {
+                    System.out.println("x" + i + " = " + convertDecimalToFraction(val));
                 }
             }
         } else {
-            throw new Exception("det(A) = 0");
+            throw new Exception("has no solution because det(A) = 0");
         }
     }
 
     // investigate system of linear equations Ax = b without solve it
-    public static void System_Investigation(float[][] A, float[] b) throws Exception {
+    public static void System_Investigation(float[][] A, float[] b, String fn) throws Exception {
         if (A.length == A[0].length && A.length == b.length) {
             int n = b.length;
-            if (n > 1) {
+            if (n > 1) { // R2 Space or higher
                 System.out.println("system of linear equations from the shape Ax = b:");
                 if (Determinant(A) == 0) {
                     if (Is_Zero_Vector(b)) {
@@ -600,7 +616,7 @@ public class System_Linear_Equations_V2 {
                             System.out.print("exists an infinite number of solutions to the system in a space R" + n);
                         } else if (Is_Linear_Dependent_Rows(A)) {
                             System.out.print("exist a single solution for the system which is: x = ");
-                            Print_Solution(Zero_Vector(n));
+                            Print_Solution(Zero_Vector(n),fn);
                         } else {
                             System.out.print("the solution is an infinite set of linearly dependent vectors in the base x");
                         }
@@ -629,13 +645,16 @@ public class System_Linear_Equations_V2 {
 
     ///////////////////////////////////////////// User Interface ///////////////////////////////////////////////
     // choose action in order to solve a system Ax = b
-    public static void Get_And_Solve_Exercise(float[][] A, float[] b, int op) throws Exception {
+    public static void Solve_System(float[][] A, float[] b, int op, String fn) throws Exception {
         Display_Exercise(A,b);
-        Print_Status_System(A,b);
+        Print_Status_System(A,b,fn);
+        float[] x;
         if (op == 1) {
-            Print_Vector(Elementary_Method(A,b));
+            x = Elementary_Method(A,b,fn);
+            Print_Solution(x,fn);
         } else if (op == 2) {
-            Print_Vector(Elementary_Method_Rec(A,b,0,0));
+            x = Elementary_Method_Rec(A,b,0,0,fn);
+            Print_Solution(x,fn);
         } else if (op == 3) {
             Cramer_Method(A,b);
         } else if (op == 4) {
@@ -644,20 +663,20 @@ public class System_Linear_Equations_V2 {
             int n = A.length;
             if (n == 1) { // R1 Space
                 System.out.println("the single value is: ");
-                Get_Single_Value(A,b,0);
-            } else { // // R2 Space or higher
+                Get_Single_Value(A,b,0,fn);
+            } else { // R2 Space or higher
                 System.out.println("enter number between 1 to " + n + ":");
                 Scanner sc = new Scanner(System.in);
                 int i = sc.nextInt();
                 if (i >= 1 && i <= n) {
                     System.out.println("the single value in location " + i + " is: ");
-                    Get_Single_Value(A,b,i);
+                    Get_Single_Value(A,b,i,fn);
                 } else {
                     throw new Exception("you entered an invalid index");
                 }
             }
         } else if (op == 6) {
-            System_Investigation(A,b);
+            System_Investigation(A,b,fn);
         } else {
             throw new Exception("you entered an invalid number");
         }
@@ -723,10 +742,12 @@ public class System_Linear_Equations_V2 {
         float[][] S1 = {{(float) -0.5}};
         float[] s1 = {4};
         try {
-            User_Menu();
             Scanner sc = new Scanner(System.in);
+            User_Menu_System();
             int op = sc.nextInt();
-            Get_And_Solve_Exercise(A15,b15,op);
+            User_Menu_Solution();
+            String fn = sc.next();
+            Solve_System(A15,b15,op,fn);
         } catch (Exception e) {
             e.printStackTrace();
         }

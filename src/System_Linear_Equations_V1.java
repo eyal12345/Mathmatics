@@ -827,7 +827,7 @@ public class System_Linear_Equations_V1 {
 
     ///////////////////////////////////////////// User Interface ///////////////////////////////////////////////
     // choose action in order to solve a system Ax = b
-    public static float[] Get_And_Solve_Exercise(float[][] A, float[] b, int op, String fn) throws Exception {
+    public static float[] Solve_System(float[][] A, float[] b, int op, String fn) throws Exception {
         Print_Status_System(A,b,fn);
         if (op == 1) {
             return Invertible_Method(A,b,fn);
@@ -879,7 +879,7 @@ public class System_Linear_Equations_V1 {
                             A = Sub_Matrix(A,n - 1,n - 1);
                             b = Sub_Vector(b,n - 1);
                             Display_Exercise(A,b);
-                            float[] x = Get_And_Solve_Exercise(A,b,op,fn);
+                            float[] x = Solve_System(A,b,op,fn);
                             System.out.println("now adding the x" + (n) + " to vector solution");
                             x = Arrays.copyOf(x,n);
                             x[n - 1] = (float) 1.0;
@@ -890,7 +890,7 @@ public class System_Linear_Equations_V1 {
                         System.out.print("does not an exist solutions because |A| is 0 and |b| is not 0");
                     }
                 } else {
-                    float[] x = Get_And_Solve_Exercise(A,b,op,fn);
+                    float[] x = Solve_System(A,b,op,fn);
                     System.out.print("exist a single solution for the system which is: x = ");
                     Print_Solution(x,fn);
                 }
