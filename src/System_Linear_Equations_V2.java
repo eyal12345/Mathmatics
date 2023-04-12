@@ -580,83 +580,49 @@ public class System_Linear_Equations_V2 {
         }
     }
 
-    // investigate system of linear equations Ax = b without solve it
-    public static void System_Investigation(float[][] A, float[] b, String fn) throws Exception {
-        if (A.length == A[0].length && A.length == b.length) {
-            int n = b.length;
-            if (n > 1) { // R2 Space or higher
-                System.out.println("system of linear equations from the shape Ax = b:");
-                if (Determinant(A) == 0) {
-                    if (Is_Zero_Vector(b)) {
-                        if (Is_Zero_Matrix(A)) {
-                            System.out.print("exists an infinite number of solutions to the system in a space R" + n);
-                        } else if (Is_Linear_Dependent_Rows(A)) {
-                            System.out.print("exist a single solution for the system which is: x = ");
-                            Print_Solution(Zero_Vector(n),fn);
-                        } else {
-                            System.out.print("the solution is an infinite set of linearly dependent vectors in the base x");
-                        }
-                    } else {
-                        System.out.print("does not an exists solutions because det(A) = 0");
-                    }
-                } else {
-                    System.out.print("vector x is a single solution for system Ax = b");
-                }
-            } else { // R1 Space
-                System.out.println("equation from the shape ax = b:");
-                if (A[0][0] == 0) {
-                    if (b[0] == 0) {
-                        System.out.print("exists an infinite number of solutions to the equation in the space R1");
-                    } else {
-                        System.out.print("does not an exists any solution to the equation");
-                    }
-                } else {
-                    System.out.print("exist a single solution for the equation which is: x = b/a");
-                }
-            }
-        } else {
-            throw new Exception("your input does not meet the conditions for system of linear equations");
-        }
-    }
-
     ///////////////////////////////////////////// User Interface ///////////////////////////////////////////////
     // choose action in order to solve a system Ax = b
     public static void Solve_System(float[][] A, float[] b, int op, String fn) throws Exception {
         Display_Exercise(A,b);
         Print_Status_System(A,b,fn);
         float[] x;
-        if (op == 1) {
-            x = Elementary_Method(A,b,fn);
-            Print_Solution(x,fn);
-        } else if (op == 2) {
-            x = Elementary_Method_Rec(A,b,0,0,fn);
-            Print_Solution(x,fn);
-        } else if (op == 3) {
-            x = Cramer_Method(A,b);
-            Print_Solution(x,fn);
-        } else if (op == 4) {
-            x = Cramer_Method_Rec(A,b,Zero_Vector(A.length),0);
-            Print_Solution(x,fn);
-        } else if (op == 5) {
-            int n = A.length;
-            if (n == 1) { // R1 Space
-                System.out.println("the single value is: ");
-                Get_Single_Value(A,b,0,fn);
-            } else { // R2 Space or higher
-                System.out.println("enter number between 1 to " + n + ":");
-                Scanner sc = new Scanner(System.in);
-                int i = sc.nextInt();
-                if (i >= 1 && i <= n) {
-                    System.out.println("the single value in location " + i + " is: ");
-                    Get_Single_Value(A,b,i,fn);
-                } else {
-                    throw new Exception("you entered an invalid index");
+        switch (op) {
+            case 1:
+                x = Elementary_Method(A,b,fn);
+                Print_Solution(x,fn);
+                break;
+            case 2:
+                x = Elementary_Method_Rec(A,b,0,0,fn);
+                Print_Solution(x,fn);
+                break;
+            case 3:
+                x = Cramer_Method(A,b);
+                Print_Solution(x,fn);
+                break;
+            case 4:
+                x = Cramer_Method_Rec(A,b,Zero_Vector(A.length),0);
+                Print_Solution(x,fn);
+                break;
+            case 5:
+                int n = A.length;
+                if (n == 1) { // R1 Space
+                    System.out.println("the single value is: ");
+                    Get_Single_Value(A,b,0,fn);
+                    break;
+                } else { // R2 Space or higher
+                    System.out.println("enter number between 1 to " + n + ":");
+                    Scanner sc = new Scanner(System.in);
+                    int i = sc.nextInt();
+                    if (i >= 1 && i <= n) {
+                        System.out.println("the single value in location " + i + " is: ");
+                        Get_Single_Value(A,b,i,fn);
+                        break;
+                    } else {
+                        throw new Exception("you entered an invalid index");
+                    }
                 }
-            }
-        } else if (op == 6) {
-            System_Investigation(A,b,fn);
-        } else {
-            throw new Exception("you entered an invalid number");
+            default:
+                throw new Exception("you entered an invalid number");
         }
     }
 

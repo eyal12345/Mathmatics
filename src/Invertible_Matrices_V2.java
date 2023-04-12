@@ -64,6 +64,13 @@ public class Invertible_Matrices_V2 {
         System.out.println();
     }
 
+    // display user interface by selection format for solution
+    public static void User_Menu_Solution() {
+        System.out.println("choose the character of format to representation of solution:");
+        System.out.println("d. decimal");
+        System.out.println("r. rational");
+    }
+
     /////////////////////////////////////////// Auxiliary Operations /////////////////////////////////////////////
     // calculate multiplication between two matrices
     public static float[][] Mul_Mats(float[][] M1, float[][] M2) throws Exception {

@@ -581,7 +581,7 @@ public class System_Linear_Equations_V1 {
                 A[i][j] = h[i];
             }
             x[j] = detj / det;
-            System.out.println("x" + (j + 1) + " = " + x[j]);
+            System.out.println("x" + (j + 1) + " = " + x[j] + "\n");
         }
         return x;
     }
@@ -829,22 +829,23 @@ public class System_Linear_Equations_V1 {
     // choose action in order to solve a system Ax = b
     public static float[] Solve_System(float[][] A, float[] b, int op, String fn) throws Exception {
         Print_Status_System(A,b,fn);
-        if (op == 1) {
-            return Invertible_Method(A,b,fn);
-        } else if (op == 2) {
-            return Cramer_Method(A,b,fn);
-        } else if (op == 3) {
-            return Forward_Backward_Method(A,b,fn);
-        } else if (op == 4) {
-            return Upper_Ranking_Method(A,b,fn);
-        } else if (op == 5) {
-            return Lower_Ranking_Method(A,b,fn);
-        } else if (op == 6) {
-            return Parallel_Ranking_Method(A,b,fn);
-        } else if (op == 7) {
-            return Parallel_Ranking_Method_Rec(A,b,0,0,fn);
-        } else {
-            throw new Exception("you entered an invalid number");
+        switch (op) {
+            case 1:
+                return Invertible_Method(A,b,fn);
+            case 2:
+                return Cramer_Method(A,b,fn);
+            case 3:
+                return Forward_Backward_Method(A,b,fn);
+            case 4:
+                return Upper_Ranking_Method(A,b,fn);
+            case 5:
+                return Lower_Ranking_Method(A,b,fn);
+            case 6:
+                return Parallel_Ranking_Method(A,b,fn);
+            case 7:
+                return Parallel_Ranking_Method_Rec(A,b,0,0,fn);
+            default:
+                throw new Exception("you entered an invalid number");
         }
     }
 
