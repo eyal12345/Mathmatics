@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Invertible_Mat_V1 {
+public class Invertible_Matrices_V1 {
 
     private static void Print_State(float[][] M ,float[][] InvM) {
         for (int i = 0 ;i < M.length ;i++) {
