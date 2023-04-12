@@ -685,9 +685,9 @@ public class System_Linear_Equations_V3 {
             System.out.println("A is already upper triangular so now we'll go directly to the lower ranking:");
             return Lower_Ranking_Method(A,b,t,ch);
         } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-            System.out.println("transform L matrix to I by a elementary actions:");
+            System.out.println("transform L matrix to I by an elementary actions:");
         } else {
-            System.out.println("transform A matrix to U by a elementary actions:");
+            System.out.println("transform A matrix to U by an elementary actions:");
         }
         int n = A.length;
         for (int i = 0; i < n; i++) {
@@ -773,9 +773,9 @@ public class System_Linear_Equations_V3 {
             System.out.println("A is already lower triangular so now we'll go directly to the upper ranking:");
             return Upper_Ranking_Method(A,b,t,ch);
         } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
-            System.out.println("transform U matrix to I by a elementary actions:");
+            System.out.println("transform U matrix to I by an elementary actions:");
         } else {
-            System.out.println("transform A matrix to L by a elementary actions:");
+            System.out.println("transform A matrix to L by an elementary actions:");
         }
         int n = A.length;
         for (int i = n - 1; i >= 0; i--) {
@@ -855,7 +855,7 @@ public class System_Linear_Equations_V3 {
 
     // solve system of linear equations Ax = b by parallel ranking (iterative method)
     public static float[][] Parallel_Ranking_Method(float[][] A, float[][] b, String ch) throws Exception {
-        System.out.println("transform A matrix to I by a elementary actions:");
+        System.out.println("transform A matrix to I by an elementary actions:");
         int t = 0;
         while (!Is_Unit_Matrix(A)) {
             int n = A.length;
@@ -1014,7 +1014,7 @@ public class System_Linear_Equations_V3 {
                     if (m < n) {
                         int rc = n - m;
                         if (rc == 1) {
-                            System.out.println("add a one more row of zeros in order to get a square completion:");
+                            System.out.println("add an one more row of zeros in order to get a square completion:");
                         } else {
                             System.out.println("add a " + rc + " more rows of zeros in order to get a square completion:");
                         }
@@ -1042,7 +1042,7 @@ public class System_Linear_Equations_V3 {
             } else { // R1 Space
                 if (A[0][0] == 0) {
                     if (b[0] == 0) {
-                        System.out.println("exists a infinite number of solutions in R1 space for the equation that is: x = s when s its a free value that belongs to the R set");
+                        System.out.println("exists an infinite number of solutions in R1 space for the equation that is: x = s when s its a free value that belongs to the R set");
                     } else {
                         System.out.println("does not an exists any solution to the equation");
                     }

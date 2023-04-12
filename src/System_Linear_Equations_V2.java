@@ -593,16 +593,16 @@ public class System_Linear_Equations_V2 {
         if (A.length == A[0].length && A.length == b.length) {
             int n = b.length;
             if (n > 1) {
-                System.out.println("the system linear equations from the shape Ax = b (A as matrix ,b as vector):");
+                System.out.println("system of linear equations from the shape Ax = b:");
                 if (Determinant(A) == 0) {
                     if (Is_Zero_Vector(b)) {
                         if (Is_Zero_Matrix(A)) {
-                            System.out.print("exists infinite number of solutions to the system under space R" + n);
+                            System.out.print("exists an infinite number of solutions to the system in a space R" + n);
                         } else if (Is_Linear_Dependent_Rows(A)) {
-                            System.out.print("exist single solution for the system that is: x = ");
+                            System.out.print("exist a single solution for the system which is: x = ");
                             Print_Solution(Zero_Vector(n));
                         } else {
-                            System.out.print("solution is infinite set of vectors that linear dependent in base x");
+                            System.out.print("the solution is an infinite set of linearly dependent vectors in the base x");
                         }
                     } else {
                         System.out.print("does not exists solutions: det(A) = 0");
@@ -611,19 +611,19 @@ public class System_Linear_Equations_V2 {
                     System.out.print("vector x is single solution for system Ax = b");
                 }
             } else { // R1 Space
-                System.out.println("the equation from the shape ax = b (a,b as scalars):");
+                System.out.println("equation from the shape ax = b:");
                 if (A[0][0] == 0) {
                     if (b[0] == 0) {
-                        System.out.print("exists infinite number of solutions to the equation under space R1");
+                        System.out.print("exists an infinite number of solutions to the equation in the space R1");
                     } else {
-                        System.out.print("does not exists any solution to the equation");
+                        System.out.print("does not an exists any solution to the equation");
                     }
                 } else {
-                    System.out.print("exist single solution for the equation that is: x = b/a");
+                    System.out.print("exist a single solution for the equation which is: x = b/a");
                 }
             }
         } else {
-            throw new Exception("error: The input is not exist conditions to linear equations");
+            throw new Exception("your input does not meet the conditions for system of linear equations");
         }
     }
 
@@ -653,13 +653,13 @@ public class System_Linear_Equations_V2 {
                     System.out.println("the single value in location " + i + " is: ");
                     Get_Single_Value(A,b,i);
                 } else {
-                    throw new Exception("enter error index");
+                    throw new Exception("you entered an invalid index");
                 }
             }
         } else if (op == 6) {
             System_Investigation(A,b);
         } else {
-            throw new Exception("enter error number");
+            throw new Exception("you entered an invalid number");
         }
     }
 

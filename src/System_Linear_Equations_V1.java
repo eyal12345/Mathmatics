@@ -808,7 +808,7 @@ public class System_Linear_Equations_V1 {
         } else if (op == 7) {
             return Parallel_Ranking_Method_Rec(A,b,0,0);
         } else {
-            throw new Exception("you entered a invalid number");
+            throw new Exception("you entered an invalid number");
         }
     }
 
@@ -826,11 +826,11 @@ public class System_Linear_Equations_V1 {
                 float det = Determinant(A);
                 if (det == 0) {
                     if (Is_Zero_Vector(b)) {
-                        System.out.println("|b| = 0 therefore system is homogeneus");
+                        System.out.println("|b| = 0 therefore system is homogeneous");
                         if (Is_Zero_Matrix(A)) {
-                            System.out.print("exists infinite number of solutions to the system under space R" + (n));
+                            System.out.print("exists an infinite number of solutions to the system in the space R" + (n));
                         } else if (Is_Linear_Dependent_Rows(A)) {
-                            System.out.print("exist single solution for the system that is: x = ");
+                            System.out.print("exist a single solution for the system which is: x = ");
                             Print_Solution(Zero_Vector(n));
                         } else {
                             System.out.println("ranking A matrix by upper ranking:");
@@ -846,35 +846,35 @@ public class System_Linear_Equations_V1 {
                             System.out.println("now adding the x" + (n) + " to vector solution");
                             x = Arrays.copyOf(x,n);
                             x[n - 1] = (float) 1.0;
-                            System.out.print("the solution is infinite set of linearly dependent vectors in base ");
+                            System.out.print("the solution is an infinite set of linearly dependent vectors in the base ");
                             Print_Solution(x);
                         }
                     } else {
-                        System.out.print("does not exists solutions because |A| = 0 and |b| is not 0");
+                        System.out.print("does not an exist solutions because |A| is 0 and |b| is not 0");
                     }
                 } else {
                     x = Get_And_Solve_Exercise(A,b,op);
-                    System.out.print("exist single solution for the system that is: x = ");
+                    System.out.print("exist a single solution for the system which is: x = ");
                     Print_Solution(x);
                 }
             } else { // R1 Space
                 if (A[0][0] == 0) {
                     if (b[0] == 0) {
-                        System.out.print("exists infinite number of solutions to the equation under space R1");
+                        System.out.print("exists an infinite number of solutions to the equation in the space R1");
                     } else {
-                        System.out.print("does not exists any solution to the equation");
+                        System.out.print("does not an exists any solution to the equation");
                     }
                 } else {
                     float c = b[0] / A[0][0];
                     if (c % 1 == 0) {
-                        System.out.println("exist single solution for the equation that is: x = " + (int) c);
+                        System.out.println("exist a single solution for the equation which is: x = " + (int) c);
                     } else {
-                        System.out.println("exist single solution for the equation that is: x = " + c);
+                        System.out.println("exist a single solution for the equation which is: x = " + c);
                     }
                 }
             }
         } else {
-            throw new Exception("the input is not exist conditions to linear equations");
+            throw new Exception("your input does not meet the conditions for system of linear equations");
         }
     }
 
