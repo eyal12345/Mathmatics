@@ -1169,7 +1169,7 @@ public class System_Linear_Equations_V3 {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A11,b11);
+            Check_System(A41,b41);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
