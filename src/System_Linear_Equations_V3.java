@@ -1004,22 +1004,25 @@ public class System_Linear_Equations_V3 {
         int op = sc.nextInt();
         User_Menu_Solution();
         String fn = sc.next();
-        Print_Status_System(A,b,fn);
         float[][] x;
         switch (op) {
             case 1:
+                Print_Status_System(A,b,fn);
                 x = Upper_Ranking_Method(A,b,0,fn);
                 Print_Solution(x,fn);
                 break;
             case 2:
+                Print_Status_System(A,b,fn);
                 x = Lower_Ranking_Method(A,b,0,fn);
                 Print_Solution(x,fn);
                 break;
             case 3:
+                Print_Status_System(A,b,fn);
                 x = Parallel_Ranking_Method(A,b,fn);
                 Print_Solution(x,fn);
                 break;
             case 4:
+                Print_Status_System(A,b,fn);
                 x = Parallel_Ranking_Method_Rec(A,b,0,0,0,fn);
                 Print_Solution(x,fn);
                 break;
