@@ -239,7 +239,7 @@ public class Invertible_Matrices_V2 {
     }
 
     // invert the M matrix in parallel ranking by a multiplication of M in elementary matrix each iteration (recursive method)
-    public static float[][] Invertible_Rec(float[][] M ,float[][] InvM ,int i ,int j) throws Exception {
+    public static float[][] Invertible_Rec(float[][] M, float[][] InvM, int i, int j) throws Exception {
         int n = M.length;
         if (Is_Unit_Matrix(M)) {
             return InvM;
