@@ -108,7 +108,7 @@ public class System_Linear_Equations_V2 {
         System.out.println("3. cramer in iterative method");
         System.out.println("4. cramer in recursive method");
         System.out.println("5. get single value from system by cramer method");
-        System.out.println("6. investigation system linear equations\n");
+        System.out.println("6. investigation system linear equations");
     }
 
     // display user interface by selection format for solution
@@ -503,31 +503,19 @@ public class System_Linear_Equations_V2 {
     }
 
     // solve system of linear equations Ax = b by cramer method (iterative method)
-    public static void Cramer_Method(float[][] A, float[] b) throws Exception {
+    public static float[] Cramer_Method(float[][] A, float[] b) throws Exception {
         int n = A.length;
-        float det = Determinant(A), val;
+        float det = Determinant(A);
+        float[] x = Zero_Vector(n);
         if (det != 0) {
-            if (n == 1) {
-                val = b[0] / det;
-                if (val % 1 == 0) {
-                    System.out.println("x = " + (int) val);
-                } else {
-                    System.out.println("x = " + val);
+            for (int i = 0; i < n; i++) {
+                float sum = 0;
+                for (int j = 0; j < n; j++) {
+                    sum += Math.pow(-1,i + j) * b[j] * Determinant(Sub_Matrix(A,j,i));
                 }
-            } else {
-                for (int i = 0; i < n; i++) {
-                    float sum = 0;
-                    for (int j = 0; j < n; j++) {
-                        sum += Math.pow(-1,i + j) * b[j] * Determinant(Sub_Matrix(A,j,i));
-                    }
-                    val = sum / det;
-                    if (val % 1 == 0) {
-                        System.out.println("x" + (i + 1) + " = " + (int) val);
-                    } else {
-                        System.out.println("x" + (i + 1) + " = " + val);
-                    }
-                }
+                x[i] = sum / det;
             }
+            return x;
         } else {
             if (Is_Zero_Vector(b)) {
                 throw new Exception("infinity solutions");
@@ -537,37 +525,25 @@ public class System_Linear_Equations_V2 {
     }
 
     // solve system of linear equations Ax = b by cramer method (recursive method)
-    public static void Cramer_Method_Rec(float[][] A, float[] b, int i) throws Exception {
+    public static float[] Cramer_Method_Rec(float[][] A, float[] b, float[] x, int i) throws Exception {
         int n = A.length;
-        float det = Determinant(A), val;
-        if (det != 0) {
-            if (n == 1) {
-                val = b[0] / det;
-                if (val % 1 == 0) {
-                    System.out.println("x = " + (int) val);
-                } else {
-                    System.out.println("x = " + val);
-                }
-            } else {
-                if (i < n) {
-                    float sum = 0;
-                    for (int j = 0; j < n; j++) {
-                        sum += Math.pow(-1,i + j) * b[j] * Determinant(Sub_Matrix(A,j,i));
-                    }
-                    val = sum / det;
-                    if (val % 1 == 0) {
-                        System.out.println("x" + (i + 1) + " = " + (int) val);
-                    } else {
-                        System.out.println("x" + (i + 1) + " = " + val);
-                    }
-                    Cramer_Method_Rec(A,b,i + 1);
-                }
-            }
+        if (i == n) {
+            return x;
         } else {
-            if (Is_Zero_Vector(b)) {
-                throw new Exception("infinity solutions");
+            float det = Determinant(A);
+            if (det != 0 && i < n) {
+                float sum = 0;
+                for (int j = 0; j < n; j++) {
+                    sum += Math.pow(-1,i + j) * b[j] * Determinant(Sub_Matrix(A,j,i));
+                }
+                x[i] = sum / det;
+                return Cramer_Method_Rec(A,b,x,i + 1);
+            } else {
+                if (Is_Zero_Vector(b)) {
+                    throw new Exception("infinity solutions");
+                }
+                throw new Exception("has no solution because det(A) = 0");
             }
-            throw new Exception("has no solution because det(A) = 0");
         }
     }
 
@@ -656,9 +632,11 @@ public class System_Linear_Equations_V2 {
             x = Elementary_Method_Rec(A,b,0,0,fn);
             Print_Solution(x,fn);
         } else if (op == 3) {
-            Cramer_Method(A,b);
+            x = Cramer_Method(A,b);
+            Print_Solution(x,fn);
         } else if (op == 4) {
-            Cramer_Method_Rec(A,b,0);
+            x = Cramer_Method_Rec(A,b,Zero_Vector(A.length),0);
+            Print_Solution(x,fn);
         } else if (op == 5) {
             int n = A.length;
             if (n == 1) { // R1 Space

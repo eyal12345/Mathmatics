@@ -110,7 +110,7 @@ public class System_Linear_Equations_V1 {
         System.out.println("4. upper -> lower ranking method");
         System.out.println("5. lower -> upper ranking method");
         System.out.println("6. parallel ranking method (iterative method)");
-        System.out.println("7. parallel ranking method (recursive method)\n");
+        System.out.println("7. parallel ranking method (recursive method)");
     }
 
     // display user interface by selection format for solution
