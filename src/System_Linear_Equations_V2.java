@@ -179,7 +179,7 @@ public class System_Linear_Equations_V2 {
             }
             return A;
         } else {
-            throw new Exception("Error: The sizes Required is not Conditions");
+            throw new Exception("has no match between matrices dimensions");
         }
     }
 
@@ -443,7 +443,7 @@ public class System_Linear_Equations_V2 {
     // solve system of linear equations Ax = b by multiplication elementary matrix each iteration (recursive method)
     public static float[] Elementary_Method_Rec(float[][] A, float[] b, int i, int j) throws Exception {
         int n = A.length;
-        if(Is_Unit_Matrix(A)) {
+        if (Is_Unit_Matrix(A)) {
             return b;
         } else {
             float[][] E = Unit_Matrix(n);

@@ -4,7 +4,7 @@ public class Invertible_Matrices_V1 {
 
     /////////////////////////////////////////////// Print Methods /////////////////////////////////////////////////
     // display current status of the matrices M and InvM each time of iteration on an element
-    private static void Print_Status_Matrices(float[][] M, float[][] InvM) {
+    public static void Print_Status_Matrices(float[][] M, float[][] InvM) {
         for (int i = 0; i < M.length; i++) {
             for (int j = 0; j < M[0].length; j++) {
                 if (j == M[0].length - 1) {
@@ -66,7 +66,8 @@ public class Invertible_Matrices_V1 {
     }
 
     /////////////////////////////////////////// Auxiliary Operations /////////////////////////////////////////////
-    private static void Retreat_Rows_Matrices(float[][] M, float[][] invM, int r1, int r2) {
+    // replace between two rows in a matrices
+    public static void Retreat_Rows_Matrices(float[][] M, float[][] invM, int r1, int r2) {
         for (int j = 0; j < M[0].length; j++) {
             float t = M[r1][j];
             M[r1][j] = M[r2][j];
@@ -77,6 +78,7 @@ public class Invertible_Matrices_V1 {
         }
     }
 
+    // create a unit matrix with "n*n" size
     public static float[][] Unit_Matrix(int n) {
         float[][] I = new float[n][n];
         for (int i = 0; i < n; i++) {
@@ -85,6 +87,7 @@ public class Invertible_Matrices_V1 {
         return I;
     }
 
+    // calculate determinant of a matrix
     public static float Determinant(float[][] M) {
         if (M.length == 1) {
             return M[0][0];
@@ -96,6 +99,7 @@ public class Invertible_Matrices_V1 {
         return sum;
     }
 
+    // calculate of sub-matrix from a matrix by cutting row "x" and column "y"
     public static float[][] Sub_Matrix(float[][] M, int x, int y) {
         int n = M.length, p = 0, q = 0;
         float[][] subM = new float[n - 1][n - 1];
@@ -114,6 +118,7 @@ public class Invertible_Matrices_V1 {
         return subM;
     }
 
+    // calculate adjoint matrix of a matrix
     public static float[][] Adjoint(float[][] M) {
         int n = M.length;
         float[][] Adj = new float[n][n];
@@ -125,7 +130,8 @@ public class Invertible_Matrices_V1 {
         return Adj;
     }
 
-    private static int Get_Index_UnZero_Value(float[][] M, int k) {
+    // get the index starting from the specific column in the matrix which are him value not equal to 0
+    public static int Get_Index_UnZero_Value(float[][] M, int k) {
         int n = M.length;
         for (int i = 0; i < n; i++) {
             if (M[k][i] != 0) {
@@ -135,7 +141,8 @@ public class Invertible_Matrices_V1 {
         return -1;
     }
 
-    private static boolean Is_Unit_Vector(float[][] M, int k) {
+    // check if the specific row in the matrix is a unit vector
+    public static boolean Is_Unit_Vector(float[][] M, int k) {
         int n = M.length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n && M[k][i] != 0; j++) {
@@ -147,6 +154,7 @@ public class Invertible_Matrices_V1 {
         return true;
     }
 
+    // multiplication of a matrix by a constant
     public static float[][] Mul_Const_Matrix(float k, float[][] M) {
         for (int i = 0; i < M.length; i++) {
             for (int j = 0; j < M[0].length; j++) {
@@ -156,7 +164,8 @@ public class Invertible_Matrices_V1 {
         return M;
     }
 
-    private static boolean Is_Upper_Triangular(float[][] M) {
+    // check if the matrix is an upper triangular
+    public static boolean Is_Upper_Triangular(float[][] M) {
         int n = M.length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < i; j++) {
@@ -168,7 +177,8 @@ public class Invertible_Matrices_V1 {
         return true;
     }
 
-    private static boolean Is_Lower_Triangular(float[][] M) {
+    // check if the matrix is a lower triangular
+    public static boolean Is_Lower_Triangular(float[][] M) {
         int n = M.length;
         for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
@@ -182,7 +192,7 @@ public class Invertible_Matrices_V1 {
 
     //////////////////////////////////////////// Elementary Actions //////////////////////////////////////////////
     // show elementary actions for sum between rows in the matrices
-    private static void Sum_Elementary_Action(float k, int j, int i) {
+    public static void Sum_Elementary_Action(float k, int j, int i) {
         if (k != 0) {
             int r = j + 1, c = i + 1;
             if (k > 0) {
@@ -210,7 +220,7 @@ public class Invertible_Matrices_V1 {
     }
 
     // show elementary actions for multiplication of a row in the matrices
-    private static void Mul_Elementary_Action(float k, int j) {
+    public static void Mul_Elementary_Action(float k, int j) {
         if (k != 1) {
             int r = j + 1;
             if (k % 1 == 0) {
@@ -227,7 +237,7 @@ public class Invertible_Matrices_V1 {
 
     /////////////////////////////////////////// Methods to Solution /////////////////////////////////////////////
     // invert the M matrix by an upper ranking and then a lower ranking
-    private static float[][] Upper_Ranking_Method(float[][] M, float[][] InvM) throws Exception {
+    public static float[][] Upper_Ranking_Method(float[][] M, float[][] InvM) throws Exception {
         float det = Determinant(M);
         if (det != 0) {
             if (Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
@@ -283,7 +293,7 @@ public class Invertible_Matrices_V1 {
     }
 
     // invert the M matrix by a lower ranking and then an upper ranking
-    private static float[][] Lower_Ranking_Method(float[][] M, float[][] InvM) throws Exception {
+    public static float[][] Lower_Ranking_Method(float[][] M, float[][] InvM) throws Exception {
         float det = Determinant(M);
         if (det != 0) {
             if (Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
@@ -422,27 +432,27 @@ public class Invertible_Matrices_V1 {
         int op = sc.nextInt();
         switch (op) {
             case 1:
-                M = Lower_Ranking_Method(M ,Unit_Matrix(M.length));
+                M = Lower_Ranking_Method(M,Unit_Matrix(M.length));
                 Print_Matrix(M);
                 break;
             case 2:
-                M = Upper_Ranking_Method(M ,Unit_Matrix(M.length));
+                M = Upper_Ranking_Method(M,Unit_Matrix(M.length));
                 Print_Matrix(M);
                 break;
             case 3:
-                M = Lower_Ranking_Method(Unit_Matrix(M.length), Upper_Ranking_Method(M,Unit_Matrix(M.length)));
+                M = Lower_Ranking_Method(Unit_Matrix(M.length),Upper_Ranking_Method(M,Unit_Matrix(M.length)));
                 Print_Matrix(M);
                 break;
             case 4:
-                M = Upper_Ranking_Method(Unit_Matrix(M.length), Lower_Ranking_Method(M,Unit_Matrix(M.length)));
+                M = Upper_Ranking_Method(Unit_Matrix(M.length),Lower_Ranking_Method(M,Unit_Matrix(M.length)));
                 Print_Matrix(M);
                 break;
             case 5:
-                M = Lower_Ranking_Method(Unit_Matrix(M.length), Lower_Ranking_Method(M,Unit_Matrix(M.length)));
+                M = Lower_Ranking_Method(Unit_Matrix(M.length),Lower_Ranking_Method(M,Unit_Matrix(M.length)));
                 Print_Matrix(M);
                 break;
             case 6:
-                M = Upper_Ranking_Method(Unit_Matrix(M.length), Upper_Ranking_Method(M,Unit_Matrix(M.length)));
+                M = Upper_Ranking_Method(Unit_Matrix(M.length),Upper_Ranking_Method(M,Unit_Matrix(M.length)));
                 Print_Matrix(M);
                 break;
             case 7:

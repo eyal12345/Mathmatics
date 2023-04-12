@@ -747,7 +747,6 @@ public class System_Linear_Equations_V1 {
         float det = Determinant(A);
         if (det != 0) {
             int n = A.length;
-            float c;
             if (Is_Unit_Matrix(A)) {
                 return b;
             } else {
@@ -758,7 +757,7 @@ public class System_Linear_Equations_V1 {
                     Print_Status_System(A,b);
                 }
                 if (i != j) {
-                    c = A[j][i] / A[i][i];
+                    float c = A[j][i] / A[i][i];
                     Sum_Elementary_Action(c,j,i);
                     for (int k = 0; k < n; k++) {
                         A[j][k] -= A[i][k] * c;
@@ -770,7 +769,7 @@ public class System_Linear_Equations_V1 {
                     }
                 }
                 if (Is_Unit_Vector(A,j)) {
-                    c = 1 / A[j][j];
+                    float c = 1 / A[j][j];
                     Mul_Elementary_Action(c,j);
                     b[j] /= A[j][j];
                     A[j][j] = 1;
@@ -818,7 +817,6 @@ public class System_Linear_Equations_V1 {
         if (A.length == A[0].length && A.length == b.length) {
             Display_Exercise(A,b);
             int n = A.length;
-            float[] x;
             if (n > 1) { // R2 Space or higher
                 User_Menu();
                 Scanner sc = new Scanner(System.in);
@@ -842,7 +840,7 @@ public class System_Linear_Equations_V1 {
                             A = Sub_Matrix(A,n - 1,n - 1);
                             b = Sub_Vector(b,n - 1);
                             Display_Exercise(A,b);
-                            x = Get_And_Solve_Exercise(A,b,op);
+                            float[] x = Get_And_Solve_Exercise(A,b,op);
                             System.out.println("now adding the x" + (n) + " to vector solution");
                             x = Arrays.copyOf(x,n);
                             x[n - 1] = (float) 1.0;
@@ -853,7 +851,7 @@ public class System_Linear_Equations_V1 {
                         System.out.print("does not an exist solutions because |A| is 0 and |b| is not 0");
                     }
                 } else {
-                    x = Get_And_Solve_Exercise(A,b,op);
+                    float[] x = Get_And_Solve_Exercise(A,b,op);
                     System.out.print("exist a single solution for the system which is: x = ");
                     Print_Solution(x);
                 }
