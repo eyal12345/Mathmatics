@@ -400,9 +400,9 @@ public class System_Linear_Equations_V2 {
             if (A[i][i] == 0) {
                 if (n == 1) {
                     if (b[0] == 0) {
-                        throw new Exception("exists infinite number of solutions to the equation under space R1");
+                        throw new Exception("exists an infinite number of solutions to the equation in the space R1");
                     } else {
-                        throw new Exception("does not exists any solution to the equation");
+                        throw new Exception("does not an exists any solution to the equation");
                     }
                 } else {
                     int k = Get_Index_UnZero_Value(A,i);
@@ -450,9 +450,9 @@ public class System_Linear_Equations_V2 {
             if (A[i][i] == 0) {
                 if (n == 1) {
                     if (b[0] == 0) {
-                        throw new Exception("exists infinite number of solutions to the equation under space R1");
+                        throw new Exception("exists an infinite number of solutions to the equation in the space R1");
                     } else {
-                        throw new Exception("does not exists any solution to the equation");
+                        throw new Exception("does not an exists any solution to the equation");
                     }
                 } else {
                     int k = Get_Index_UnZero_Value(A,i);
@@ -518,7 +518,7 @@ public class System_Linear_Equations_V2 {
             }
         } else {
             if (Is_Zero_Vector(b)) {
-                throw new Exception("Infinity Solutions");
+                throw new Exception("infinity solutions");
             }
             throw new Exception("det(A) = 0");
         }
@@ -553,7 +553,7 @@ public class System_Linear_Equations_V2 {
             }
         } else {
             if (Is_Zero_Vector(b)) {
-                throw new Exception("Infinity Solutions");
+                throw new Exception("infinity solutions");
             }
             throw new Exception("det(A) = 0");
         }
@@ -605,10 +605,10 @@ public class System_Linear_Equations_V2 {
                             System.out.print("the solution is an infinite set of linearly dependent vectors in the base x");
                         }
                     } else {
-                        System.out.print("does not exists solutions: det(A) = 0");
+                        System.out.print("does not an exists solutions because det(A) = 0");
                     }
                 } else {
-                    System.out.print("vector x is single solution for system Ax = b");
+                    System.out.print("vector x is a single solution for system Ax = b");
                 }
             } else { // R1 Space
                 System.out.println("equation from the shape ax = b:");
