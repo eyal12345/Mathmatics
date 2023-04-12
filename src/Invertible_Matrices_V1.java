@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Invertible_Matrices_V1 {
 
+    /////////////////////////////////////////////// Print Methods /////////////////////////////////////////////////
+    // display current status of the matrices M and InvM each time of iteration on an element
     private static void Print_Status_Matrices(float[][] M, float[][] InvM) {
         for (int i = 0; i < M.length; i++) {
             for (int j = 0; j < M[0].length; j++) {
@@ -40,6 +42,30 @@ public class Invertible_Matrices_V1 {
         System.out.println();
     }
 
+    // display a matrix each current status
+    public static void Print_Matrix(float[][] M) {
+        for (int i = 0; i < M.length; i++) {
+            for (int j = 0; j < M[0].length; j++) {
+                if (j == M[0].length - 1) {
+                    if ((Math.round(M[i][j] * 1000000.0) / 1000000.0) % 1 == 0) {
+                        System.out.print((int) (Math.round(M[i][j] * 1000000.0) / 1000000.0) + " ");
+                    } else {
+                        System.out.print(Math.round(M[i][j] * 1000000.0) / 1000000.0 + " ");
+                    }
+                } else {
+                    if ((Math.round(M[i][j] * 1000000.0) / 1000000.0) % 1 == 0) {
+                        System.out.print((int) (Math.round(M[i][j] * 1000000.0) / 1000000.0) + " ,");
+                    } else {
+                        System.out.print(Math.round(M[i][j] * 1000000.0) / 1000000.0 + " ,");
+                    }
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    /////////////////////////////////////////// Auxiliary Operations /////////////////////////////////////////////
     private static void Retreat_Rows_Matrices(float[][] M, float[][] invM, int r1, int r2) {
         for (int j = 0; j < M[0].length; j++) {
             float t = M[r1][j];
@@ -121,28 +147,6 @@ public class Invertible_Matrices_V1 {
         return true;
     }
 
-    public static void Print_Matrix(float[][] M) {
-        for (int i = 0; i < M.length; i++) {
-            for (int j = 0; j < M[0].length; j++) {
-                if (j == M[0].length - 1) {
-                    if ((Math.round(M[i][j] * 1000000.0) / 1000000.0) % 1 == 0) {
-                        System.out.print((int) (Math.round(M[i][j] * 1000000.0) / 1000000.0) + " ");
-                    } else {
-                        System.out.print(Math.round(M[i][j] * 1000000.0) / 1000000.0 + " ");
-                    }
-                } else {
-                    if ((Math.round(M[i][j] * 1000000.0) / 1000000.0) % 1 == 0) {
-                        System.out.print((int) (Math.round(M[i][j] * 1000000.0) / 1000000.0) + " ,");
-                    } else {
-                        System.out.print(Math.round(M[i][j] * 1000000.0) / 1000000.0 + " ,");
-                    }
-                }
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
     public static float[][] Mul_Const_Matrix(float k, float[][] M) {
         for (int i = 0; i < M.length; i++) {
             for (int j = 0; j < M[0].length; j++) {
@@ -176,6 +180,8 @@ public class Invertible_Matrices_V1 {
         return true;
     }
 
+    //////////////////////////////////////////// Elementary Actions //////////////////////////////////////////////
+    // show elementary actions for sum between rows in the matrices
     private static void Sum_Elementary_Action(float k, int j, int i) {
         if (k != 0) {
             int r = j + 1, c = i + 1;
@@ -203,6 +209,7 @@ public class Invertible_Matrices_V1 {
         }
     }
 
+    // show elementary actions for multiplication of a row in the matrices
     private static void Mul_Elementary_Action(float k, int j) {
         if (k != 1) {
             int r = j + 1;
@@ -218,6 +225,8 @@ public class Invertible_Matrices_V1 {
         }
     }
 
+    /////////////////////////////////////////// Methods to Solution /////////////////////////////////////////////
+    // invert the M matrix by an upper ranking and then a lower ranking
     private static float[][] Upper_Ranking_Method(float[][] M, float[][] InvM) throws Exception {
         float det = Determinant(M);
         if (det != 0) {
@@ -273,6 +282,7 @@ public class Invertible_Matrices_V1 {
         }
     }
 
+    // invert the M matrix by a lower ranking and then an upper ranking
     private static float[][] Lower_Ranking_Method(float[][] M, float[][] InvM) throws Exception {
         float det = Determinant(M);
         if (det != 0) {
@@ -328,6 +338,7 @@ public class Invertible_Matrices_V1 {
         }
     }
 
+    // invert the M matrix by parallel ranking
     public static float[][] Invertible(float[][] M) throws Exception {
         float det = Determinant(M);
         if (det != 0) {
@@ -374,6 +385,7 @@ public class Invertible_Matrices_V1 {
         }
     }
 
+    // invert the M matrix by the formula: Inv(M) = 1/|M| * Adj(M)
     public static float[][] Invertible_Direct(float[][] M) throws Exception {
         float det = Determinant(M);
         if (det != 0) {
@@ -391,6 +403,7 @@ public class Invertible_Matrices_V1 {
         }
     }
 
+    // invert the M matrix by the multiplication of const in Adj(M)
     public static float[][] Invertible_Direct_Plus(float[][] M) throws Exception {
         float det = Determinant(M);
         if (det != 0) {
@@ -400,7 +413,9 @@ public class Invertible_Matrices_V1 {
         }
     }
 
-    public static void Correct_Checking_Matrix(float[][] M) throws Exception {
+    ///////////////////////////////////////////// User Interface ///////////////////////////////////////////////
+    // choose option in order to correctness check for M matrix
+    public static void Correctness_Check(float[][] M) throws Exception {
         System.out.println("find the next matrix's invertible:");
         Print_Matrix(M);
         Scanner sc = new Scanner(System.in);
@@ -465,6 +480,7 @@ public class Invertible_Matrices_V1 {
         }
     }
 
+    ////////////////////////////////////////////// Run Progress ////////////////////////////////////////////////
     public static void main(String[] args) {
         float[][] A1 = {{2,1,-1},{-3,-1,2},{-2,1,2}};
         float[][] A2 = {{1,-1,-2},{2,-3,-5},{-1,3,5}};
@@ -477,7 +493,7 @@ public class Invertible_Matrices_V1 {
         float[][] F = {{-2,0,-4,-2,5,-6},{6,-1,-2,0,1,0},{6,0,0,-2,5,2},{-4,0,6,4,4,6},{-4,-2,3,-6,4,-4},{5,1,-5,-1,5,-2}};
         float[][] G = {{-1,0,4,-1,-2,5,-1},{6,-7,7,1,-7,-6,5},{0,2,6,1,-7,6,1},{2,2,0,-2,-6,6,-5},{3,3,-3,1,7,-1,-2},{1,-5,1,-4,3,1,-4},{7,-5,5,0,-4,-4,1}};
         try {
-            Correct_Checking_Matrix(A1);
+            Correctness_Check(A1);
         } catch (Exception e) {
             e.printStackTrace();
         }
