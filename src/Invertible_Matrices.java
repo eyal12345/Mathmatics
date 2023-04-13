@@ -238,6 +238,29 @@ public class Invertible_Matrices {
         return true;
     }
 
+    // convert a value to a format of rational number
+    public static String convertDecimalToFraction(float x){
+        if (x < 0) {
+            return "-" + convertDecimalToFraction(-x);
+        }
+        float tolerance = (float) 1.0E-5, h1 = 1, h2 = 0, k1 = 0, k2 = 1, b = x;
+        do {
+            float a = (float) Math.floor(b);
+            float aux = h1;
+            h1 = a*h1 + h2;
+            h2 = aux;
+            aux = k1;
+            k1 = a*k1 + k2;
+            k2 = aux;
+            b = 1 / (b - a);
+        } while (Math.abs(x - h1/k1) > x*tolerance);
+        if (k1 != 1) {
+            return String.valueOf((int) h1 + "/" + (int) k1);
+        } else {
+            return String.valueOf((int) h1);
+        }
+    }
+
     //////////////////////////////////////////// Elementary Actions //////////////////////////////////////////////
     // show elementary actions for sum between rows in the matrices
     public static void Sum_Elementary_Action(float k, int j, int i, String fn) {
@@ -286,29 +309,6 @@ public class Invertible_Matrices {
             } else if (fn.equals("r")) {
                 System.out.println("R" + r + " --> " + convertDecimalToFraction(k) + "*R" + r + "\n");
             }
-        }
-    }
-
-    // convert a value to a format of rational number
-    public static String convertDecimalToFraction(float x){
-        if (x < 0) {
-            return "-" + convertDecimalToFraction(-x);
-        }
-        float tolerance = (float) 1.0E-5, h1 = 1, h2 = 0, k1 = 0, k2 = 1, b = x;
-        do {
-            float a = (float) Math.floor(b);
-            float aux = h1;
-            h1 = a*h1 + h2;
-            h2 = aux;
-            aux = k1;
-            k1 = a*k1 + k2;
-            k2 = aux;
-            b = 1 / (b - a);
-        } while (Math.abs(x - h1/k1) > x*tolerance);
-        if (k1 != 1) {
-            return String.valueOf((int) h1 + "/" + (int) k1);
-        } else {
-            return String.valueOf((int) h1);
         }
     }
 
