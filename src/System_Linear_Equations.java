@@ -520,7 +520,7 @@ public class System_Linear_Equations {
             for (int j = 0; j < n; j++) {
                 x[i] += b[j] * invA[i][j];
             }
-            x[i] = (float)(Math.round(x[i] * 10000.0) / 10000.0);
+            x[i] = (float)(Math.round(x[i] * 1000.0) / 1000.0);
         }
         return x;
     }
