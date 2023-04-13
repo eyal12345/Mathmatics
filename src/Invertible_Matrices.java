@@ -63,8 +63,8 @@ public class Invertible_Matrices {
         System.out.println("3. invert a matrix by parallel ranking");
         System.out.println("4. invert a matrix by parallel ranking with elementary matrices (iterative method)");
         System.out.println("5. invert a matrix by parallel ranking with elementary matrices (recursive method)");
-        System.out.println("6. invert a matrix by formula: Inv(A) = (1/|A|) * Adj(A)");
-        System.out.println("7. invert a matrix by formula: Inv(A) = (1/|A|) * Adj(A) with fast performance");
+        System.out.println("6. invert a matrix by formula: Inv(M) = (1/|M|) * Adj(M)");
+        System.out.println("7. invert a matrix by formula: Inv(M) = (1/|M|) * Adj(M) with fast performance");
     }
 
     // display user interface by selection format for solution
