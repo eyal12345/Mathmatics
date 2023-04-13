@@ -279,31 +279,29 @@ public class Invertible_Matrices_V1 {
             int n = M.length;
             Print_Status_Matrices(M,InvM,fn);
             for (int i = 0; i < n; i++) {
-                if (Is_Lower_Triangular(M)) {
-                    float c = 1 / M[i][i];
-                    Mul_Elementary_Action(c,i,fn);
-                    for (int j = 0; j < n; j++) {
-                        InvM[i][j] /= M[i][i];
-                    }
-                    M[i][i] = 1;
-                    if (c != 1) {
-                        Print_Status_Matrices(M,InvM,fn);
-                    }
+                if (M[i][i] == 0) {
+                    int r = Get_Index_UnZero_Value(M,i);
+                    System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
+                    Retreat_Rows_Matrices(M,InvM,i,r);
+                    Print_Status_Matrices(M,InvM,fn);
                 }
                 for (int j = i + 1; j < n; j++) {
-                    if (M[i][i] == 0) {
-                        System.out.println("R" + (i + 1) + " <--> R" + (j + 1) + "\n");
-                        Retreat_Rows_Matrices(M,InvM,i,j);
+                    if (M[j][i] != 0) {
+                        float c = M[j][i] / M[i][i];
+                        Sum_Elementary_Action(c,j,i,fn);
+                        for (int k = 0; k < n; k++) {
+                            M[j][k] -= M[i][k] * c;
+                            InvM[j][k] -= InvM[i][k] * c;
+                        }
+                        M[j][i] = 0;
                         Print_Status_Matrices(M,InvM,fn);
-                    }
-                    float c = M[j][i] / M[i][i];
-                    Sum_Elementary_Action(c,j,i,fn);
-                    for (int k = 0; k < n; k++) {
-                        M[j][k] -= M[i][k] * c;
-                        InvM[j][k] -= InvM[i][k] * c;
-                    }
-                    M[j][i] = 0;
-                    if (c != 0) {
+                    } if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
+                        float c = 1 / M[j][j];
+                        Mul_Elementary_Action(c,j,fn);
+                        for (int k = 0; k < n; k++) {
+                            InvM[j][k] /= M[j][j];
+                        }
+                        M[j][j] = 1;
                         Print_Status_Matrices(M,InvM,fn);
                     }
                 }
@@ -335,31 +333,29 @@ public class Invertible_Matrices_V1 {
             int n = M.length;
             Print_Status_Matrices(M,InvM,fn);
             for (int i = n - 1; i >= 0; i--) {
-                if (Is_Upper_Triangular(M)) {
-                    float c = 1 / M[i][i];
-                    Mul_Elementary_Action(c,i,fn);
-                    for (int j = 0; j < n; j++) {
-                        InvM[i][j] /= M[i][i];
-                    }
-                    M[i][i] = 1;
-                    if (c != 1) {
-                        Print_Status_Matrices(M,InvM,fn);
-                    }
+                if (M[i][i] == 0) {
+                    int r = n - 1 - Get_Index_UnZero_Value(M,i);
+                    System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
+                    Retreat_Rows_Matrices(M,InvM,i,r);
+                    Print_Status_Matrices(M,InvM,fn);
                 }
                 for (int j = i - 1; j >= 0; j--) {
-                    if (M[i][i] == 0) {
-                        System.out.println("R" + (i + 1) + " <--> R" + (j + 1) + "\n");
-                        Retreat_Rows_Matrices(M,InvM,i,j);
+                    if (M[j][i] != 0) {
+                        float c = M[j][i] / M[i][i];
+                        Sum_Elementary_Action(c,j,i,fn);
+                        for (int k = n - 1; k >= 0; k--) {
+                            M[j][k] -= M[i][k] * c;
+                            InvM[j][k] -= InvM[i][k] * c;
+                        }
+                        M[j][i] = 0;
                         Print_Status_Matrices(M,InvM,fn);
-                    }
-                    float c = M[j][i] / M[i][i];
-                    Sum_Elementary_Action(c,j,i,fn);
-                    for (int k = n - 1; k >= 0; k--) {
-                        M[j][k] -= M[i][k] * c;
-                        InvM[j][k] -= InvM[i][k] * c;
-                    }
-                    M[j][i] = 0;
-                    if (c != 0) {
+                    } if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
+                        float c = 1 / M[j][j];
+                        Mul_Elementary_Action(c,j,fn);
+                        for (int k = 0; k < n; k++) {
+                            InvM[j][k] /= M[j][j];
+                        }
+                        M[j][j] = 1;
                         Print_Status_Matrices(M,InvM,fn);
                     }
                 }
@@ -390,7 +386,7 @@ public class Invertible_Matrices_V1 {
                     Print_Status_Matrices(M,InvM,fn);
                 }
                 for (int j = 0; j < n; j++) {
-                    if (i != j) {
+                    if (i != j && M[j][i] != 0) {
                         float c = M[j][i] / M[i][i];
                         Sum_Elementary_Action(c,j,i,fn);
                         for (int k = 0; k < n; k++) {
@@ -398,20 +394,15 @@ public class Invertible_Matrices_V1 {
                             InvM[j][k] -= InvM[i][k] * c;
                         }
                         M[j][i] = 0;
-                        if (c != 0) {
-                            Print_Status_Matrices(M,InvM,fn);
-                        }
-                    }
-                    if (Is_Unit_Vector(M,j)) {
+                        Print_Status_Matrices(M,InvM,fn);
+                    } if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
                         float c = 1 / M[j][j];
                         Mul_Elementary_Action(c,j,fn);
                         for (int k = 0; k < n; k++) {
                             InvM[j][k] /= M[j][j];
                         }
                         M[j][j] = 1;
-                        if (c != 1) {
-                            Print_Status_Matrices(M,InvM,fn);
-                        }
+                        Print_Status_Matrices(M,InvM,fn);
                     }
                 }
             }

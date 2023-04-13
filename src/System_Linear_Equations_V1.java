@@ -649,24 +649,21 @@ public class System_Linear_Equations_V1 {
                     Retreat_Rows_System(A,b,i,r);
                     Print_Status_System(A,b,fn);
                 }
-                if (Is_Unit_Vector(A,i)) {
-                    float c = 1 / A[i][i];
-                    Mul_Elementary_Action(c,i,fn);
-                    b[i] /= A[i][i];
-                    A[i][i] = 1;
-                    if (c != 1) {
-                        Print_Status_System(A,b,fn);
-                    }
-                }
                 for (int j = i + 1; j < n; j++) {
-                    float c = A[j][i] / A[i][i];
-                    Sum_Elementary_Action(c,j,i,fn);
-                    for (int k = 0; k < n; k++) {
-                        A[j][k] -= A[i][k] * c;
-                    }
-                    A[j][i] = 0;
-                    b[j] -= b[i] * c;
-                    if (c != 0) {
+                    if (A[j][i] != 0) {
+                        float c = A[j][i] / A[i][i];
+                        Sum_Elementary_Action(c,j,i,fn);
+                        for (int k = 0; k < n; k++) {
+                            A[j][k] -= A[i][k] * c;
+                        }
+                        A[j][i] = 0;
+                        b[j] -= b[i] * c;
+                        Print_Status_System(A,b,fn);
+                    } if (Is_Unit_Vector(A,j) && A[j][j] != 1) {
+                        float c = 1 / A[j][j];
+                        Mul_Elementary_Action(c,j,fn);
+                        b[j] /= A[j][j];
+                        A[j][j] = 1;
                         Print_Status_System(A,b,fn);
                     }
                 }
@@ -703,24 +700,21 @@ public class System_Linear_Equations_V1 {
                     Retreat_Rows_System(A,b,i,r);
                     Print_Status_System(A,b,fn);
                 }
-                if (Is_Unit_Vector(A,i)) {
-                    float c = 1 / A[i][i];
-                    Mul_Elementary_Action(c,i,fn);
-                    b[i] /= A[i][i];
-                    A[i][i] = 1;
-                    if (c != 1) {
-                        Print_Status_System(A,b,fn);
-                    }
-                }
                 for (int j = i - 1; j >= 0; j--) {
-                    float c = A[j][i] / A[i][i];
-                    Sum_Elementary_Action(c,j,i,fn);
-                    for (int k = n - 1; k >= 0; k--) {
-                        A[j][k] -= A[i][k] * c;
-                    }
-                    A[j][i] = 0;
-                    b[j] -= b[i] * c;
-                    if (c != 0) {
+                    if (A[j][i] != 0) {
+                        float c = A[j][i] / A[i][i];
+                        Sum_Elementary_Action(c,j,i,fn);
+                        for (int k = n - 1; k >= 0; k--) {
+                            A[j][k] -= A[i][k] * c;
+                        }
+                        A[j][i] = 0;
+                        b[j] -= b[i] * c;
+                        Print_Status_System(A,b,fn);
+                    } if (Is_Unit_Vector(A,j) && A[j][j] != 1) {
+                        float c = 1 / A[j][j];
+                        Mul_Elementary_Action(c,j,fn);
+                        b[j] /= A[j][j];
+                        A[j][j] = 1;
                         Print_Status_System(A,b,fn);
                     }
                 }
@@ -750,7 +744,7 @@ public class System_Linear_Equations_V1 {
                     Print_Status_System(A,b,fn);
                 }
                 for (int j = 0; j < n; j++) {
-                    if (i != j) {
+                    if (i != j && A[j][i] != 0) {
                         c = A[j][i] / A[i][i];
                         Sum_Elementary_Action(c,j,i,fn);
                         for (int k = 0; k < n; k++) {
@@ -758,18 +752,13 @@ public class System_Linear_Equations_V1 {
                         }
                         A[j][i] = 0;
                         b[j] -= b[i] * c;
-                        if (c != 0) {
-                            Print_Status_System(A,b,fn);
-                        }
-                    }
-                    if (Is_Unit_Vector(A,j)) {
+                        Print_Status_System(A,b,fn);
+                    } if (Is_Unit_Vector(A,j) && A[j][j] != 1) {
                         c = 1 / A[j][j];
                         Mul_Elementary_Action(c,j,fn);
                         b[j] /= A[j][j];
                         A[j][j] = 1;
-                        if (c != 1) {
-                            Print_Status_System(A,b,fn);
-                        }
+                        Print_Status_System(A,b,fn);
                     }
                 }
             }
@@ -792,8 +781,7 @@ public class System_Linear_Equations_V1 {
                     Retreat_Elementary_Action(i,r);
                     Retreat_Rows_System(A,b,i,r);
                     Print_Status_System(A,b,fn);
-                }
-                if (i != j) {
+                } if (i != j && A[j][i] != 0) {
                     float c = A[j][i] / A[i][i];
                     Sum_Elementary_Action(c,j,i,fn);
                     for (int k = 0; k < n; k++) {
@@ -801,20 +789,14 @@ public class System_Linear_Equations_V1 {
                     }
                     A[j][i] = 0;
                     b[j] -= b[i] * c;
-                    if (c != 0) {
-                        Print_Status_System(A,b,fn);
-                    }
-                }
-                if (Is_Unit_Vector(A,j)) {
+                    Print_Status_System(A,b,fn);
+                } if (Is_Unit_Vector(A,j) && A[j][j] != 1) {
                     float c = 1 / A[j][j];
                     Mul_Elementary_Action(c,j,fn);
                     b[j] /= A[j][j];
                     A[j][j] = 1;
-                    if (c != 1) {
-                        Print_Status_System(A,b,fn);
-                    }
-                }
-                if (j == n - 1) {
+                    Print_Status_System(A,b,fn);
+                } if (j == n - 1) {
                     i = (i + 1) % n;
                 }
                 j = (j + 1) % n;
