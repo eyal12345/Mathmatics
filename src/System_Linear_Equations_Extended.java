@@ -1033,30 +1033,31 @@ public class System_Linear_Equations_Extended {
                 Scanner sc = new Scanner(System.in);
                 User_Menu_Solution();
                 String fn = sc.next();
-                if (!fn.equals("d") && !fn.equals("r")) {
-                    throw new Exception("you entered invalid value for a representation elementary actions and solution");
-                }
-                if (n > 1) { // R2 Space or higher
-                    if (m < n) {
-                        int rc = n - m;
-                        if (rc == 1) {
-                            System.out.println("added an one more row of zeros in order to get a square completion\n");
-                        } else {
-                            System.out.println("added a " + rc + " more rows of zeros in order to get a square completion\n");
+                if (fn.equals("d") || fn.equals("r")) {
+                    if (n > 1) { // R2 Space or higher
+                        if (m < n) {
+                            int rc = n - m;
+                            if (rc == 1) {
+                                System.out.println("added an one more row of zeros in order to get a square completion\n");
+                            } else {
+                                System.out.println("added a " + rc + " more rows of zeros in order to get a square completion\n");
+                            }
+                            A = Increase_Rows_in_Matrix(A,m);
                         }
-                        A = Increase_Rows_in_Matrix(A,m);
+                        float[][] bt = Increase_Rows_in_Vector(b,n);
+                        Solve_System(A,bt,fn);
+                    } else { // R1 Space
+                        float c = b[0] / A[0][0];
+                        if (c % 1 == 0) {
+                            System.out.println("exist a single solution in R1 space for the equation which is: x = " + (int) c);
+                        } else if (fn.equals("d")) {
+                            System.out.println("exist a single solution in R1 space for the equation which is: x = " + c);
+                        } else if (fn.equals("r")) {
+                            System.out.println("exist a single solution in R1 space for the equation which is: x = " + convertDecimalToFraction(c));
+                        }
                     }
-                    float[][] bt = Increase_Rows_in_Vector(b,n);
-                    Solve_System(A,bt,fn);
-                } else { // R1 Space
-                    float c = b[0] / A[0][0];
-                    if (c % 1 == 0) {
-                        System.out.println("exist a single solution in R1 space for the equation which is: x = " + (int) c);
-                    } else if (fn.equals("d")) {
-                        System.out.println("exist a single solution in R1 space for the equation which is: x = " + c);
-                    } else if (fn.equals("r")) {
-                        System.out.println("exist a single solution in R1 space for the equation which is: x = " + convertDecimalToFraction(c));
-                    }
+                } else {
+                    throw new Exception("you entered invalid value for a representation elementary actions and solution");
                 }
             }
         } else {

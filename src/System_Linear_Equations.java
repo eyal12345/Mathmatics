@@ -960,20 +960,21 @@ public class System_Linear_Equations {
                 Scanner sc = new Scanner(System.in);
                 User_Menu_Solution();
                 String fn = sc.next();
-                if (!fn.equals("d") && !fn.equals("r")) {
-                    throw new Exception("you entered invalid value for a representation elementary actions and solution");
-                }
-                if (n > 1) { // R2 Space or higher
-                    Solve_System(A,b,fn);
-                } else { // R1 Space
-                    float c = b[0] / A[0][0];
-                    if (c % 1 == 0) {
-                        System.out.println("exist a single solution for the equation which is: x = " + (int) c);
-                    } else if (fn.equals("d")) {
-                        System.out.println("exist a single solution for the equation which is: x = " + c);
-                    } else if (fn.equals("r")) {
-                        System.out.println("exist a single solution for the equation which is: x = " + convertDecimalToFraction(c));
+                if (fn.equals("d") || fn.equals("r")) {
+                    if (n > 1) { // R2 Space or higher
+                        Solve_System(A,b,fn);
+                    } else { // R1 Space
+                        float c = b[0] / A[0][0];
+                        if (c % 1 == 0) {
+                            System.out.println("exist a single solution for the equation which is: x = " + (int) c);
+                        } else if (fn.equals("d")) {
+                            System.out.println("exist a single solution for the equation which is: x = " + c);
+                        } else if (fn.equals("r")) {
+                            System.out.println("exist a single solution for the equation which is: x = " + convertDecimalToFraction(c));
+                        }
                     }
+                } else {
+                    throw new Exception("you entered invalid value for a representation elementary actions and solution");
                 }
             }
         } else {
