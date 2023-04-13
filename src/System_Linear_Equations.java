@@ -508,12 +508,12 @@ public class System_Linear_Equations {
     }
 
     /////////////////////////////////////////// Methods to Solution /////////////////////////////////////////////
-    // solve system of linear equations Ax = b by invertible multiplication method: x = inv(A)*b
+    // solve system of linear equations Ax = b by invertible multiplication method: x = Inv(A)*b
     public static float[] Invertible_Method(float[][] A, float[] b, String fn) {
         int n = A.length;
         float[] x = new float[n];
         float[][] invA = Invertible(A);
-        System.out.println("the solution is: inv(A)*b:");
+        System.out.println("the solution is: Inv(A)*b:");
         Print_Matrix(invA,fn);
         Print_Vector(b,fn);
         for (int i = 0; i < n; i++) {
