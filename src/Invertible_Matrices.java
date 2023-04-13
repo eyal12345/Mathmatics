@@ -334,12 +334,11 @@ public class Invertible_Matrices {
             System.out.println("M is already upper triangular so now we'll go directly to the lower ranking:");
             return Lower_Ranking_Method(M,InvM,fn);
         } else if (!Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
-            System.out.println("transform L matrix to I by an elementary actions:");
+            System.out.println("transform L matrix to I by an upper ranking:");
         } else {
-            System.out.println("transform M matrix to U by an elementary actions:");
+            System.out.println("transform M matrix to U by an upper ranking:");
         }
         int n = M.length;
-        Print_Status_Matrices(M,InvM,fn);
         for (int i = 0; i < n; i++) {
             if (M[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(M,i);
@@ -387,12 +386,11 @@ public class Invertible_Matrices {
             System.out.println("M is already lower triangular so now we'll go directly to the upper ranking:");
             return Upper_Ranking_Method(M,InvM,fn);
         } else if (Is_Upper_Triangular(M) && !Is_Lower_Triangular(M)) {
-            System.out.println("transform U matrix to I by an elementary actions:");
+            System.out.println("transform U matrix to I by a lower ranking:");
         } else {
-            System.out.println("transform M matrix to L by an elementary actions:");
+            System.out.println("transform M matrix to L by a lower ranking:");
         }
         int n = M.length;
-        Print_Status_Matrices(M,InvM,fn);
         for (int i = n - 1; i >= 0; i--) {
             if (M[i][i] == 0) {
                 int r = n - 1 - Get_Index_UnZero_Value(M,i);
@@ -434,10 +432,9 @@ public class Invertible_Matrices {
 
     // invert the M matrix by parallel ranking
     public static float[][] Invertible(float[][] M, String fn) {
-        System.out.println("matrix ranking:");
+        System.out.println("transform M matrix to I by a parallel ranking:");
         int n = M.length;
         float[][] InvM = Unit_Matrix(n);
-        Print_Status_Matrices(M,InvM,fn);
         for (int i = 0; i < n; i++) {
             if (M[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(M,i);
@@ -471,9 +468,9 @@ public class Invertible_Matrices {
 
     // invert the M matrix in parallel ranking by a multiplication of M in elementary matrix each iteration
     public static float[][] Invertible_Elementary(float[][] M, String fn) {
+        System.out.println("transform M matrix to I by an elementary matrices:");
         int n = M.length, i = 0 ,j = 0;
         float[][] InvM = Unit_Matrix(n);
-        Print_Status_Matrices(M,InvM,fn);
         while (!Is_Unit_Matrix(M)) {
             float[][] E = Unit_Matrix(n);
             if (M[i][i] == 0) {
@@ -570,7 +567,7 @@ public class Invertible_Matrices {
         Scanner sc = new Scanner(System.in);
         User_Menu_System();
         int op = sc.nextInt();
-        Print_Matrix(M,fn);
+        Print_Status_Matrices(M,Unit_Matrix(M.length),fn);
         switch (op) {
             case 1:
                 M = Lower_Ranking_Method(M,Unit_Matrix(M.length),fn);
