@@ -108,8 +108,8 @@ public class System_Linear_Equations {
         System.out.println("3. cramer method without |A(i)| calculate");
         System.out.println("4. cramer method without |A(i)| calculate (recursive)");
         System.out.println("5. forward backward method");
-        System.out.println("6. upper -> lower ranking method");
-        System.out.println("7. lower -> upper ranking method");
+        System.out.println("6. upper --> lower ranking method");
+        System.out.println("7. lower --> upper ranking method");
         System.out.println("8. parallel ranking method");
         System.out.println("9. parallel ranking method (recursive)");
         System.out.println("10. parallel ranking method with elementary matrices");
@@ -961,9 +961,9 @@ public class System_Linear_Equations {
                 User_Menu_Solution();
                 String fn = sc.next();
                 if (fn.equals("d") || fn.equals("r")) {
-                    if (n > 1) { // R2 Space or higher
+                    if (n > 1) { // R2 space or higher
                         Solve_System(A,b,fn);
-                    } else { // R1 Space
+                    } else { // R1 space
                         float c = b[0] / A[0][0];
                         if (c % 1 == 0) {
                             System.out.println("exist a single solution for the equation which is: x = " + (int) c);

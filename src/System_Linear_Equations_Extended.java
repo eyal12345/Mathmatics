@@ -114,10 +114,10 @@ public class System_Linear_Equations_Extended {
     // display user interface by selection method for solution
     public static void User_Menu_System() {
         System.out.println("choose the number of method to solution:");
-        System.out.println("1. upper -> lower ranking method");
-        System.out.println("2. lower -> upper ranking method");
-        System.out.println("3. parallel ranking method (iterative method)");
-        System.out.println("4. parallel ranking method (recursive method)");
+        System.out.println("1. upper --> lower ranking method");
+        System.out.println("2. lower --> upper ranking method");
+        System.out.println("3. parallel ranking method");
+        System.out.println("4. parallel ranking method (recursive)");
     }
 
     // display user interface by selection format for solution
@@ -162,7 +162,7 @@ public class System_Linear_Equations_Extended {
                         }
                     }
                 }
-                if (m <= n && !Is_Zero_Col(x,t + 1)) {
+                if (!Is_Zero_Col(x,t + 1)) {
                     s += " + ";
                 }
             }
@@ -684,20 +684,18 @@ public class System_Linear_Equations_Extended {
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
-                    Print_Status_System(A,b,fn);
                 } else if (d2 != -1) {
                     System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
-                    Print_Status_System(A,b,fn);
                 } else if (!Is_Exist_Vector(A,i)) {
                     System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
-                    Print_Status_System(A,b,fn);
                 }
+                Print_Status_System(A,b,fn);
             } if (A[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(A,i,true);
                 int l = Get_Index_Row_from_Matrix(A,i);
@@ -774,20 +772,18 @@ public class System_Linear_Equations_Extended {
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
-                    Print_Status_System(A,b,fn);
                 } else if (d2 != -1) {
                     System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
-                    Print_Status_System(A,b,fn);
                 } else if (!Is_Exist_Vector(A,i)) {
                     System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
-                    Print_Status_System(A,b,fn);
                 }
+                Print_Status_System(A,b,fn);
             } if (A[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(A,i,false);
                 int l = Get_Index_Row_from_Matrix(A,i);
@@ -857,20 +853,18 @@ public class System_Linear_Equations_Extended {
                         b = Increase_Cols_in_Vector(b);
                         A[i][d1] = 1;
                         b[i][++t] = 1;
-                        Print_Status_System(A,b,fn);
                     } else if (d2 != -1) {
                         System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                         b = Increase_Cols_in_Vector(b);
                         A[i][d2] = 1;
                         b[i][++t] = 1;
-                        Print_Status_System(A,b,fn);
                     } else if (!Is_Exist_Vector(A,i)) {
                         System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                         b = Increase_Cols_in_Vector(b);
                         A[i][i] = 1;
                         b[i][++t] = 1;
-                        Print_Status_System(A,b,fn);
                     }
+                    Print_Status_System(A,b,fn);
                 } if (A[i][i] == 0) {
                     int r = Get_Index_UnZero_Value(A,i,true);
                     if (r >= 0 && r < n && r != i) {
@@ -928,20 +922,18 @@ public class System_Linear_Equations_Extended {
                     b = Increase_Cols_in_Vector(b);
                     A[i][d1] = 1;
                     b[i][++t] = 1;
-                    Print_Status_System(A,b,fn);
                 } else if (d2 != -1) {
                     System.out.println("define a new column in the vector b when x" + (d2 + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][d2] = 1;
                     b[i][++t] = 1;
-                    Print_Status_System(A,b,fn);
                 } else if (!Is_Exist_Vector(A,i)) {
                     System.out.println("define a new column in the vector b when x" + (i + 1) + " is a free variable in R" + n + " space:");
                     b = Increase_Cols_in_Vector(b);
                     A[i][i] = 1;
                     b[i][++t] = 1;
-                    Print_Status_System(A,b,fn);
                 }
+                Print_Status_System(A,b,fn);
             } if (A[i][i] == 0) {
                 int r = Get_Index_UnZero_Value(A,i,true);
                 if (r >= 0 && r < n && r != i) {
@@ -990,25 +982,22 @@ public class System_Linear_Equations_Extended {
         Scanner sc = new Scanner(System.in);
         User_Menu_System();
         int op = sc.nextInt();
+        Print_Status_System(A,b,fn);
         float[][] x;
         switch (op) {
             case 1:
-                Print_Status_System(A,b,fn);
                 x = Upper_Ranking_Method(A,b,0,fn);
                 Print_Solution(x,fn);
                 break;
             case 2:
-                Print_Status_System(A,b,fn);
                 x = Lower_Ranking_Method(A,b,0,fn);
                 Print_Solution(x,fn);
                 break;
             case 3:
-                Print_Status_System(A,b,fn);
                 x = Parallel_Ranking_Method(A,b,fn);
                 Print_Solution(x,fn);
                 break;
             case 4:
-                Print_Status_System(A,b,fn);
                 x = Parallel_Ranking_Method_Rec(A,b,0,0,0,fn);
                 Print_Solution(x,fn);
                 break;
@@ -1034,19 +1023,19 @@ public class System_Linear_Equations_Extended {
                 User_Menu_Solution();
                 String fn = sc.next();
                 if (fn.equals("d") || fn.equals("r")) {
-                    if (n > 1) { // R2 Space or higher
+                    if (n > 1) { // R2 space or higher
                         if (m < n) {
                             int rc = n - m;
                             if (rc == 1) {
-                                System.out.println("added an one more row of zeros in order to get a square completion\n");
+                                System.out.println("added one more row of zeros in order to get a square completion");
                             } else {
-                                System.out.println("added a " + rc + " more rows of zeros in order to get a square completion\n");
+                                System.out.println("added " + rc + " more rows of zeros in order to get a square completion");
                             }
                             A = Increase_Rows_in_Matrix(A,m);
                         }
                         float[][] bt = Increase_Rows_in_Vector(b,n);
                         Solve_System(A,bt,fn);
-                    } else { // R1 Space
+                    } else { // R1 space
                         float c = b[0] / A[0][0];
                         if (c % 1 == 0) {
                             System.out.println("exist a single solution in R1 space for the equation which is: x = " + (int) c);
@@ -1098,6 +1087,9 @@ public class System_Linear_Equations_Extended {
         float[] b53 = {0,0,0,0,0};
         // upper & parallel: x = λ*( -4.125 , -0.125 , -3.375 , 11.125 , 1 ) = λ*( -33/8 , -1/8 , -27/8 , 89/8 , 1 )
         // lower: x = λ*( 1 , 0.03 , 0.818 , -2.697 , -0.242 ) = λ*( 1 , 1/33 , 9/11 , -89/33 , -8/33 )
+        float[][] A54 = {{-2,2,2,-1,1},{-4,4,4,4,3}};
+        float[] b54 = {1,31};
+        //
         float[][] A61 = {{6,1,3,3,-11,1},{11,-6,5,11,0,-4},{-2,-2,-4,2,-3,0},{2,12,-1,-7,3,0},{5,-11,-11,8,-8,-2},{3,2,2,-1,-1,1}};
         float[] b61 = {-1,41,-30,-8,-27,18};
         // x = ( 4.8 , -3.7 , 3.3 , -3.1 , 2.8 , 4.1 )
@@ -1157,8 +1149,10 @@ public class System_Linear_Equations_Extended {
         float[][] A83 = {{0,-1,-1,0,0,0,1,0},{1,3,0,0,-2,-1,0,0},{1,2,-2,1,0,0,-1,-1},{-3,-1,3,3,-3,0,2,2},{-2,3,-1,-2,1,2,-3,-3},{-1,0,-2,-2,1,-3,1,1},{-2,0,-3,0,3,0,-1,-2},{-1,-2,-1,-3,3,-2,-2,3}};
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
+        float[][] A55 = {{0 ,0 ,0 ,0 ,1},{-2 ,2 ,0 ,0 ,1},{0 ,0 ,1 ,0 ,0},{0 ,0 ,0 ,1 ,0},{0 ,0 ,0 ,0 ,0}};
+        float[] b55 = {1,31,0,0,0};
         try {
-            Check_System(A11,b11);
+            Check_System(A55,b55);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
