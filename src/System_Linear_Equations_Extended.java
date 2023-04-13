@@ -1068,7 +1068,7 @@ public class System_Linear_Equations_Extended {
     public static void main(String[] args) {
         float[][] A11 = {{3}};
         float[] b11 = {4};
-        // x = -8
+        // x = 1.3333334 = 4/3
         float[][] A12 = {{0}};
         float[] b12 = {3};
         // does not an exists any solution to the equation
