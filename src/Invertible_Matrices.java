@@ -590,7 +590,7 @@ public class Invertible_Matrices {
                 Print_Matrix(M,fn);
                 break;
             case 5:
-                M = Invertible_Elementary_Rec(M, Unit_Matrix(M.length),0,0,fn);
+                M = Invertible_Elementary_Rec(M,Unit_Matrix(M.length),0,0,fn);
                 System.out.println("the invertible of this matrix is:");
                 Print_Matrix(M,fn);
                 break;
