@@ -640,113 +640,103 @@ public class System_Linear_Equations {
     }
 
     // solve system of linear equations Ax = b by an upper ranking and then a lower ranking
-    public static float[] Upper_Ranking_Method(float[][] A, float[] b, String fn) throws Exception {
-        float det = Determinant(A);
-        if (det != 0) {
-            if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-                System.out.println("A is already parallel triangular so now will be change directly to I:");
-            } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
-                System.out.println("A is already upper triangular so now we'll go directly to the lower ranking:");
-                return Lower_Ranking_Method(A,b,fn);
-            } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-                System.out.println("transform L matrix to I by a elementary actions:");
-            } else {
-                System.out.println("transform A matrix to U by a elementary actions:");
+    public static float[] Upper_Ranking_Method(float[][] A, float[] b, String fn) {
+        if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+            System.out.println("A is already parallel triangular so now will be change directly to I:");
+        } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
+            System.out.println("A is already upper triangular so now we'll go directly to the lower ranking:");
+            return Lower_Ranking_Method(A,b,fn);
+        } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+            System.out.println("transform L matrix to I by a elementary actions:");
+        } else {
+            System.out.println("transform A matrix to U by a elementary actions:");
+        }
+        int n = A.length;
+        for (int i = 0; i < n; i++) {
+            if (A[i][i] == 0) {
+                int r = Get_Index_UnZero_Value(A,i);
+                Retreat_Elementary_Action(i,r);
+                Retreat_Rows_System(A,b,i,r);
+                Print_Status_System(A,b,fn);
             }
-            int n = A.length;
-            for (int i = 0; i < n; i++) {
-                if (A[i][i] == 0) {
-                    int r = Get_Index_UnZero_Value(A,i);
-                    Retreat_Elementary_Action(i,r);
-                    Retreat_Rows_System(A,b,i,r);
+            for (int j = i + 1; j < n; j++) {
+                if (A[j][i] != 0) {
+                    float c = A[j][i] / A[i][i];
+                    Sum_Elementary_Action(c,j,i,fn);
+                    for (int k = 0; k < n; k++) {
+                        A[j][k] -= A[i][k] * c;
+                    }
+                    A[j][i] = 0;
+                    b[j] -= b[i] * c;
+                    Print_Status_System(A,b,fn);
+                } if (Is_Unit_Vector(A,j) && A[j][j] != 1) {
+                    float c = 1 / A[j][j];
+                    Mul_Elementary_Action(c,j,fn);
+                    b[j] /= A[j][j];
+                    A[j][j] = 1;
                     Print_Status_System(A,b,fn);
                 }
-                for (int j = i + 1; j < n; j++) {
-                    if (A[j][i] != 0) {
-                        float c = A[j][i] / A[i][i];
-                        Sum_Elementary_Action(c,j,i,fn);
-                        for (int k = 0; k < n; k++) {
-                            A[j][k] -= A[i][k] * c;
-                        }
-                        A[j][i] = 0;
-                        b[j] -= b[i] * c;
-                        Print_Status_System(A,b,fn);
-                    } if (Is_Unit_Vector(A,j) && A[j][j] != 1) {
-                        float c = 1 / A[j][j];
-                        Mul_Elementary_Action(c,j,fn);
-                        b[j] /= A[j][j];
-                        A[j][j] = 1;
-                        Print_Status_System(A,b,fn);
-                    }
-                }
-                if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
-                    System.out.print("and now ");
-                    return Lower_Ranking_Method(A,b,fn);
-                }
             }
-            if (!Is_Lower_Triangular(A) || !Is_Unit_Matrix(A)) {
-                System.out.println("still not yet received an unit matrix");
+            if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
+                System.out.print("and now ");
                 return Lower_Ranking_Method(A,b,fn);
             }
-            return b;
-        } else {
-            throw new Exception("this is a singular matrix");
         }
+        if (!Is_Lower_Triangular(A) || !Is_Unit_Matrix(A)) {
+            System.out.println("still not yet received an unit matrix");
+            return Lower_Ranking_Method(A,b,fn);
+        }
+        return b;
     }
 
     // solve system of linear equations Ax = b by a lower ranking and then an upper ranking
-    public static float[] Lower_Ranking_Method(float[][] A, float[] b, String fn) throws Exception {
-        float det = Determinant(A);
-        if (det != 0) {
-            if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-                System.out.println("A is already parallel triangular so now will be change directly to I:");
-            } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-                System.out.println("A is already lower triangular so now we'll go directly to the upper ranking:");
-                return Upper_Ranking_Method(A,b,fn);
-            } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
-                System.out.println("transform U matrix to I by a elementary actions:");
-            } else {
-                System.out.println("transform A matrix to L by a elementary actions:");
+    public static float[] Lower_Ranking_Method(float[][] A, float[] b, String fn) {
+        if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+            System.out.println("A is already parallel triangular so now will be change directly to I:");
+        } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+            System.out.println("A is already lower triangular so now we'll go directly to the upper ranking:");
+            return Upper_Ranking_Method(A,b,fn);
+        } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
+            System.out.println("transform U matrix to I by a elementary actions:");
+        } else {
+            System.out.println("transform A matrix to L by a elementary actions:");
+        }
+        int n = A.length;
+        for (int i = n - 1; i >= 0; i--) {
+            if (A[i][i] == 0) {
+                int r = n - 1 - Get_Index_UnZero_Value(A,i);
+                Retreat_Elementary_Action(i,r);
+                Retreat_Rows_System(A,b,i,r);
+                Print_Status_System(A,b,fn);
             }
-            int n = A.length;
-            for (int i = n - 1; i >= 0; i--) {
-                if (A[i][i] == 0) {
-                    int r = n - 1 - Get_Index_UnZero_Value(A,i);
-                    Retreat_Elementary_Action(i,r);
-                    Retreat_Rows_System(A,b,i,r);
+            for (int j = i - 1; j >= 0; j--) {
+                if (A[j][i] != 0) {
+                    float c = A[j][i] / A[i][i];
+                    Sum_Elementary_Action(c,j,i,fn);
+                    for (int k = n - 1; k >= 0; k--) {
+                        A[j][k] -= A[i][k] * c;
+                    }
+                    A[j][i] = 0;
+                    b[j] -= b[i] * c;
+                    Print_Status_System(A,b,fn);
+                } if (Is_Unit_Vector(A,j) && A[j][j] != 1) {
+                    float c = 1 / A[j][j];
+                    Mul_Elementary_Action(c,j,fn);
+                    b[j] /= A[j][j];
+                    A[j][j] = 1;
                     Print_Status_System(A,b,fn);
                 }
-                for (int j = i - 1; j >= 0; j--) {
-                    if (A[j][i] != 0) {
-                        float c = A[j][i] / A[i][i];
-                        Sum_Elementary_Action(c,j,i,fn);
-                        for (int k = n - 1; k >= 0; k--) {
-                            A[j][k] -= A[i][k] * c;
-                        }
-                        A[j][i] = 0;
-                        b[j] -= b[i] * c;
-                        Print_Status_System(A,b,fn);
-                    } if (Is_Unit_Vector(A,j) && A[j][j] != 1) {
-                        float c = 1 / A[j][j];
-                        Mul_Elementary_Action(c,j,fn);
-                        b[j] /= A[j][j];
-                        A[j][j] = 1;
-                        Print_Status_System(A,b,fn);
-                    }
-                }
-                if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-                    System.out.print("and now ");
-                    return Upper_Ranking_Method(A,b,fn);
-                }
             }
-            if (!Is_Upper_Triangular(A) || !Is_Unit_Matrix(A)) {
-                System.out.println("still not yet received an unit matrix");
+            if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+                System.out.print("and now ");
                 return Upper_Ranking_Method(A,b,fn);
             }
-            return b;
-        } else {
-            throw new Exception("this is a singular matrix");
         }
+        if (!Is_Upper_Triangular(A) || !Is_Unit_Matrix(A)) {
+            System.out.println("still not yet received an unit matrix");
+            return Upper_Ranking_Method(A,b,fn);
+        }
+        return b;
     }
 
     // solve system of linear equations Ax = b by parallel ranking (iterative method)
