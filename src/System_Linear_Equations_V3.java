@@ -756,10 +756,12 @@ public class System_Linear_Equations_V3 {
                 }
             }
             if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
+                System.out.print("and now ");
                 return Lower_Ranking_Method(A,b,t,fn);
             }
         }
         if (!Is_Lower_Triangular(A) || !Is_Unit_Matrix(A)) {
+            System.out.println("still not yet received an unit matrix");
             return Lower_Ranking_Method(A,b,t,fn);
         }
         return b;
@@ -844,10 +846,12 @@ public class System_Linear_Equations_V3 {
                 }
             }
             if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+                System.out.print("and now ");
                 return Upper_Ranking_Method(A,b,t,fn);
             }
         }
         if (!Is_Upper_Triangular(A) || !Is_Unit_Matrix(A)) {
+            System.out.println("still not yet received an unit matrix");
             return Upper_Ranking_Method(A,b,t,fn);
         }
         return b;
@@ -1172,7 +1176,7 @@ public class System_Linear_Equations_V3 {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A41,b41);
+            Check_System(A52,b52);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

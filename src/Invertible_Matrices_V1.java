@@ -138,6 +138,19 @@ public class Invertible_Matrices_V1 {
         return -1;
     }
 
+    // check if a matrix is a unit matrix
+    public static boolean Is_Unit_Matrix(float[][] M) {
+        int n = M.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (M[i][i] != 1 || (i != j && M[i][j] != 0)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     // check if the specific row in the matrix is a unit vector
     public static boolean Is_Unit_Vector(float[][] M, int k) {
         int n = M.length;
@@ -305,9 +318,13 @@ public class Invertible_Matrices_V1 {
                         Print_Status_Matrices(M,InvM,fn);
                     }
                 }
+                if (Is_Upper_Triangular(M) && !Is_Lower_Triangular(M)) {
+                    System.out.print("and now ");
+                    return Lower_Ranking_Method(M,InvM,fn);
+                }
             }
-            if (!Is_Upper_Triangular(M) || !Is_Lower_Triangular(M)) {
-                System.out.print("and Then ");
+            if (!Is_Lower_Triangular(M) || !Is_Unit_Matrix(M)) {
+                System.out.println("still not yet received an unit matrix");
                 return Lower_Ranking_Method(M,InvM,fn);
             }
             return InvM;
@@ -359,9 +376,13 @@ public class Invertible_Matrices_V1 {
                         Print_Status_Matrices(M,InvM,fn);
                     }
                 }
+                if (!Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
+                    System.out.print("and now ");
+                    return Upper_Ranking_Method(M,InvM,fn);
+                }
             }
-            if (!Is_Upper_Triangular(M) || !Is_Lower_Triangular(M)) {
-                System.out.print("and Then ");
+            if (!Is_Upper_Triangular(M) || !Is_Unit_Matrix(M)) {
+                System.out.println("still not yet received an unit matrix");
                 return Upper_Ranking_Method(M,InvM,fn);
             }
             return InvM;
@@ -523,7 +544,7 @@ public class Invertible_Matrices_V1 {
         float[][] F = {{-2,0,-4,-2,5,-6},{6,-1,-2,0,1,0},{6,0,0,-2,5,2},{-4,0,6,4,4,6},{-4,-2,3,-6,4,-4},{5,1,-5,-1,5,-2}};
         float[][] G = {{-1,0,4,-1,-2,5,-1},{6,-7,7,1,-7,-6,5},{0,2,6,1,-7,6,1},{2,2,0,-2,-6,6,-5},{3,3,-3,1,7,-1,-2},{1,-5,1,-4,3,1,-4},{7,-5,5,0,-4,-4,1}};
         try {
-            Correctness_Check(C);
+            Correctness_Check(A3);
         } catch (Exception e) {
             e.printStackTrace();
         }

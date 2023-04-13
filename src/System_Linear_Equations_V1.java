@@ -667,9 +667,13 @@ public class System_Linear_Equations_V1 {
                         Print_Status_System(A,b,fn);
                     }
                 }
+                if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
+                    System.out.print("and now ");
+                    return Lower_Ranking_Method(A,b,fn);
+                }
             }
-            if (!Is_Upper_Triangular(A) || !Is_Lower_Triangular(A)) {
-                System.out.print("and than ");
+            if (!Is_Lower_Triangular(A) || !Is_Unit_Matrix(A)) {
+                System.out.println("still not yet received an unit matrix");
                 return Lower_Ranking_Method(A,b,fn);
             }
             return b;
@@ -718,9 +722,13 @@ public class System_Linear_Equations_V1 {
                         Print_Status_System(A,b,fn);
                     }
                 }
+                if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
+                    System.out.print("and now ");
+                    return Upper_Ranking_Method(A,b,fn);
+                }
             }
-            if (!Is_Upper_Triangular(A) || !Is_Lower_Triangular(A)) {
-                System.out.print("and than ");
+            if (!Is_Upper_Triangular(A) || !Is_Unit_Matrix(A)) {
+                System.out.println("still not yet received an unit matrix");
                 return Upper_Ranking_Method(A,b,fn);
             }
             return b;
