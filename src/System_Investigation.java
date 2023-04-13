@@ -157,12 +157,13 @@ public class System_Investigation {
     //////////////////////////////////////////////// Investigation //////////////////////////////////////////////////
     // investigate system of linear equations Ax = b without solve it
     public static void Investigation(float[][] A, float[] b) throws Exception {
-        if (A.length == A[0].length && A.length == b.length) {
-            int n = b.length;
+        int m = A.length, n = A[0].length, k = b.length;
+        if (m == n && m == k) {
             Display_Exercise(A,b);
             if (n > 1) { // R2 Space or higher
                 System.out.println("system of linear equations from the shape Ax = b");
-                if (Determinant(A) == 0) {
+                float det = Determinant(A);
+                if (det == 0) {
                     if (Is_Zero_Vector(b)) {
                         if (Is_Zero_Matrix(A)) {
                             System.out.print("exists an infinite number of solutions to the system in a space R" + n);
