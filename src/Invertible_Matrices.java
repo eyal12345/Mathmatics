@@ -551,14 +551,14 @@ public class Invertible_Matrices {
         float det = Determinant(M);
         if (det != 0) {
             int n = M.length;
-            float[][] invM = new float[n][n];
+            float[][] InvM = new float[n][n];
             float[][] adj = Adjoint(M);
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    invM[i][j] = (1 / det) * adj[i][j];
+                    InvM[i][j] = (1 / det) * adj[i][j];
                 }
             }
-            return invM;
+            return InvM;
         } else {
             throw new Exception("this is a singular matrix");
         }
