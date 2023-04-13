@@ -801,7 +801,7 @@ public class System_Linear_Equations {
     }
     // solve system of linear equations Ax = b by multiplication elementary matrix each iteration
     public static float[] Elementary_Method(float[][] A, float[] b, String fn) {
-        System.out.println("transform A matrix to I by a elementary matrices:");
+        System.out.println("transform A matrix to I by an elementary matrices:");
         int n = A.length, i = 0, j = 0;
         while (!Is_Unit_Matrix(A)) {
             float[][] E = Unit_Matrix(n);
@@ -874,12 +874,10 @@ public class System_Linear_Equations {
 
     ///////////////////////////////////////////// User Interface ///////////////////////////////////////////////
     // choose action in order to solve a system Ax = b
-    public static void Solve_System(float[][] A, float[] b) throws Exception {
+    public static void Solve_System(float[][] A, float[] b, String fn) throws Exception {
         Scanner sc = new Scanner(System.in);
         User_Menu_System();
         int op = sc.nextInt();
-        User_Menu_Solution();
-        String fn = sc.next();
         Print_Status_System(A,b,fn);
         float[] x;
         switch (op) {
@@ -948,11 +946,17 @@ public class System_Linear_Equations {
     public static void Check_System(float[][] A, float[] b) throws Exception {
         int m = A.length, n = A[0].length, k = b.length;
         if (m == n && m == k) {
+            Scanner sc = new Scanner(System.in);
+            User_Menu_Solution();
+            String fn = sc.next();
+            if (!fn.equals("d") && !fn.equals("r")) {
+                throw new Exception("you entered invalid value for a representation elementary actions and solution");
+            }
             Display_Exercise(A,b);
             if (n > 1) { // R2 Space or higher
                 float det = Determinant(A);
                 if (det != 0) {
-                    Solve_System(A,b);
+                    Solve_System(A,b,fn);
                 } else if (Is_Zero_Matrix(A) && Is_Zero_Vector(b)) {
                     throw new Exception("exists an infinite number of solutions to the system in the space R" + (n));
                 } else {
@@ -964,9 +968,6 @@ public class System_Linear_Equations {
                 } else if (A[0][0] == 0 && b[0] != 0) {
                     throw new Exception("does not an exists any solution to the equation");
                 } else {
-                    Scanner sc = new Scanner(System.in);
-                    User_Menu_Solution();
-                    String fn = sc.next();
                     float c = b[0] / A[0][0];
                     if (c % 1 == 0) {
                         System.out.println("exist a single solution for the equation which is: x = " + (int) c);
@@ -984,7 +985,7 @@ public class System_Linear_Equations {
 
     ////////////////////////////////////////////// Run Progress ////////////////////////////////////////////////
     public static void main(String[] args) {
-        float[][] A1 = {{(float) -0.5}};
+        float[][] A1 = {{3}};
         float[] a1 = {4};
         float[][] B1 = {{0}};
         float[] b1 = {0};
@@ -1021,7 +1022,7 @@ public class System_Linear_Equations {
         float[][] B7 = {{2,3,1,-4,0,-3,0},{-3,1,1,1,0,-4,-1},{0,1,0,-2,1,-1,1},{-4,1,-3,1,0,-2,1},{1,-3,0,-2,-4,1,0},{1,-2,3,0,-4,-2,-4},{0,4,-4,-2,-3,-2,3}};
         float[] b7 = {0,0,0,0,0,0,0};
         try {
-            Check_System(A4,a4);
+            Check_System(A6,a6);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

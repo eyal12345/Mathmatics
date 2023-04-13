@@ -78,41 +78,37 @@ public class System_Linear_Equations_Extended {
     }
 
     // display current status of the system Ax = b each time of iteration on an element
-    public static void Print_Status_System(float[][] A, float[][] b, String fn) throws Exception {
-        if (!fn.equals("d") && !fn.equals("r")) {
-            throw new Exception("you entered invalid value for a representation of system status");
-        } else {
-            int m = A.length, n = A[0].length;
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++) {
-                    if ((Math.round(A[i][j] * 1000.0) / 1000.0) % 1 == 0) {
-                        System.out.print((int) (Math.round(A[i][j] * 1000.0) / 1000.0) + " ");
-                    } else if (fn.equals("d")) {
-                        System.out.print(Math.round(A[i][j] * 1000.0) / 1000.0 + " ");
-                    } else if (fn.equals("r")) {
-                        System.out.print(convertDecimalToFraction(A[i][j]) + " ");
-                    } if (j != n - 1) {
-                        System.out.print(",");
-                    }
+    public static void Print_Status_System(float[][] A, float[][] b, String fn) {
+        int m = A.length, n = A[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if ((Math.round(A[i][j] * 1000.0) / 1000.0) % 1 == 0) {
+                    System.out.print((int) (Math.round(A[i][j] * 1000.0) / 1000.0) + " ");
+                } else if (fn.equals("d")) {
+                    System.out.print(Math.round(A[i][j] * 1000.0) / 1000.0 + " ");
+                } else if (fn.equals("r")) {
+                    System.out.print(convertDecimalToFraction(A[i][j]) + " ");
+                } if (j != n - 1) {
+                    System.out.print(",");
                 }
-                System.out.print("| ");
-                for (int j = 0; j < n + 1; j++) {
-                    if ((Math.round(b[i][j] * 1000.0) / 1000.0) % 1 == 0) {
-                        System.out.print((int) (Math.round(b[i][j] * 1000.0) / 1000.0) + " ");
-                    } else if (fn.equals("d")) {
-                        System.out.print(Math.round(b[i][j] * 1000.0) / 1000.0 + " ");
-                    } else if (fn.equals("r")) {
-                        System.out.print(convertDecimalToFraction(b[i][j]) + " ");
-                    } if (Is_Zero_Col(b,j + 1)) {
-                        break;
-                    } if (j != n) {
-                        System.out.print(",");
-                    }
+            }
+            System.out.print("| ");
+            for (int j = 0; j < n + 1; j++) {
+                if ((Math.round(b[i][j] * 1000.0) / 1000.0) % 1 == 0) {
+                    System.out.print((int) (Math.round(b[i][j] * 1000.0) / 1000.0) + " ");
+                } else if (fn.equals("d")) {
+                    System.out.print(Math.round(b[i][j] * 1000.0) / 1000.0 + " ");
+                } else if (fn.equals("r")) {
+                    System.out.print(convertDecimalToFraction(b[i][j]) + " ");
+                } if (Is_Zero_Col(b,j + 1)) {
+                    break;
+                } if (j != n) {
+                    System.out.print(",");
                 }
-                System.out.println();
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     // display user interface by selection method for solution
@@ -132,17 +128,71 @@ public class System_Linear_Equations_Extended {
     }
 
     // show the resulting solution as a vector representation
-    public static void Print_Solution(float[][] x, String fn) throws Exception {
-        if (!fn.equals("d") && !fn.equals("r")) {
-            throw new Exception("you entered invalid value for a representation solution");
-        } else {
-            int m = x.length, n = x[0].length;
-            String s = "", st = "";
-            if (Is_Zero_Col(x,0) && !Is_Zero_Col(x,1)) { // λu
-                System.out.print("the solution is a infinite set of vectors in R" + m + " space which are linearly dependents in the vector space: x = ");
-                st += " when ";
-                for (int t = 1; t < n && !Is_Zero_Col(x,t); t++) {
-                    s = (Is_Zero_Col(x,2)) ? s + "s*( " : s + "s" + t + "*( ";
+    public static void Print_Solution(float[][] x, String fn) {
+        int m = x.length, n = x[0].length;
+        String s = "", st = "";
+        if (Is_Zero_Col(x,0) && !Is_Zero_Col(x,1)) { // λu
+            System.out.print("the solution is a infinite set of vectors in R" + m + " space which are linearly dependents in the vector space: x = ");
+            st += " when ";
+            for (int t = 1; t < n && !Is_Zero_Col(x,t); t++) {
+                s = (Is_Zero_Col(x,2)) ? s + "s*( " : s + "s" + t + "*( ";
+                if (n == 2) {
+                    st += "s its a free scalar";
+                } else if (t == n - 1) {
+                    st += "s" + t + " its a free scalars";
+                } else {
+                    st += "s" + t + ",";
+                }
+                for (int i = 0; i < m; i++) {
+                    if (i == m - 1) {
+                        if ((Math.round(x[i][t] * 1000.0) / 1000.0) % 1 == 0) {
+                            s += (int) (Math.round(x[i][t] * 1000.0) / 1000.0) + " )";
+                        } else if (fn.equals("d")) {
+                            s += Math.round(x[i][t] * 1000.0) / 1000.0 + " )";
+                        } else if (fn.equals("r")) {
+                            s += convertDecimalToFraction(x[i][t]) + " )";
+                        }
+                    } else {
+                        if ((Math.round(x[i][t] * 1000.0) / 1000.0) % 1 == 0) {
+                            s += (int) (Math.round(x[i][t] * 1000.0) / 1000.0) + " , ";
+                        } else if (fn.equals("d")) {
+                            s += Math.round(x[i][t] * 1000.0) / 1000.0 + " , ";
+                        } else if (fn.equals("r")) {
+                            s += convertDecimalToFraction(x[i][t]) + " , ";
+                        }
+                    }
+                }
+                if (m <= n && !Is_Zero_Col(x,t + 1)) {
+                    s += " + ";
+                }
+            }
+            st += " that belongs to the R set";
+        } else if (!Is_Zero_Col(x,0) && !Is_Zero_Col(x,1)) { // x0 + λu
+            System.out.print("the solution is a infinite set of vectors in R" + m + " space which are linearly dependents in the vector space: x = ");
+            s += "( ";
+            for (int i = 0; i < m; i++) {
+                if (i == m - 1) {
+                    if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0) {
+                        s += (int) (Math.round(x[i][0] * 1000.0) / 1000.0) + " )";
+                    } else if (fn.equals("d")) {
+                        s += Math.round(x[i][0] * 1000.0) / 1000.0 + " )";
+                    } else if (fn.equals("r")) {
+                        s += convertDecimalToFraction(x[i][0]) + " )";
+                    }
+                } else {
+                    if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0) {
+                        s += (int) (Math.round(x[i][0] * 1000.0) / 1000.0) + " , ";
+                    } else if (fn.equals("d")) {
+                        s += Math.round(x[i][0] * 1000.0) / 1000.0 + " , ";
+                    } else if (fn.equals("r")) {
+                        s += convertDecimalToFraction(x[i][0]) + " , ";
+                    }
+                }
+            }
+            st += " when ";
+            for (int t = 1; t < m; t++) {
+                if (!Is_Zero_Col(x,t)) {
+                    s = (Is_Zero_Col(x,2)) ? s + " + s*( " : s + " + s" + t + "*( ";
                     if (n == 2) {
                         st += "s its a free scalar";
                     } else if (t == n - 1) {
@@ -169,93 +219,35 @@ public class System_Linear_Equations_Extended {
                             }
                         }
                     }
-                    if (m <= n && !Is_Zero_Col(x,t + 1)) {
-                        s += " + ";
-                    }
                 }
-                st += " that belongs to the R set";
-            } else if (!Is_Zero_Col(x,0) && !Is_Zero_Col(x,1)) { // x0 + λu
-                System.out.print("the solution is a infinite set of vectors in R" + m + " space which are linearly dependents in the vector space: x = ");
-                s += "( ";
-                for (int i = 0; i < m; i++) {
-                    if (i == m - 1) {
-                        if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0) {
-                            s += (int) (Math.round(x[i][0] * 1000.0) / 1000.0) + " )";
-                        } else if (fn.equals("d")) {
-                            s += Math.round(x[i][0] * 1000.0) / 1000.0 + " )";
-                        } else if (fn.equals("r")) {
-                            s += convertDecimalToFraction(x[i][0]) + " )";
-                        }
-                    } else {
-                        if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0) {
-                            s += (int) (Math.round(x[i][0] * 1000.0) / 1000.0) + " , ";
-                        } else if (fn.equals("d")) {
-                            s += Math.round(x[i][0] * 1000.0) / 1000.0 + " , ";
-                        } else if (fn.equals("r")) {
-                            s += convertDecimalToFraction(x[i][0]) + " , ";
-                        }
+            }
+            st += " that belongs to the R set";
+        } else { // x0
+            System.out.print("exist a single solution in R" + m + " space for the system which is: x = ");
+            s += "( ";
+            DecimalFormat twoDForm = new DecimalFormat("#.###");
+            for (int i = 0; i < m; i++) {
+                x[i][0] = Float.valueOf(twoDForm.format(x[i][0]));
+                if (i == m - 1) {
+                    if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0) {
+                        s += (int) (Math.round(x[i][0] * 1000.0) / 1000.0) + " )";
+                    } else if (fn.equals("d")) {
+                        s += Math.round(x[i][0] * 1000.0) / 1000.0 + " )";
+                    } else if (fn.equals("r")) {
+                        s += convertDecimalToFraction(x[i][0]) + " )";
                     }
-                }
-                st += " when ";
-                for (int t = 1; t < m; t++) {
-                    if (!Is_Zero_Col(x,t)) {
-                        s = (Is_Zero_Col(x,2)) ? s + " + s*( " : s + " + s" + t + "*( ";
-                        if (n == 2) {
-                            st += "s its a free scalar";
-                        } else if (t == n - 1) {
-                            st += "s" + t + " its a free scalars";
-                        } else {
-                            st += "s" + t + ",";
-                        }
-                        for (int i = 0; i < m; i++) {
-                            if (i == m - 1) {
-                                if ((Math.round(x[i][t] * 1000.0) / 1000.0) % 1 == 0) {
-                                    s += (int) (Math.round(x[i][t] * 1000.0) / 1000.0) + " )";
-                                } else if (fn.equals("d")) {
-                                    s += Math.round(x[i][t] * 1000.0) / 1000.0 + " )";
-                                } else if (fn.equals("r")) {
-                                    s += convertDecimalToFraction(x[i][t]) + " )";
-                                }
-                            } else {
-                                if ((Math.round(x[i][t] * 1000.0) / 1000.0) % 1 == 0) {
-                                    s += (int) (Math.round(x[i][t] * 1000.0) / 1000.0) + " , ";
-                                } else if (fn.equals("d")) {
-                                    s += Math.round(x[i][t] * 1000.0) / 1000.0 + " , ";
-                                } else if (fn.equals("r")) {
-                                    s += convertDecimalToFraction(x[i][t]) + " , ";
-                                }
-                            }
-                        }
-                    }
-                }
-                st += " that belongs to the R set";
-            } else { // x0
-                System.out.print("exist a single solution in R" + m + " space for the system which is: x = ");
-                s += "( ";
-                DecimalFormat twoDForm = new DecimalFormat("#.###");
-                for (int i = 0; i < m; i++) {
-                    x[i][0] = Float.valueOf(twoDForm.format(x[i][0]));
-                    if (i == m - 1) {
-                        if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0) {
-                            s += (int) (Math.round(x[i][0] * 1000.0) / 1000.0) + " )";
-                        } else if (fn.equals("d")) {
-                            s += Math.round(x[i][0] * 1000.0) / 1000.0 + " )";
-                        } else if (fn.equals("r")) {
-                            s += convertDecimalToFraction(x[i][0]) + " )";
-                        }
-                    } else {
-                        if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0) {
-                            s += (int) (Math.round(x[i][0] * 1000.0) / 1000.0) + " , ";
-                        } else if (fn.equals("d")) {
-                            s += Math.round(x[i][0] * 1000.0) / 1000.0 + " , ";
-                        } else if (fn.equals("r")) {
-                            s += convertDecimalToFraction(x[i][0]) + " , ";
-                        }
+                } else {
+                    if ((Math.round(x[i][0] * 1000.0) / 1000.0) % 1 == 0) {
+                        s += (int) (Math.round(x[i][0] * 1000.0) / 1000.0) + " , ";
+                    } else if (fn.equals("d")) {
+                        s += Math.round(x[i][0] * 1000.0) / 1000.0 + " , ";
+                    } else if (fn.equals("r")) {
+                        s += convertDecimalToFraction(x[i][0]) + " , ";
                     }
                 }
             }
-            System.out.println(s + st);
         }
+        System.out.println(s + st);
     }
 
     /////////////////////////////////////////// Auxiliary Operations /////////////////////////////////////////////
@@ -579,55 +571,51 @@ public class System_Linear_Equations_Extended {
 
     //////////////////////////////////////////// Elementary Actions //////////////////////////////////////////////
     // show elementary actions for sum between rows in the system
-    public static void Sum_Elementary_Action(float k, int j, int i, String fn) throws Exception {
-        if (!fn.equals("d") && !fn.equals("r")) {
-            throw new Exception("you entered invalid value for a representation elementary actions");
-        } else {
-            if (k != 0) {
-                int r = j + 1, c = i + 1;
-                if (k > 0) {
-                    if (k % 1 == 0) {
-                        if (k == 1) {
-                            System.out.println("R" + r + " --> R" + r + " - R" + c + "\n");
-                        } else {
-                            System.out.println("R" + r + " --> R" + r + " - " + (int) k + "*R" + c + "\n");
-                        }
-                    } else if (fn.equals("d")) {
-                        k = (float) (Math.round(k * 10000.0) / 10000.0);
-                        if (k % 1 == 0) {
-                            System.out.println("R" + r + " --> R" + r + " - " + (int) k + "*R" + c + "\n");
-                        } else {
-                            System.out.println("R" + r + " --> R" + r + " - " + k + "*R" + c + "\n");
-                        }
-                    } else if (fn.equals("r")) {
-                        String v = convertDecimalToFraction(k);
-                        if (!v.equals("1")) {
-                            System.out.println("R" + r + " --> R" + r + " - " + convertDecimalToFraction(k) + "*R" + c + "\n");
-                        } else {
-                            System.out.println("R" + r + " --> R" + r + " - R" + c + "\n");
-                        }
+    public static void Sum_Elementary_Action(float k, int j, int i, String fn) {
+        if (k != 0) {
+            int r = j + 1, c = i + 1;
+            if (k > 0) {
+                if (k % 1 == 0) {
+                    if (k == 1) {
+                        System.out.println("R" + r + " --> R" + r + " - R" + c + "\n");
+                    } else {
+                        System.out.println("R" + r + " --> R" + r + " - " + (int) k + "*R" + c + "\n");
                     }
-                } else {
+                } else if (fn.equals("d")) {
+                    k = (float) (Math.round(k * 1000.0) / 1000.0);
                     if (k % 1 == 0) {
-                        if (k == -1) {
-                            System.out.println("R" + r + " --> R" + r + " + R" + c + "\n");
-                        } else {
-                            System.out.println("R" + r + " --> R" + r + " + " + (int) (-k) + "*R" + c + "\n");
-                        }
-                    } else if (fn.equals("d")) {
-                        k = (float) (Math.round(k * 10000.0) / 10000.0);
-                        if (k % 1 == 0) {
-                            System.out.println("R" + r + " --> R" + r + " + " + (int) (-k) + "*R" + c + "\n");
-                        } else {
-                            System.out.println("R" + r + " --> R" + r + " + " + (-k) + "*R" + c + "\n");
-                        }
-                    } else if (fn.equals("r")) {
-                        String v = convertDecimalToFraction(-k);
-                        if (!v.equals("-1")) {
-                            System.out.println("R" + r + " --> R" + r + " + " + convertDecimalToFraction(-k) + "*R" + c + "\n");
-                        } else {
-                            System.out.println("R" + r + " --> R" + r + " + R" + c + "\n");
-                        }
+                        System.out.println("R" + r + " --> R" + r + " - " + (int) k + "*R" + c + "\n");
+                    } else {
+                        System.out.println("R" + r + " --> R" + r + " - " + k + "*R" + c + "\n");
+                    }
+                } else if (fn.equals("r")) {
+                    String v = convertDecimalToFraction(k);
+                    if (!v.equals("1")) {
+                        System.out.println("R" + r + " --> R" + r + " - " + convertDecimalToFraction(k) + "*R" + c + "\n");
+                    } else {
+                        System.out.println("R" + r + " --> R" + r + " - R" + c + "\n");
+                    }
+                }
+            } else {
+                if (k % 1 == 0) {
+                    if (k == -1) {
+                        System.out.println("R" + r + " --> R" + r + " + R" + c + "\n");
+                    } else {
+                        System.out.println("R" + r + " --> R" + r + " + " + (int) (-k) + "*R" + c + "\n");
+                    }
+                } else if (fn.equals("d")) {
+                    k = (float) (Math.round(k * 1000.0) / 1000.0);
+                    if (k % 1 == 0) {
+                        System.out.println("R" + r + " --> R" + r + " + " + (int) (-k) + "*R" + c + "\n");
+                    } else {
+                        System.out.println("R" + r + " --> R" + r + " + " + (-k) + "*R" + c + "\n");
+                    }
+                } else if (fn.equals("r")) {
+                    String v = convertDecimalToFraction(-k);
+                    if (!v.equals("-1")) {
+                        System.out.println("R" + r + " --> R" + r + " + " + convertDecimalToFraction(-k) + "*R" + c + "\n");
+                    } else {
+                        System.out.println("R" + r + " --> R" + r + " + R" + c + "\n");
                     }
                 }
             }
@@ -635,32 +623,28 @@ public class System_Linear_Equations_Extended {
     }
 
     // show elementary actions for multiplication of a row in the system
-    public static void Mul_Elementary_Action(float k, int j, String fn) throws Exception {
-        if (!fn.equals("d") && !fn.equals("r")) {
-            throw new Exception("you entered invalid value for a representation elementary actions");
-        } else {
-            if (k != 1) {
-                int r = j + 1;
+    public static void Mul_Elementary_Action(float k, int j, String fn) {
+        if (k != 1) {
+            int r = j + 1;
+            if (k % 1 == 0) {
+                if (k == -1) {
+                    System.out.println("R" + r + " --> - R" + r + "\n");
+                } else {
+                    System.out.println("R" + r + " --> " + (int) k + "*R" + r + "\n");
+                }
+            } else if (fn.equals("d")) {
+                k = (float) (Math.round(k * 1000.0) / 1000.0);
                 if (k % 1 == 0) {
-                    if (k == -1) {
-                        System.out.println("R" + r + " --> - R" + r + "\n");
-                    } else {
-                        System.out.println("R" + r + " --> " + (int) k + "*R" + r + "\n");
-                    }
-                } else if (fn.equals("d")) {
-                    k = (float) (Math.round(k * 10000.0) / 10000.0);
-                    if (k % 1 == 0) {
-                        System.out.println("R" + r + " --> " + (int) k + "*R" + r + "\n");
-                    } else {
-                        System.out.println("R" + r + " --> " + k + "*R" + r + "\n");
-                    }
-                } else if (fn.equals("r")) {
-                    k = (float) (Math.round(k * 10000.0) / 10000.0);
-                    if (k == -1) {
-                        System.out.println("R" + r + " --> - R" + r + "\n");
-                    } else {
-                        System.out.println("R" + r + " --> " + convertDecimalToFraction(k) + "*R" + r + "\n");
-                    }
+                    System.out.println("R" + r + " --> " + (int) k + "*R" + r + "\n");
+                } else {
+                    System.out.println("R" + r + " --> " + k + "*R" + r + "\n");
+                }
+            } else if (fn.equals("r")) {
+                k = (float) (Math.round(k * 1000.0) / 1000.0);
+                if (k == -1) {
+                    System.out.println("R" + r + " --> - R" + r + "\n");
+                } else {
+                    System.out.println("R" + r + " --> " + convertDecimalToFraction(k) + "*R" + r + "\n");
                 }
             }
         }
@@ -678,7 +662,7 @@ public class System_Linear_Equations_Extended {
 
     /////////////////////////////////////////// Methods to Solution /////////////////////////////////////////////
     // solve system of linear equations Ax = b by an upper ranking and then a lower ranking
-    public static float[][] Upper_Ranking_Method(float[][] A, float[][] b, int t, String fn) throws Exception {
+    public static float[][] Upper_Ranking_Method(float[][] A, float[][] b, int t, String fn) {
         if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
             System.out.println("A is already parallel triangular so now will be change directly to I:");
         } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
@@ -749,7 +733,7 @@ public class System_Linear_Equations_Extended {
                         for (int k = 0; k <= t; k++) {
                             b[j][k] /= A[j][d];
                         }
-                        b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
+                        b[j][0] = (float) (Math.round(b[j][0] * 1000.0) / 1000.0);
                         A[j][d] = 1;
                         Print_Status_System(A,b,fn);
                     }
@@ -768,7 +752,7 @@ public class System_Linear_Equations_Extended {
     }
 
     // solve system of linear equations Ax = b by a lower ranking and then an upper ranking
-    public static float[][] Lower_Ranking_Method(float[][] A, float[][] b, int t, String fn) throws Exception {
+    public static float[][] Lower_Ranking_Method(float[][] A, float[][] b, int t, String fn) {
         if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
             System.out.println("A is already parallel triangular so now will be change directly to I:");
         } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
@@ -839,7 +823,7 @@ public class System_Linear_Equations_Extended {
                         for (int k = 0; k <= t; k++) {
                             b[j][k] /= A[j][d];
                         }
-                        b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
+                        b[j][0] = (float) (Math.round(b[j][0] * 1000.0) / 1000.0);
                         A[j][d] = 1;
                         Print_Status_System(A,b,fn);
                     }
@@ -857,8 +841,8 @@ public class System_Linear_Equations_Extended {
         return b;
     }
 
-    // solve system of linear equations Ax = b by parallel ranking (iterative method)
-    public static float[][] Parallel_Ranking_Method(float[][] A, float[][] b, String fn) throws Exception {
+    // solve system of linear equations Ax = b by parallel ranking
+    public static float[][] Parallel_Ranking_Method(float[][] A, float[][] b, String fn) {
         System.out.println("transform A matrix to I by a parallel ranking:");
         int t = 0;
         while (!Is_Unit_Matrix(A)) {
@@ -918,7 +902,7 @@ public class System_Linear_Equations_Extended {
                             for (int k = 0; k <= t; k++) {
                                 b[j][k] /= A[j][d];
                             }
-                            b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
+                            b[j][0] = (float) (Math.round(b[j][0] * 1000.0) / 1000.0);
                             A[j][d] = 1;
                             Print_Status_System(A,b,fn);
                         }
@@ -929,8 +913,8 @@ public class System_Linear_Equations_Extended {
         return b;
     }
 
-    // solve system of linear equations Ax = b by a parallel ranking (recursive method)
-    public static float[][] Parallel_Ranking_Method_Rec(float[][] A, float[][] b, int i, int j, int t, String fn) throws Exception {
+    // solve system of linear equations Ax = b by a parallel ranking (recursive)
+    public static float[][] Parallel_Ranking_Method_Rec(float[][] A, float[][] b, int i, int j, int t, String fn) {
         if (Is_Unit_Matrix(A)) {
             return b;
         } else {
@@ -988,7 +972,7 @@ public class System_Linear_Equations_Extended {
                     for (int k = 0; k <= t; k++) {
                         b[j][k] /= A[j][d];
                     }
-                    b[j][0] = (float) (Math.round(b[j][0] * 10000.0) / 10000.0);
+                    b[j][0] = (float) (Math.round(b[j][0] * 1000.0) / 1000.0);
                     A[j][d] = 1;
                     Print_Status_System(A,b,fn);
                 }
@@ -1002,12 +986,10 @@ public class System_Linear_Equations_Extended {
 
     ///////////////////////////////////////////// User Interface ///////////////////////////////////////////////
     // choose action in order to solve a system Ax = b
-    public static void Solve_System(float[][] A, float[][] b) throws Exception {
+    public static void Solve_System(float[][] A, float[][] b, String fn) throws Exception {
         Scanner sc = new Scanner(System.in);
         User_Menu_System();
         int op = sc.nextInt();
-        User_Menu_Solution();
-        String fn = sc.next();
         float[][] x;
         switch (op) {
             case 1:
@@ -1040,12 +1022,21 @@ public class System_Linear_Equations_Extended {
     public static void Check_System(float[][] A, float[] b) throws Exception {
         int m = A.length, n = A[0].length, k = b.length;
         if (m <= n && m == k) {
-            Scanner sc = new Scanner(System.in);
             Display_Exercise(A,b);
-            if (n > 1) { // R2 Space or higher
-                if (Is_Linear_Independent_System(A,b)) {
-                    System.out.println("does not an exists solutions for this system");
-                } else {
+            if (Is_Linear_Independent_System(A,b)) {
+                String ex = "does not an exists solutions for this";
+                ex = (n == 1) ? ex + " equation" : ex + " system";
+                throw new Exception(ex);
+            } else if (n == 1 && A[0][0] == 0 && b[0] == 0) {
+                System.out.println("exists an infinite number of solutions in R1 space for the equation that is: x = s when s its a free value that belongs to the R set");
+            } else {
+                Scanner sc = new Scanner(System.in);
+                User_Menu_Solution();
+                String fn = sc.next();
+                if (!fn.equals("d") && !fn.equals("r")) {
+                    throw new Exception("you entered invalid value for a representation elementary actions and solution");
+                }
+                if (n > 1) { // R2 Space or higher
                     if (m < n) {
                         int rc = n - m;
                         if (rc == 1) {
@@ -1056,18 +1047,8 @@ public class System_Linear_Equations_Extended {
                         A = Increase_Rows_in_Matrix(A,m);
                     }
                     float[][] bt = Increase_Rows_in_Vector(b,n);
-                    Solve_System(A,bt);
-                }
-            } else { // R1 Space
-                if (A[0][0] == 0) {
-                    if (b[0] == 0) {
-                        System.out.println("exists an infinite number of solutions in R1 space for the equation that is: x = s when s its a free value that belongs to the R set");
-                    } else {
-                        System.out.println("does not an exists any solution to the equation");
-                    }
-                } else {
-                    User_Menu_Solution();
-                    String fn = sc.next();
+                    Solve_System(A,bt,fn);
+                } else { // R1 Space
                     float c = b[0] / A[0][0];
                     if (c % 1 == 0) {
                         System.out.println("exist a single solution in R1 space for the equation which is: x = " + (int) c);
@@ -1085,7 +1066,7 @@ public class System_Linear_Equations_Extended {
 
     ////////////////////////////////////////////// Run Progress ////////////////////////////////////////////////
     public static void main(String[] args) {
-        float[][] A11 = {{(float)-0.5}};
+        float[][] A11 = {{3}};
         float[] b11 = {4};
         // x = -8
         float[][] A12 = {{0}};
@@ -1176,7 +1157,7 @@ public class System_Linear_Equations_Extended {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A52,b52);
+            Check_System(A11,b11);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
