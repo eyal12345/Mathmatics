@@ -946,28 +946,26 @@ public class System_Linear_Equations {
     public static void Check_System(float[][] A, float[] b) throws Exception {
         int m = A.length, n = A[0].length, k = b.length;
         if (m == n && m == k) {
-            Scanner sc = new Scanner(System.in);
-            User_Menu_Solution();
-            String fn = sc.next();
-            if (!fn.equals("d") && !fn.equals("r")) {
-                throw new Exception("you entered invalid value for a representation elementary actions and solution");
-            }
             Display_Exercise(A,b);
-            if (n > 1) { // R2 Space or higher
-                float det = Determinant(A);
-                if (det != 0) {
-                    Solve_System(A,b,fn);
-                } else if (Is_Zero_Matrix(A) && Is_Zero_Vector(b)) {
-                    throw new Exception("exists an infinite number of solutions to the system in the space R" + (n));
-                } else {
-                    throw new Exception("does not an exists a single solution for this system");
+            float det = Determinant(A);
+            if (Is_Zero_Matrix(A) && Is_Zero_Vector(b)) {
+                String ex = "exists an infinite number of solutions to the";
+                ex = (n == 1) ? ex + " equation in the space R" + (n) : ex + " system in the space R" + (n);
+                throw new Exception(ex);
+            } else if ((Is_Zero_Matrix(A) && !Is_Zero_Vector(b)) || det == 0) {
+                String ex = "does not an exists solutions for this";
+                ex = (n == 1) ? ex + " equation" : ex + " system";
+                throw new Exception(ex);
+            } else {
+                Scanner sc = new Scanner(System.in);
+                User_Menu_Solution();
+                String fn = sc.next();
+                if (!fn.equals("d") && !fn.equals("r")) {
+                    throw new Exception("you entered invalid value for a representation elementary actions and solution");
                 }
-            } else { // R1 Space
-                if (A[0][0] == 0 && b[0] == 0) {
-                    throw new Exception("exists an infinite number of solutions to the equation in the space R1");
-                } else if (A[0][0] == 0 && b[0] != 0) {
-                    throw new Exception("does not an exists any solution to the equation");
-                } else {
+                if (n > 1) { // R2 Space or higher
+                    Solve_System(A,b,fn);
+                } else { // R1 Space
                     float c = b[0] / A[0][0];
                     if (c % 1 == 0) {
                         System.out.println("exist a single solution for the equation which is: x = " + (int) c);
