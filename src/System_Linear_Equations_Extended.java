@@ -685,9 +685,9 @@ public class System_Linear_Equations_Extended {
             System.out.println("A is already upper triangular so now we'll go directly to the lower ranking:");
             return Lower_Ranking_Method(A,b,t,fn);
         } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-            System.out.println("transform L matrix to I by an elementary actions:");
+            System.out.println("transform L matrix to I by an upper ranking:");
         } else {
-            System.out.println("transform A matrix to U by an elementary actions:");
+            System.out.println("transform A matrix to U by an upper ranking:");
         }
         int n = A.length;
         for (int i = 0; i < n; i++) {
@@ -775,9 +775,9 @@ public class System_Linear_Equations_Extended {
             System.out.println("A is already lower triangular so now we'll go directly to the upper ranking:");
             return Upper_Ranking_Method(A,b,t,fn);
         } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
-            System.out.println("transform U matrix to I by an elementary actions:");
+            System.out.println("transform U matrix to I by an lower ranking:");
         } else {
-            System.out.println("transform A matrix to L by an elementary actions:");
+            System.out.println("transform A matrix to L by an lower ranking:");
         }
         int n = A.length;
         for (int i = n - 1; i >= 0; i--) {
@@ -859,7 +859,7 @@ public class System_Linear_Equations_Extended {
 
     // solve system of linear equations Ax = b by parallel ranking (iterative method)
     public static float[][] Parallel_Ranking_Method(float[][] A, float[][] b, String fn) throws Exception {
-        System.out.println("transform A matrix to I by an elementary actions:");
+        System.out.println("transform A matrix to I by a parallel ranking:");
         int t = 0;
         while (!Is_Unit_Matrix(A)) {
             int n = A.length;

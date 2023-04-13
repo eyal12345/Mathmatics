@@ -354,17 +354,21 @@ public class System_Linear_Equations {
     }
 
     // calculate ranking of a matrix by upper triangular
-    public static float[][] Upper_Ranking_Matrix(float[][] A, String fn) {
+    public static float[][] Ranking_Matrix(float[][] A, String fn) {
         int n = A.length;
         Print_Matrix(A,fn);
         float[][] rA = Copy_Matrix(A);
         for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
                 if (rA[i][i] == 0) {
-                    System.out.println("R" + (i + 1) + " <--> R" + (i + 1) % n + 1 + "\n");
-                    Retreat_Rows_Matrix(rA,i,(i + 1) % n);
-                }
-                if (rA[j][i] != 0) {
+                    int r = (i + 1) % n;
+                    System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
+                    for (int k = 0; k < n; k++) {
+                        float t = rA[i][k];
+                        rA[i][k] = rA[r][k];
+                        rA[r][k] = t;
+                    }
+                } if (rA[j][i] != 0) {
                     float c = rA[j][i] / rA[i][i];
                     Sum_Elementary_Action(c,j,i,fn);
                     for (int k = 0; k < n; k++) {
@@ -388,16 +392,6 @@ public class System_Linear_Equations {
         float t = b[r1];
         b[r1] = b[r2];
         b[r2] = t;
-    }
-
-    // replace between two rows in a matrix
-    public static void Retreat_Rows_Matrix(float[][] A, int r1, int r2) {
-        int n = A.length;
-        for (int j = 0; j < n; j++) {
-            float t = A[r1][j];
-            A[r1][j] = A[r2][j];
-            A[r2][j] = t;
-        }
     }
 
     // duplicate the matrix values into a new matrix
@@ -525,7 +519,7 @@ public class System_Linear_Equations {
         return x;
     }
 
-    // solve system of linear equations Ax = b by cramer method: x[i] = det(A[i]) / det(A) for 1 <= i <= n
+    // solve system of linear equations Ax = b by cramer method: x[i] = det(A[i]) / det(A)
     public static float[] Cramer_Method_V1(float[][] A, float[] b, String fn) {
         int n = A.length;
         float[] x = new float[n];
@@ -555,7 +549,7 @@ public class System_Linear_Equations {
         return x;
     }
 
-    // solve system of linear equations Ax = b by cramer method (iterative method)
+    // solve system of linear equations Ax = b by cramer method
     public static float[] Cramer_Method_V2(float[][] A, float[] b, String fn) {
         int n = A.length;
         float[] x = new float[n];
@@ -577,7 +571,7 @@ public class System_Linear_Equations {
         return x;
     }
 
-    // solve system of linear equations Ax = b by cramer method (recursive method)
+    // solve system of linear equations Ax = b by cramer method (recursive)
     public static float[] Cramer_Method_V2_Rec(float[][] A, float[] b, float[] x, int i, String fn) {
         int n = A.length;
         if (i == n) {
@@ -603,7 +597,7 @@ public class System_Linear_Equations {
     public static float[] Forward_Backward_Method(float[][] A, float[] b, String fn) {
         int n = b.length;
         System.out.println("first, we will upper ranking of A:");
-        float[][] U = Upper_Ranking_Matrix(A,fn);
+        float[][] U = Ranking_Matrix(A,fn);
         System.out.println("second, we will calculate lower ranking of A:");
         float[][] L = Mul_Mats(A, Invertible(U));
         Print_Matrix(L,fn);
@@ -647,9 +641,9 @@ public class System_Linear_Equations {
             System.out.println("A is already upper triangular so now we'll go directly to the lower ranking:");
             return Lower_Ranking_Method(A,b,fn);
         } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
-            System.out.println("transform L matrix to I by a elementary actions:");
+            System.out.println("transform L matrix to I by an upper ranking:");
         } else {
-            System.out.println("transform A matrix to U by a elementary actions:");
+            System.out.println("transform A matrix to U by an upper ranking:");
         }
         int n = A.length;
         for (int i = 0; i < n; i++) {
@@ -697,9 +691,9 @@ public class System_Linear_Equations {
             System.out.println("A is already lower triangular so now we'll go directly to the upper ranking:");
             return Upper_Ranking_Method(A,b,fn);
         } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
-            System.out.println("transform U matrix to I by a elementary actions:");
+            System.out.println("transform U matrix to I by a lower ranking:");
         } else {
-            System.out.println("transform A matrix to L by a elementary actions:");
+            System.out.println("transform A matrix to L by a lower ranking:");
         }
         int n = A.length;
         for (int i = n - 1; i >= 0; i--) {
@@ -739,9 +733,9 @@ public class System_Linear_Equations {
         return b;
     }
 
-    // solve system of linear equations Ax = b by parallel ranking (iterative method)
+    // solve system of linear equations Ax = b by parallel ranking
     public static float[] Parallel_Ranking_Method(float[][] A, float[] b, String fn) {
-        System.out.println("transform A matrix to I by a elementary actions:");
+        System.out.println("transform A matrix to I by a parallel ranking:");
         int n = A.length;
         for (int i = 0; i < n; i++) {
             if (A[i][i] == 0) {
@@ -772,7 +766,7 @@ public class System_Linear_Equations {
         return b;
     }
 
-    // solve system of linear equations Ax = b by a parallel ranking (recursive method)
+    // solve system of linear equations Ax = b by a parallel ranking (recursive)
     public static float[] Parallel_Ranking_Method_Rec(float[][] A, float[] b, int i, int j, String fn) {
         int n = A.length;
         if (Is_Unit_Matrix(A)) {
@@ -805,8 +799,9 @@ public class System_Linear_Equations {
             return Parallel_Ranking_Method_Rec(A,b,i,j,fn);
         }
     }
-    // solve system of linear equations Ax = b by multiplication elementary matrix each iteration (iterative method)
+    // solve system of linear equations Ax = b by multiplication elementary matrix each iteration
     public static float[] Elementary_Method(float[][] A, float[] b, String fn) {
+        System.out.println("transform A matrix to I by a elementary matrices:");
         int n = A.length, i = 0, j = 0;
         while (!Is_Unit_Matrix(A)) {
             float[][] E = Unit_Matrix(n);
@@ -840,7 +835,7 @@ public class System_Linear_Equations {
         return b;
     }
 
-    // solve system of linear equations Ax = b by multiplication elementary matrix each iteration (recursive method)
+    // solve system of linear equations Ax = b by multiplication elementary matrix each iteration (recursive)
     public static float[] Elementary_Method_Rec(float[][] A, float[] b, int i, int j, String fn) {
         int n = A.length;
         if (Is_Unit_Matrix(A)) {
