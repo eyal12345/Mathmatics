@@ -3,6 +3,23 @@ import java.util.Scanner;
 public class Invertible_Matrices {
 
     /////////////////////////////////////////////// Print Methods /////////////////////////////////////////////////
+    // display the matrix M in the matrices format
+    public static void Display_Exercise(float[][] M) {
+        int n = M[0].length;
+        System.out.println("invert the next matrix (" + n + "*" + n + " size):");
+        for (int i = 0; i < M.length; i++) {
+            for (int j = 0; j < M[0].length; j++) {
+                if ((Math.round(M[i][j] * 1000.0) / 1000.0) % 1 == 0) {
+                    System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0) + " ");
+                } if (j != n - 1) {
+                    System.out.print(",");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     // display current status of the matrices M and InvM each time of iteration on an element
     public static void Print_Status_Matrices(float[][] M, float[][] InvM, String fn) {
         int n = M[0].length;
@@ -61,8 +78,8 @@ public class Invertible_Matrices {
         System.out.println("1. invert a matrix by lower ranking");
         System.out.println("2. invert a matrix by upper ranking");
         System.out.println("3. invert a matrix by parallel ranking");
-        System.out.println("4. invert a matrix by parallel ranking with elementary matrices (iterative method)");
-        System.out.println("5. invert a matrix by parallel ranking with elementary matrices (recursive method)");
+        System.out.println("4. invert a matrix by parallel ranking with elementary matrices");
+        System.out.println("5. invert a matrix by parallel ranking with elementary matrices (recursive)");
         System.out.println("6. invert a matrix by formula: Inv(M) = (1/|M|) * Adj(M)");
         System.out.println("7. invert a matrix by formula: Inv(M) = (1/|M|) * Adj(M) with fast performance");
     }
@@ -76,20 +93,16 @@ public class Invertible_Matrices {
 
     /////////////////////////////////////////// Auxiliary Operations /////////////////////////////////////////////
     // calculate multiplication between two matrices
-    public static float[][] Mul_Mats(float[][] M1, float[][] M2) throws Exception {
-        if (M1[0].length == M2.length) {
-            float[][] M = new float[M1.length][M2[0].length];
-            for (int i = 0; i < M1.length; i++) {
-                for (int j = 0; j < M2[0].length; j++) {
-                    for (int k = 0; k < M2.length; k++) {
-                        M[i][j] += M1[i][k] * M2[k][j];
-                    }
+    public static float[][] Mul_Mats(float[][] M1, float[][] M2) {
+        float[][] M = new float[M1.length][M2[0].length];
+        for (int i = 0; i < M1.length; i++) {
+            for (int j = 0; j < M2[0].length; j++) {
+                for (int k = 0; k < M2.length; k++) {
+                    M[i][j] += M1[i][k] * M2[k][j];
                 }
             }
-            return M;
-        } else {
-            throw new Exception("has no match between matrices dimensions");
         }
+        return M;
     }
 
     // replace between two rows in a matrix
@@ -239,7 +252,7 @@ public class Invertible_Matrices {
     }
 
     // convert a value to a format of rational number
-    public static String convertDecimalToFraction(float x){
+    public static String convertDecimalToFraction(float x) {
         if (x < 0) {
             return "-" + convertDecimalToFraction(-x);
         }
@@ -314,165 +327,150 @@ public class Invertible_Matrices {
 
     /////////////////////////////////////////// Methods to Solution /////////////////////////////////////////////
     // invert the M matrix by an upper ranking and then a lower ranking
-    public static float[][] Upper_Ranking_Method(float[][] M, float[][] InvM, String fn) throws Exception {
-        float det = Determinant(M);
-        if (det != 0) {
-            if (Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
-                System.out.println("M is already parallel triangular so now will be change directly to I:");
-            } else if (Is_Upper_Triangular(M) && !Is_Lower_Triangular(M)) {
-                System.out.println("M is already upper triangular so now we'll go directly to the lower ranking:");
-                return Lower_Ranking_Method(M,InvM,fn);
-            } else if (!Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
-                System.out.println("transform L matrix to I by an elementary actions:");
-            } else {
-                System.out.println("transform M matrix to U by an elementary actions:");
+    public static float[][] Upper_Ranking_Method(float[][] M, float[][] InvM, String fn) {
+        if (Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
+            System.out.println("M is already parallel triangular so now will be change directly to I:");
+        } else if (Is_Upper_Triangular(M) && !Is_Lower_Triangular(M)) {
+            System.out.println("M is already upper triangular so now we'll go directly to the lower ranking:");
+            return Lower_Ranking_Method(M,InvM,fn);
+        } else if (!Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
+            System.out.println("transform L matrix to I by an elementary actions:");
+        } else {
+            System.out.println("transform M matrix to U by an elementary actions:");
+        }
+        int n = M.length;
+        Print_Status_Matrices(M,InvM,fn);
+        for (int i = 0; i < n; i++) {
+            if (M[i][i] == 0) {
+                int r = Get_Index_UnZero_Value(M,i);
+                System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
+                Retreat_Rows_Matrices(M,InvM,i,r);
+                Print_Status_Matrices(M,InvM,fn);
             }
-            int n = M.length;
-            Print_Status_Matrices(M,InvM,fn);
-            for (int i = 0; i < n; i++) {
-                if (M[i][i] == 0) {
-                    int r = Get_Index_UnZero_Value(M,i);
-                    System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
-                    Retreat_Rows_Matrices(M,InvM,i,r);
+            for (int j = i + 1; j < n; j++) {
+                if (M[j][i] != 0) {
+                    float c = M[j][i] / M[i][i];
+                    Sum_Elementary_Action(c,j,i,fn);
+                    for (int k = 0; k < n; k++) {
+                        M[j][k] -= M[i][k] * c;
+                        InvM[j][k] -= InvM[i][k] * c;
+                    }
+                    M[j][i] = 0;
+                    Print_Status_Matrices(M,InvM,fn);
+                } if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
+                    float c = 1 / M[j][j];
+                    Mul_Elementary_Action(c,j,fn);
+                    for (int k = 0; k < n; k++) {
+                        InvM[j][k] /= M[j][j];
+                    }
+                    M[j][j] = 1;
                     Print_Status_Matrices(M,InvM,fn);
                 }
-                for (int j = i + 1; j < n; j++) {
-                    if (M[j][i] != 0) {
-                        float c = M[j][i] / M[i][i];
-                        Sum_Elementary_Action(c,j,i,fn);
-                        for (int k = 0; k < n; k++) {
-                            M[j][k] -= M[i][k] * c;
-                            InvM[j][k] -= InvM[i][k] * c;
-                        }
-                        M[j][i] = 0;
-                        Print_Status_Matrices(M,InvM,fn);
-                    } if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
-                        float c = 1 / M[j][j];
-                        Mul_Elementary_Action(c,j,fn);
-                        for (int k = 0; k < n; k++) {
-                            InvM[j][k] /= M[j][j];
-                        }
-                        M[j][j] = 1;
-                        Print_Status_Matrices(M,InvM,fn);
-                    }
-                }
-                if (Is_Upper_Triangular(M) && !Is_Lower_Triangular(M)) {
-                    System.out.print("and now ");
-                    return Lower_Ranking_Method(M,InvM,fn);
-                }
             }
-            if (!Is_Lower_Triangular(M) || !Is_Unit_Matrix(M)) {
-                System.out.println("still not yet received an unit matrix");
+            if (Is_Upper_Triangular(M) && !Is_Lower_Triangular(M)) {
+                System.out.print("and now ");
                 return Lower_Ranking_Method(M,InvM,fn);
             }
-            return InvM;
-        } else {
-            throw new Exception("this is a singular matrix");
         }
+        if (!Is_Lower_Triangular(M) || !Is_Unit_Matrix(M)) {
+            System.out.println("still not yet received an unit matrix");
+            return Lower_Ranking_Method(M,InvM,fn);
+        }
+        return InvM;
     }
 
     // invert the M matrix by a lower ranking and then an upper ranking
-    public static float[][] Lower_Ranking_Method(float[][] M, float[][] InvM, String fn) throws Exception {
-        float det = Determinant(M);
-        if (det != 0) {
-            if (Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
-                System.out.println("M is already parallel triangular so now will be change directly to I:");
-            } else if (!Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
-                System.out.println("M is already lower triangular so now we'll go directly to the upper ranking:");
-                return Upper_Ranking_Method(M,InvM,fn);
-            } else if (Is_Upper_Triangular(M) && !Is_Lower_Triangular(M)) {
-                System.out.println("transform U matrix to I by an elementary actions:");
-            } else {
-                System.out.println("transform M matrix to L by an elementary actions:");
+    public static float[][] Lower_Ranking_Method(float[][] M, float[][] InvM, String fn) {
+        if (Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
+            System.out.println("M is already parallel triangular so now will be change directly to I:");
+        } else if (!Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
+            System.out.println("M is already lower triangular so now we'll go directly to the upper ranking:");
+            return Upper_Ranking_Method(M,InvM,fn);
+        } else if (Is_Upper_Triangular(M) && !Is_Lower_Triangular(M)) {
+            System.out.println("transform U matrix to I by an elementary actions:");
+        } else {
+            System.out.println("transform M matrix to L by an elementary actions:");
+        }
+        int n = M.length;
+        Print_Status_Matrices(M,InvM,fn);
+        for (int i = n - 1; i >= 0; i--) {
+            if (M[i][i] == 0) {
+                int r = n - 1 - Get_Index_UnZero_Value(M,i);
+                System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
+                Retreat_Rows_Matrices(M,InvM,i,r);
+                Print_Status_Matrices(M,InvM,fn);
             }
-            int n = M.length;
-            Print_Status_Matrices(M,InvM,fn);
-            for (int i = n - 1; i >= 0; i--) {
-                if (M[i][i] == 0) {
-                    int r = n - 1 - Get_Index_UnZero_Value(M,i);
-                    System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
-                    Retreat_Rows_Matrices(M,InvM,i,r);
+            for (int j = i - 1; j >= 0; j--) {
+                if (M[j][i] != 0) {
+                    float c = M[j][i] / M[i][i];
+                    Sum_Elementary_Action(c,j,i,fn);
+                    for (int k = n - 1; k >= 0; k--) {
+                        M[j][k] -= M[i][k] * c;
+                        InvM[j][k] -= InvM[i][k] * c;
+                    }
+                    M[j][i] = 0;
+                    Print_Status_Matrices(M,InvM,fn);
+                } if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
+                    float c = 1 / M[j][j];
+                    Mul_Elementary_Action(c,j,fn);
+                    for (int k = 0; k < n; k++) {
+                        InvM[j][k] /= M[j][j];
+                    }
+                    M[j][j] = 1;
                     Print_Status_Matrices(M,InvM,fn);
                 }
-                for (int j = i - 1; j >= 0; j--) {
-                    if (M[j][i] != 0) {
-                        float c = M[j][i] / M[i][i];
-                        Sum_Elementary_Action(c,j,i,fn);
-                        for (int k = n - 1; k >= 0; k--) {
-                            M[j][k] -= M[i][k] * c;
-                            InvM[j][k] -= InvM[i][k] * c;
-                        }
-                        M[j][i] = 0;
-                        Print_Status_Matrices(M,InvM,fn);
-                    } if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
-                        float c = 1 / M[j][j];
-                        Mul_Elementary_Action(c,j,fn);
-                        for (int k = 0; k < n; k++) {
-                            InvM[j][k] /= M[j][j];
-                        }
-                        M[j][j] = 1;
-                        Print_Status_Matrices(M,InvM,fn);
-                    }
-                }
-                if (!Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
-                    System.out.print("and now ");
-                    return Upper_Ranking_Method(M,InvM,fn);
-                }
             }
-            if (!Is_Upper_Triangular(M) || !Is_Unit_Matrix(M)) {
-                System.out.println("still not yet received an unit matrix");
+            if (!Is_Upper_Triangular(M) && Is_Lower_Triangular(M)) {
+                System.out.print("and now ");
                 return Upper_Ranking_Method(M,InvM,fn);
             }
-            return InvM;
-        } else {
-            throw new Exception("this is a singular matrix");
         }
+        if (!Is_Upper_Triangular(M) || !Is_Unit_Matrix(M)) {
+            System.out.println("still not yet received an unit matrix");
+            return Upper_Ranking_Method(M,InvM,fn);
+        }
+        return InvM;
     }
 
     // invert the M matrix by parallel ranking
-    public static float[][] Invertible(float[][] M, String fn) throws Exception {
-        float det = Determinant(M);
-        if (det != 0) {
-            System.out.println("matrix ranking:");
-            int n = M.length;
-            float[][] InvM = Unit_Matrix(n);
-            Print_Status_Matrices(M,InvM,fn);
-            for (int i = 0; i < n; i++) {
-                if (M[i][i] == 0) {
-                    int r = Get_Index_UnZero_Value(M,i);
-                    System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
-                    Retreat_Rows_Matrices(M,InvM,i,r);
+    public static float[][] Invertible(float[][] M, String fn) {
+        System.out.println("matrix ranking:");
+        int n = M.length;
+        float[][] InvM = Unit_Matrix(n);
+        Print_Status_Matrices(M,InvM,fn);
+        for (int i = 0; i < n; i++) {
+            if (M[i][i] == 0) {
+                int r = Get_Index_UnZero_Value(M,i);
+                System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
+                Retreat_Rows_Matrices(M,InvM,i,r);
+                Print_Status_Matrices(M,InvM,fn);
+            }
+            for (int j = 0; j < n; j++) {
+                if (i != j && M[j][i] != 0) {
+                    float c = M[j][i] / M[i][i];
+                    Sum_Elementary_Action(c,j,i,fn);
+                    for (int k = 0; k < n; k++) {
+                        M[j][k] -= M[i][k] * c;
+                        InvM[j][k] -= InvM[i][k] * c;
+                    }
+                    M[j][i] = 0;
+                    Print_Status_Matrices(M,InvM,fn);
+                } if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
+                    float c = 1 / M[j][j];
+                    Mul_Elementary_Action(c,j,fn);
+                    for (int k = 0; k < n; k++) {
+                        InvM[j][k] /= M[j][j];
+                    }
+                    M[j][j] = 1;
                     Print_Status_Matrices(M,InvM,fn);
                 }
-                for (int j = 0; j < n; j++) {
-                    if (i != j && M[j][i] != 0) {
-                        float c = M[j][i] / M[i][i];
-                        Sum_Elementary_Action(c,j,i,fn);
-                        for (int k = 0; k < n; k++) {
-                            M[j][k] -= M[i][k] * c;
-                            InvM[j][k] -= InvM[i][k] * c;
-                        }
-                        M[j][i] = 0;
-                        Print_Status_Matrices(M,InvM,fn);
-                    } if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
-                        float c = 1 / M[j][j];
-                        Mul_Elementary_Action(c,j,fn);
-                        for (int k = 0; k < n; k++) {
-                            InvM[j][k] /= M[j][j];
-                        }
-                        M[j][j] = 1;
-                        Print_Status_Matrices(M,InvM,fn);
-                    }
-                }
             }
-            return InvM;
-        } else {
-            throw new Exception("this is a singular matrix");
         }
+        return InvM;
     }
 
-    // invert the M matrix in parallel ranking by a multiplication of M in elementary matrix each iteration (iterative method)
-    public static float[][] Invertible_Elementary(float[][] M, String fn) throws Exception {
+    // invert the M matrix in parallel ranking by a multiplication of M in elementary matrix each iteration
+    public static float[][] Invertible_Elementary(float[][] M, String fn) {
         int n = M.length, i = 0 ,j = 0;
         float[][] InvM = Unit_Matrix(n);
         Print_Status_Matrices(M,InvM,fn);
@@ -509,8 +507,8 @@ public class Invertible_Matrices {
         return InvM;
     }
 
-    // invert the M matrix in parallel ranking by a multiplication of M in elementary matrix each iteration (recursive method)
-    public static float[][] Invertible_Elementary_Rec(float[][] M, float[][] InvM, int i, int j, String fn) throws Exception {
+    // invert the M matrix in parallel ranking by a multiplication of M in elementary matrix each iteration (recursive)
+    public static float[][] Invertible_Elementary_Rec(float[][] M, float[][] InvM, int i, int j, String fn) {
         int n = M.length;
         if (Is_Unit_Matrix(M)) {
             return InvM;
@@ -547,74 +545,105 @@ public class Invertible_Matrices {
     }
 
     // invert the M matrix by the formula: Inv(M) = 1/|M| * Adj(M)
-    public static float[][] Invertible_Direct(float[][] M) throws Exception {
+    public static float[][] Invertible_Direct(float[][] M) {
         float det = Determinant(M);
-        if (det != 0) {
-            int n = M.length;
-            float[][] InvM = new float[n][n];
-            float[][] adj = Adjoint(M);
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    InvM[i][j] = (1 / det) * adj[i][j];
-                }
+        int n = M.length;
+        float[][] InvM = new float[n][n];
+        float[][] adj = Adjoint(M);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                InvM[i][j] = (1 / det) * adj[i][j];
             }
-            return InvM;
-        } else {
-            throw new Exception("this is a singular matrix");
         }
+        return InvM;
     }
 
     // invert the M matrix by the multiplication of const in Adj(M)
-    public static float[][] Invertible_Direct_Plus(float[][] M) throws Exception {
+    public static float[][] Invertible_Direct_Plus(float[][] M) {
         float det = Determinant(M);
-        if (det != 0) {
-            return Mul_Const_Matrix(1 / det,Adjoint(M));
-        } else {
-            throw new Exception("this is a singular matrix");
-        }
+        return Mul_Const_Matrix(1 / det,Adjoint(M));
     }
 
     ///////////////////////////////////////////// User Interface ///////////////////////////////////////////////
     // choose option in order to correctness check for M matrix
-    public static void Invert_Matrix(float[][] M) throws Exception {
+    public static void Invert_Matrix(float[][] M, String fn) throws Exception {
         Scanner sc = new Scanner(System.in);
         User_Menu_System();
         int op = sc.nextInt();
-        User_Menu_Solution();
-        String fn = sc.next();
-        System.out.println("find the next matrix's invertible:");
         Print_Matrix(M,fn);
         switch (op) {
             case 1:
                 M = Lower_Ranking_Method(M,Unit_Matrix(M.length),fn);
+                System.out.println("the invertible of this matrix is:");
                 Print_Matrix(M,fn);
                 break;
             case 2:
                 M = Upper_Ranking_Method(M,Unit_Matrix(M.length),fn);
+                System.out.println("the invertible of this matrix is:");
                 Print_Matrix(M,fn);
                 break;
             case 3:
                 M = Invertible(M,fn);
+                System.out.println("the invertible of this matrix is:");
                 Print_Matrix(M,fn);
                 break;
             case 4:
                 M = Invertible_Elementary(M,fn);
+                System.out.println("the invertible of this matrix is:");
                 Print_Matrix(M,fn);
                 break;
             case 5:
                 M = Invertible_Elementary_Rec(M, Unit_Matrix(M.length),0,0,fn);
+                System.out.println("the invertible of this matrix is:");
                 Print_Matrix(M,fn);
                 break;
             case 6:
                 M = Invertible_Direct(M);
+                System.out.println("the invertible of this matrix is:");
                 Print_Matrix(M,fn);
                 break;
             case 7:
                 M = Invertible_Direct_Plus(M);
+                System.out.println("the invertible of this matrix is:");
                 Print_Matrix(M,fn);
                 break;
             default:
                 throw new Exception("you entered an invalid number");
+        }
+    }
+
+    //////////////////////////////////////////// Check Structure //////////////////////////////////////////////
+    // check the matrix M if it is reversible
+    public static void Check_Matrix(float[][] M) throws Exception {
+        int m = M.length, n = M[0].length;
+        if (m == n) {
+            Display_Exercise(M);
+            float det = Determinant(M);
+            if (det == 0) {
+                throw new Exception("this is a singular matrix");
+            } else {
+                Scanner sc = new Scanner(System.in);
+                User_Menu_Solution();
+                String fn = sc.next();
+                if (fn.equals("d") || fn.equals("r")) {
+                    if (n > 1) { // 2*2 size or higher
+                        Invert_Matrix(M,fn);
+                    } else { // 1*1 size
+                        float c = 1 / M[0][0];
+                        if (c % 1 == 0) {
+                            System.out.println("the invertible of this matrix is: " + (int) c);
+                        } else if (fn.equals("d")) {
+                            System.out.println("the invertible of this matrix is: " + c);
+                        } else if (fn.equals("r")) {
+                            System.out.println("the invertible of this matrix is: " + convertDecimalToFraction(c));
+                        }
+                    }
+                } else {
+                    throw new Exception("you entered invalid value for a representation elementary actions and solution");
+                }
+            }
+        } else {
+            throw new Exception("your input does not meet the conditions for invertible matrices");
         }
     }
 
@@ -631,8 +660,9 @@ public class Invertible_Matrices {
         float[][] E = {{1,1,-2,0,-1,-1},{0,-2,-1,2,-2,2},{0,0,-1,-1,-1,1},{0,0,-2,2,-2,0},{-2,-2,0,0,-2,2},{1,0,-1,0,0,2}};
         float[][] F = {{-2,0,-4,-2,5,-6},{6,-1,-2,0,1,0},{6,0,0,-2,5,2},{-4,0,6,4,4,6},{-4,-2,3,-6,4,-4},{5,1,-5,-1,5,-2}};
         float[][] G = {{-1,0,4,-1,-2,5,-1},{6,-7,7,1,-7,-6,5},{0,2,6,1,-7,6,1},{2,2,0,-2,-6,6,-5},{3,3,-3,1,7,-1,-2},{1,-5,1,-4,3,1,-4},{7,-5,5,0,-4,-4,1}};
+        float[][] Z = {{8}};
         try {
-            Invert_Matrix(C);
+            Check_Matrix(C);
         } catch (Exception e) {
             e.printStackTrace();
         }
