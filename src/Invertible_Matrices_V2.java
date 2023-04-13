@@ -1,39 +1,33 @@
+import java.util.Scanner;
 
 public class Invertible_Matrices_V2 {
 
     /////////////////////////////////////////////// Print Methods /////////////////////////////////////////////////
     // display current status of the matrices M and InvM each time of iteration on an element
-    public static void Print_Status_Matrices(float[][] M, float[][] invM) {
+    public static void Print_Status_Matrices(float[][] M, float[][] InvM, String fn) {
+        int n = M[0].length;
         for (int i = 0; i < M.length; i++) {
             for (int j = 0; j < M[0].length; j++) {
-                if (j == M[0].length - 1) {
-                    if ((Math.round(M[i][j] * 1000000.0) / 1000000.0) % 1 == 0) {
-                        System.out.print((int) (Math.round(M[i][j] * 1000000.0) / 1000000.0) + " ");
-                    } else {
-                        System.out.print(Math.round(M[i][j] * 1000000.0) / 1000000.0 + " ");
-                    }
-                } else {
-                    if ((Math.round(M[i][j] * 1000000.0) / 1000000.0) % 1 == 0) {
-                        System.out.print((int) (Math.round(M[i][j] * 1000000.0) / 1000000.0) + " ,");
-                    } else {
-                        System.out.print(Math.round(M[i][j] * 1000000.0) / 1000000.0 + " ,");
-                    }
+                if ((Math.round(M[i][j] * 1000.0) / 1000.0) % 1 == 0) {
+                    System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0) + " ");
+                } else if (fn.equals("d")) {
+                    System.out.print(Math.round(M[i][j] * 1000.0) / 1000.0 + " ");
+                } else if (fn.equals("r")) {
+                    System.out.print(convertDecimalToFraction(M[i][j]) + " ");
+                } if (j != n - 1) {
+                    System.out.print(",");
                 }
             }
             System.out.print("| ");
-            for (int j = 0; j < invM[0].length; j++) {
-                if (j == invM[0].length - 1) {
-                    if ((Math.round(invM[i][j] * 1000000.0) / 1000000.0) % 1 == 0) {
-                        System.out.print((int) (Math.round(invM[i][j] * 1000000.0) / 1000000.0) + " ");
-                    } else {
-                        System.out.print(Math.round(invM[i][j] * 1000000.0) / 1000000.0 + " ");
-                    }
-                } else {
-                    if ((Math.round(invM[i][j] * 1000000.0) / 1000000.0) % 1 == 0) {
-                        System.out.print((int) (Math.round(invM[i][j] * 1000000.0) / 1000000.0) + " ,");
-                    } else {
-                        System.out.print(Math.round(invM[i][j] * 1000000.0) / 1000000.0 + " ,");
-                    }
+            for (int j = 0; j < InvM[0].length; j++) {
+                if ((Math.round(InvM[i][j] * 1000.0) / 1000.0) % 1 == 0) {
+                    System.out.print((int) (Math.round(InvM[i][j] * 1000.0) / 1000.0) + " ");
+                } else if (fn.equals("d")) {
+                    System.out.print(Math.round(InvM[i][j] * 1000.0) / 1000.0 + " ");
+                } else if (fn.equals("r")) {
+                    System.out.print(convertDecimalToFraction(InvM[i][j]) + " ");
+                } if (j != n - 1) {
+                    System.out.print(",");
                 }
             }
             System.out.println();
@@ -42,21 +36,18 @@ public class Invertible_Matrices_V2 {
     }
 
     // display a matrix each current status
-    public static void Print_Matrix(float[][] M) {
+    public static void Print_Matrix(float[][] M, String fn) {
+        int n = M[0].length;
         for (int i = 0; i < M.length; i++) {
             for (int j = 0; j < M[0].length; j++) {
-                if (j == M[0].length - 1) {
-                    if ((Math.round(M[i][j] * 1000000.0) / 1000000.0) % 1 == 0) {
-                        System.out.print((int) (Math.round(M[i][j] * 1000000.0) / 1000000.0) + " ");
-                    } else {
-                        System.out.print(Math.round(M[i][j] * 1000000.0) / 1000000.0 + " ");
-                    }
-                } else {
-                    if ((Math.round(M[i][j] * 1000000.0) / 1000000.0) % 1 == 0) {
-                        System.out.print((int) (Math.round(M[i][j] * 1000000.0) / 1000000.0) + " ,");
-                    } else {
-                        System.out.print(Math.round(M[i][j] * 1000000.0) / 1000000.0 + " ,");
-                    }
+                if ((Math.round(M[i][j] * 1000.0) / 1000.0) % 1 == 0) {
+                    System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0) + " ");
+                } else if (fn.equals("d")) {
+                    System.out.print(Math.round(M[i][j] * 1000.0) / 1000.0 + " ");
+                } else if (fn.equals("r")) {
+                    System.out.print(convertDecimalToFraction(M[i][j]) + " ");
+                } if (j != n - 1) {
+                    System.out.print(",");
                 }
             }
             System.out.println();
@@ -180,7 +171,7 @@ public class Invertible_Matrices_V2 {
 
     //////////////////////////////////////////// Elementary Actions //////////////////////////////////////////////
     // show elementary actions for sum between rows in the matrices
-    public static void Sum_Elementary_Action(float k, int j, int i) {
+    public static void Sum_Elementary_Action(float k, int j, int i, String fn) {
         if (k != 0) {
             int r = j + 1, c = i + 1;
             if (k > 0) {
@@ -190,8 +181,10 @@ public class Invertible_Matrices_V2 {
                     } else {
                         System.out.println("R" + r + " --> R" + r + " - " + (int) k + "*R" + c + "\n");
                     }
-                } else {
+                } else if (fn.equals("d")) {
                     System.out.println("R" + r + " --> R" + r + " - " + k + "*R" + c + "\n");
+                } else if (fn.equals("r")) {
+                    System.out.println("R" + r + " --> R" + r + " - " + convertDecimalToFraction(k) + "*R" + c + "\n");
                 }
             } else {
                 if (k % 1 == 0) {
@@ -200,15 +193,17 @@ public class Invertible_Matrices_V2 {
                     } else {
                         System.out.println("R" + r + " --> R" + r + " + " + (int) (-k) + "*R" + c + "\n");
                     }
-                } else {
+                } else if (fn.equals("d")) {
                     System.out.println("R" + r + " --> R" + r + " + " + (-k) + "*R" + c + "\n");
+                } else if (fn.equals("r")) {
+                    System.out.println("R" + r + " --> R" + r + " + " + convertDecimalToFraction(-k) + "*R" + c + "\n");
                 }
             }
         }
     }
 
     // show elementary actions for multiplication of a row in the matrices
-    public static void Mul_Elementary_Action(float k, int j) {
+    public static void Mul_Elementary_Action(float k, int j, String fn) {
         if (k != 1) {
             int r = j + 1;
             if (k % 1 == 0) {
@@ -217,49 +212,45 @@ public class Invertible_Matrices_V2 {
                 } else {
                     System.out.println("R" + r + " --> " + (int) k + "*R" + r + "\n");
                 }
-            } else {
+            } else if (fn.equals("d")) {
                 System.out.println("R" + r + " --> " + k + "*R" + r + "\n");
+            } else if (fn.equals("r")) {
+                System.out.println("R" + r + " --> " + convertDecimalToFraction(k) + "*R" + r + "\n");
             }
         }
     }
 
     /////////////////////////////////////////// Methods to Solution /////////////////////////////////////////////
     // invert the M matrix in parallel ranking by a multiplication of M in elementary matrix each iteration (iterative method)
-    public static float[][] Invertible(float[][] M) throws Exception {
-        int n = M.length;
+    public static float[][] Invertible(float[][] M, String fn) throws Exception {
+        int n = M.length, i = 0 ,j = 0;
         float[][] InvM = Unit_Matrix(n);
-        int i = 0 ,j = 0;
-        Print_Status_Matrices(M,InvM);
+        Print_Status_Matrices(M,InvM,fn);
         while (!Is_Unit_Matrix(M)) {
             float[][] E = Unit_Matrix(n);
             if (M[i][i] == 0) {
-                int k = Get_Index_UnZero_Value(M,i);
-                System.out.println("R" + (i + 1) + " <--> R" + (k + 1) + "\n");
-                Retreat_Rows_Matrix(E,i,k);
+                int r = Get_Index_UnZero_Value(M,i);
+                System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
+                Retreat_Rows_Matrix(E,i,r);
                 M = Mul_Mats(E,M);
                 InvM = Mul_Mats(E,InvM);
-                Print_Status_Matrices(M,InvM);
+                Print_Status_Matrices(M,InvM,fn);
             } else {
-                if (i != j) {
+                if (i != j && M[j][i] != 0) {
                     E[j][i] -= (M[j][i] / M[i][i]);
-                    Sum_Elementary_Action(-E[j][i],j,i);
+                    Sum_Elementary_Action(-E[j][i],j,i,fn);
                     M = Mul_Mats(E,M);
                     InvM = Mul_Mats(E,InvM);
                     M[j][i] = 0;
-                    if (E[j][i] != 0) {
-                        Print_Status_Matrices(M,InvM);
-                    }
-                } else if (Is_Unit_Vector(M,j)) {
+                    Print_Status_Matrices(M,InvM,fn);
+                } else if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
                     E[j][j] = 1 / M[j][j];
-                    Mul_Elementary_Action(E[j][j],j);
+                    Mul_Elementary_Action(E[j][j],j,fn);
                     M = Mul_Mats(E,M);
                     InvM = Mul_Mats(E,InvM);
                     M[j][j] = 1;
-                    if (E[j][j] != 1) {
-                        Print_Status_Matrices(M,InvM);
-                    }
-                }
-                if (j == n - 1) {
+                    Print_Status_Matrices(M,InvM,fn);
+                } if (j == n - 1) {
                     i = (i + 1) % n;
                 }
                 j = (j + 1) % n;
@@ -269,42 +260,79 @@ public class Invertible_Matrices_V2 {
     }
 
     // invert the M matrix in parallel ranking by a multiplication of M in elementary matrix each iteration (recursive method)
-    public static float[][] Invertible_Rec(float[][] M, float[][] InvM, int i, int j) throws Exception {
+    public static float[][] Invertible_Rec(float[][] M, float[][] InvM, int i, int j, String fn) throws Exception {
         int n = M.length;
         if (Is_Unit_Matrix(M)) {
             return InvM;
         } else {
             float[][] E = Unit_Matrix(n);
             if (M[i][i] == 0) {
-                int k = Get_Index_UnZero_Value(M,i);
-                System.out.println("R" + (i + 1) + " <--> R" + (k + 1) + "\n");
-                Retreat_Rows_Matrix(E,i,k);
+                int r = Get_Index_UnZero_Value(M,i);
+                System.out.println("R" + (i + 1) + " <--> R" + (r + 1) + "\n");
+                Retreat_Rows_Matrix(E,i,r);
                 M = Mul_Mats(E,M);
                 InvM = Mul_Mats(E,InvM);
-                Print_Status_Matrices(M,InvM);
+                Print_Status_Matrices(M,InvM,fn);
             } else {
-                if (i != j) {
+                if (i != j && M[j][i] != 0) {
                     E[j][i] -= (M[j][i] / M[i][i]);
-                    Sum_Elementary_Action(-E[j][i],j,i);
+                    Sum_Elementary_Action(-E[j][i],j,i,fn);
                     M = Mul_Mats(E,M);
                     InvM = Mul_Mats(E,InvM);
                     M[j][i] = 0;
-                    if (E[j][i] != 0)
-                        Print_Status_Matrices(M,InvM);
-                } else if (Is_Unit_Vector(M,j)) {
+                    Print_Status_Matrices(M,InvM,fn);
+                } else if (Is_Unit_Vector(M,j) && M[j][j] != 1) {
                     E[j][j] = 1 / M[j][j];
-                    Mul_Elementary_Action(E[j][j],j);
+                    Mul_Elementary_Action(E[j][j],j,fn);
                     M = Mul_Mats(E,M);
                     InvM = Mul_Mats(E,InvM);
                     M[j][j] = 1;
-                    if (E[j][j] != 1)
-                        Print_Status_Matrices(M,InvM);
-                }
-                if (j == n - 1)
+                    Print_Status_Matrices(M,InvM,fn);
+                } if (j == n - 1)
                     i = (i + 1) % n;
                 j = (j + 1) % n;
             }
-            return Invertible_Rec(M,InvM,i,j);
+            return Invertible_Rec(M,InvM,i,j,fn);
+        }
+    }
+
+    ///////////////////////////////////////////// User Interface ///////////////////////////////////////////////
+    // choose option in order to correctness check for M matrix
+    public static void Correctness_Check(float[][] M) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        User_Menu_Solution();
+        String fn = sc.next();
+        System.out.println("find the next matrix's invertible:");
+        Print_Matrix(M,fn);
+        System.out.println("choose the option number to correctness:");
+        int op = sc.nextInt();
+        switch (op) {
+            case 1:
+                M = Invertible(M,fn);
+                Print_Matrix(M,fn);
+                break;
+            case 2:
+                M = Invertible_Rec(M, Unit_Matrix(M.length),0,0,fn);
+                Print_Matrix(M,fn);
+                break;
+            case 3:
+                M = Invertible(Invertible(M,fn),fn);
+                Print_Matrix(M,fn);
+                break;
+            case 4:
+                M = Invertible_Rec(Invertible_Rec(M,Unit_Matrix(M.length),0,0,fn),Unit_Matrix(M.length),0,0,fn);
+                Print_Matrix(M,fn);
+                break;
+            case 5:
+                M = Invertible(Invertible_Rec(M,Unit_Matrix(M.length),0,0,fn),fn);
+                Print_Matrix(M,fn);
+                break;
+            case 6:
+                M = Invertible_Rec(Invertible(M,fn),Unit_Matrix(M.length),0,0,fn);
+                Print_Matrix(M,fn);
+                break;
+            default:
+                throw new Exception("you entered an invalid number");
         }
     }
 
@@ -314,14 +342,10 @@ public class Invertible_Matrices_V2 {
         float[][] A2 = {{1,-1,-2},{2,-3,-5},{-1,3,5}};
         float[][] A3 = {{1,1,5},{1,2,7},{2,-1,4}};
         float[][] A4 = {{1,1,5},{-2,-2,-10},{6,6,30}};
-        float[][] B = {{-2,2,2,-1,1},{-4,4,4,4,3},{2,3,2,3,2},{-3,-1,1,2,2},{5,5,3,5,5}};
-        float[][] Inv;
+        float[][] B = {{-2,3,3,-2},{-1,4,2,-2},{1,3,1,3},{-3,-2,4,-5}};
+        float[][] C = {{-2,2,2,-1,1},{-4,4,4,4,3},{2,3,2,3,2},{-3,-1,1,2,2},{5,5,3,5,5}};
         try {
-            float[][] M = Copy_Matrix(A1);
-//            Inv = Invertible(M);
-            Print_Status_Matrices(M,Unit_Matrix(M.length));
-            Inv = Invertible_Rec(M,Unit_Matrix(M.length) ,0 ,0);
-            Print_Matrix(Inv);
+            Correctness_Check(B);
         } catch (Exception e) {
             e.printStackTrace();
         }

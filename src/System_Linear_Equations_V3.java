@@ -1040,6 +1040,7 @@ public class System_Linear_Equations_V3 {
     public static void Check_System(float[][] A, float[] b) throws Exception {
         int m = A.length, n = A[0].length, k = b.length;
         if (m <= n && m == k) {
+            Scanner sc = new Scanner(System.in);
             Display_Exercise(A,b);
             if (n > 1) { // R2 Space or higher
                 if (Is_Linear_Independent_System(A,b)) {
@@ -1065,7 +1066,6 @@ public class System_Linear_Equations_V3 {
                         System.out.println("does not an exists any solution to the equation");
                     }
                 } else {
-                    Scanner sc = new Scanner(System.in);
                     User_Menu_Solution();
                     String fn = sc.next();
                     float c = b[0] / A[0][0];

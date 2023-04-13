@@ -878,7 +878,7 @@ public class System_Linear_Equations_V1 {
                             Print_Solution(x,fn);
                         }
                     } else {
-                        System.out.print("does not an exist solutions because |A| is 0 and |b| is not 0");
+                        System.out.print("does not an exist solutions because |A| = 0 and |b| != 0");
                     }
                 } else {
                     float[] x = Solve_System(A,b,op,fn);
@@ -893,11 +893,15 @@ public class System_Linear_Equations_V1 {
                         System.out.print("does not an exists any solution to the equation");
                     }
                 } else {
+                    User_Menu_Solution();
+                    String fn = sc.next();
                     float c = b[0] / A[0][0];
                     if (c % 1 == 0) {
                         System.out.println("exist a single solution for the equation which is: x = " + (int) c);
-                    } else {
+                    } else if (fn.equals("d")) {
                         System.out.println("exist a single solution for the equation which is: x = " + c);
+                    } else if (fn.equals("r")) {
+                        System.out.println("exist a single solution for the equation which is: x = " + convertDecimalToFraction(c));
                     }
                 }
             }

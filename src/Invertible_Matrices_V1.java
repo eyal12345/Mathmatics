@@ -528,6 +528,8 @@ public class Invertible_Matrices_V1 {
                 M = Invertible_Direct_Plus(M);
                 Print_Matrix(M,fn);
                 break;
+            default:
+                throw new Exception("you entered an invalid number");
         }
     }
 
