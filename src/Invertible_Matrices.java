@@ -5,10 +5,10 @@ public class Invertible_Matrices {
     /////////////////////////////////////////////// Print Methods /////////////////////////////////////////////////
     // display the matrix M in the matrices format
     public static void Display_Exercise(float[][] M) {
-        int n = M[0].length;
+        int n = M.length;
         System.out.println("invert the next matrix (" + n + "*" + n + " size):");
-        for (int i = 0; i < M.length; i++) {
-            for (int j = 0; j < M[0].length; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 if ((Math.round(M[i][j] * 1000.0) / 1000.0) % 1 == 0) {
                     System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0) + " ");
                 } if (j != n - 1) {
@@ -22,9 +22,9 @@ public class Invertible_Matrices {
 
     // display current status of the matrices M and InvM each time of iteration on an element
     public static void Print_Status_Matrices(float[][] M, float[][] InvM, String fn) {
-        int n = M[0].length;
-        for (int i = 0; i < M.length; i++) {
-            for (int j = 0; j < M[0].length; j++) {
+        int n = M.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 if ((Math.round(M[i][j] * 1000.0) / 1000.0) % 1 == 0) {
                     System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0) + " ");
                 } else if (fn.equals("d")) {
@@ -36,7 +36,7 @@ public class Invertible_Matrices {
                 }
             }
             System.out.print("| ");
-            for (int j = 0; j < InvM[0].length; j++) {
+            for (int j = 0; j < n; j++) {
                 if ((Math.round(InvM[i][j] * 1000.0) / 1000.0) % 1 == 0) {
                     System.out.print((int) (Math.round(InvM[i][j] * 1000.0) / 1000.0) + " ");
                 } else if (fn.equals("d")) {
@@ -54,9 +54,9 @@ public class Invertible_Matrices {
 
     // show the resulting solution as a matrix representation
     public static void Print_Solution(float[][] M, String fn) {
-        int n = M[0].length;
-        for (int i = 0; i < M.length; i++) {
-            for (int j = 0; j < M[0].length; j++) {
+        int n = M.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 if ((Math.round(M[i][j] * 1000.0) / 1000.0) % 1 == 0) {
                     System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0) + " ");
                 } else if (fn.equals("d")) {
@@ -94,10 +94,11 @@ public class Invertible_Matrices {
     /////////////////////////////////////////// Auxiliary Operations /////////////////////////////////////////////
     // calculate multiplication between two matrices
     public static float[][] Mul_Mats(float[][] M1, float[][] M2) {
-        float[][] M = new float[M1.length][M2[0].length];
-        for (int i = 0; i < M1.length; i++) {
-            for (int j = 0; j < M2[0].length; j++) {
-                for (int k = 0; k < M2.length; k++) {
+        int n = M1.length;
+        float[][] M = new float[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                for (int k = 0; k < n; k++) {
                     M[i][j] += M1[i][k] * M2[k][j];
                 }
             }
@@ -107,7 +108,8 @@ public class Invertible_Matrices {
 
     // replace between two rows in a matrix
     public static void Retreat_Rows_Matrix(float[][] M, int r1, int r2) {
-        for (int j = 0; j < M[0].length; j++) {
+        int n = M.length;
+        for (int j = 0; j < n; j++) {
             float t = M[r1][j];
             M[r1][j] = M[r2][j];
             M[r2][j] = t;
@@ -116,7 +118,8 @@ public class Invertible_Matrices {
 
     // replace between two rows in a matrices
     public static void Retreat_Rows_Matrices(float[][] M, float[][] invM, int r1, int r2) {
-        for (int j = 0; j < M[0].length; j++) {
+        int n = M.length;
+        for (int j = 0; j < n; j++) {
             float t = M[r1][j];
             M[r1][j] = M[r2][j];
             M[r2][j] = t;
@@ -137,26 +140,28 @@ public class Invertible_Matrices {
 
     // calculate determinant of a matrix
     public static float Determinant(float[][] M) {
-        if (M.length == 1) {
+        int n = M.length;
+        if (n == 1) {
             return M[0][0];
+        } else {
+            float sum = 0;
+            for (int i = 0; i < n; i++) {
+                sum += Math.pow(-1,i) * M[0][i] * Determinant(Sub_Matrix(M,0,i));
+            }
+            return sum;
         }
-        float sum = 0;
-        for (int i = 0; i < M.length; i++) {
-            sum += Math.pow(-1,i) * M[0][i] * Determinant(Sub_Matrix(M,0,i));
-        }
-        return sum;
     }
 
     // calculate of sub-matrix from a matrix by cutting row "x" and column "y"
     public static float[][] Sub_Matrix(float[][] M, int x, int y) {
         int n = M.length, p = 0, q = 0;
         float[][] subM = new float[n - 1][n - 1];
-        for (int i = 0; i < M.length; i++) {
-            for (int j = 0; j < M[0].length; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 if (i != x && j != y) {
                     subM[p][q] = M[i][j];
                     q++;
-                    if (q == subM[0].length) {
+                    if (q == n - 1) {
                         p++;
                         q = 0;
                     }
@@ -217,8 +222,9 @@ public class Invertible_Matrices {
 
     // multiplication of a matrix by a constant
     public static float[][] Mul_Const_Matrix(float k, float[][] M) {
-        for (int i = 0; i < M.length; i++) {
-            for (int j = 0; j < M[0].length; j++) {
+        int n = M.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 M[i][j] = k * M[i][j];
             }
         }
