@@ -161,37 +161,20 @@ public class System_Linear_Equations {
     // show the resulting solution as a vector representation
     public static void Print_Solution(float[] x, String fn) {
         int n = x.length;
-        if (n == 1) {
-            if ((Math.round(x[0] * 1000.0) / 1000.0) % 1 == 0) {
-                System.out.println("x = " + (int) (Math.round(x[0] * 1000.0) / 1000.0));
+        String s = "(";
+        for (int i = 0; i < n; i++) {
+            if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0) {
+                s += (int) (Math.round(x[i] * 1000.0) / 1000.0);
             } else if (fn.equals("d")) {
-                System.out.println("x = " + Math.round(x[0] * 1000.0) / 1000.0);
+                s += Math.round(x[i] * 1000.0) / 1000.0;
             } else if (fn.equals("r")) {
-                System.out.println("x = " + convertDecimalToFraction(x[0]));
+                s += convertDecimalToFraction(x[i]);
+            } if (i != n - 1) {
+                s += " ,";
             }
-        } else {
-            String s = "( ";
-            for (int i = 0; i < n; i++) {
-                if (i == n - 1) {
-                    if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0) {
-                        s += (int) (Math.round(x[i] * 1000.0) / 1000.0) + " )";
-                    } else if (fn.equals("d")) {
-                        s += Math.round(x[i] * 1000.0) / 1000.0 + " )";
-                    } else if (fn.equals("r")) {
-                        s += convertDecimalToFraction(x[i]) + " )";
-                    }
-                } else {
-                    if ((Math.round(x[i] * 1000.0) / 1000.0) % 1 == 0) {
-                        s += (int) (Math.round(x[i] * 1000.0) / 1000.0) + " , ";
-                    } else if (fn.equals("d")) {
-                        s += Math.round(x[i] * 1000.0) / 1000.0 + " , ";
-                    } else if (fn.equals("r")) {
-                        s += convertDecimalToFraction(x[i]) + " , ";
-                    }
-                }
-            }
-            System.out.println(s);
         }
+        s += ")";
+        System.out.println(s);
     }
 
     /////////////////////////////////////////// Auxiliary Operations /////////////////////////////////////////////

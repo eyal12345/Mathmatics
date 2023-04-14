@@ -52,8 +52,8 @@ public class Invertible_Matrices {
         System.out.println();
     }
 
-    // display a matrix each current status
-    public static void Print_Matrix(float[][] M, String fn) {
+    // show the resulting solution as a matrix representation
+    public static void Print_Solution(float[][] M, String fn) {
         int n = M[0].length;
         for (int i = 0; i < M.length; i++) {
             for (int j = 0; j < M[0].length; j++) {
@@ -572,37 +572,37 @@ public class Invertible_Matrices {
             case 1:
                 M = Lower_Ranking_Method(M,Unit_Matrix(M.length),fn);
                 System.out.println("the invertible of this matrix is:");
-                Print_Matrix(M,fn);
+                Print_Solution(M,fn);
                 break;
             case 2:
                 M = Upper_Ranking_Method(M,Unit_Matrix(M.length),fn);
                 System.out.println("the invertible of this matrix is:");
-                Print_Matrix(M,fn);
+                Print_Solution(M,fn);
                 break;
             case 3:
                 M = Invertible(M,fn);
                 System.out.println("the invertible of this matrix is:");
-                Print_Matrix(M,fn);
+                Print_Solution(M,fn);
                 break;
             case 4:
                 M = Invertible_Elementary(M,fn);
                 System.out.println("the invertible of this matrix is:");
-                Print_Matrix(M,fn);
+                Print_Solution(M,fn);
                 break;
             case 5:
                 M = Invertible_Elementary_Rec(M,Unit_Matrix(M.length),0,0,fn);
                 System.out.println("the invertible of this matrix is:");
-                Print_Matrix(M,fn);
+                Print_Solution(M,fn);
                 break;
             case 6:
                 M = Invertible_Direct(M);
                 System.out.println("the invertible of this matrix is:");
-                Print_Matrix(M,fn);
+                Print_Solution(M,fn);
                 break;
             case 7:
                 M = Invertible_Direct_Plus(M);
                 System.out.println("the invertible of this matrix is:");
-                Print_Matrix(M,fn);
+                Print_Solution(M,fn);
                 break;
             default:
                 throw new Exception("you entered an invalid number");
