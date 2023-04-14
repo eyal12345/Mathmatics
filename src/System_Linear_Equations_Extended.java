@@ -79,7 +79,7 @@ public class System_Linear_Equations_Extended {
 
     // display current status of the system Ax = b each time of iteration on an element
     public static void Print_Status_System(float[][] A, float[][] b, String fn) {
-        int m = A.length, n = A[0].length;
+        int m = A.length, n = A[0].length, k = b[0].length;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if ((Math.round(A[i][j] * 1000.0) / 1000.0) % 1 == 0) {
@@ -93,16 +93,14 @@ public class System_Linear_Equations_Extended {
                 }
             }
             System.out.print(" | ");
-            for (int j = 0; j < n + 1; j++) {
+            for (int j = 0; j < k; j++) {
                 if ((Math.round(b[i][j] * 1000.0) / 1000.0) % 1 == 0) {
                     System.out.print((int) (Math.round(b[i][j] * 1000.0) / 1000.0));
                 } else if (fn.equals("d")) {
                     System.out.print(Math.round(b[i][j] * 1000.0) / 1000.0);
                 } else if (fn.equals("r")) {
                     System.out.print(convertDecimalToFraction(b[i][j]));
-                } if (Is_Zero_Col(b,j + 1)) {
-                    break;
-                } if (j != n) {
+                } if (j != k - 1) {
                     System.out.print(" ,");
                 }
             }
@@ -1091,7 +1089,7 @@ public class System_Linear_Equations_Extended {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*(0 ,1 ,0 ,0 ,1 ,1 ,1 ,1)
         try {
-            Check_System(A52,b52);
+            Check_System(A43,b43);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
