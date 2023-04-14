@@ -737,29 +737,31 @@ public class System_Linear_Equations {
     public static float[] Parallel_Ranking_Method(float[][] A, float[] b, String fn) {
         System.out.println("transform A matrix to I by a parallel ranking:");
         int n = A.length;
-        for (int i = 0; i < n; i++) {
-            if (A[i][i] == 0) {
-                int r = Get_Index_UnZero_Value(A,i);
-                Retreat_Elementary_Action(i,r);
-                Retreat_Rows_System(A,b,i,r);
-                Print_Status_System(A,b,fn);
-            }
-            for (int j = 0; j < n; j++) {
-                if (i != j && A[j][i] != 0) {
-                    float c = A[j][i] / A[i][i];
-                    Sum_Elementary_Action(c,j,i,fn);
-                    for (int k = 0; k < n; k++) {
-                        A[j][k] -= A[i][k] * c;
+        while (!Is_Unit_Matrix(A)) {
+            for (int i = 0; i < n; i++) {
+                if (A[i][i] == 0) {
+                    int r = Get_Index_UnZero_Value(A,i);
+                    Retreat_Elementary_Action(i,r);
+                    Retreat_Rows_System(A,b,i,r);
+                    Print_Status_System(A,b,fn);
+                }
+                for (int j = 0; j < n; j++) {
+                    if (i != j && A[j][i] != 0) {
+                        float c = A[j][i] / A[i][i];
+                        Sum_Elementary_Action(c,j,i,fn);
+                        for (int k = 0; k < n; k++) {
+                            A[j][k] -= A[i][k] * c;
+                        }
+                        A[j][i] = 0;
+                        b[j] -= b[i] * c;
+                        Print_Status_System(A,b,fn);
+                    } if (Is_Unit_Vector(A,j) && A[j][j] != 1) {
+                        float c = 1 / A[j][j];
+                        Mul_Elementary_Action(c,j,fn);
+                        b[j] /= A[j][j];
+                        A[j][j] = 1;
+                        Print_Status_System(A,b,fn);
                     }
-                    A[j][i] = 0;
-                    b[j] -= b[i] * c;
-                    Print_Status_System(A,b,fn);
-                } if (Is_Unit_Vector(A,j) && A[j][j] != 1) {
-                    float c = 1 / A[j][j];
-                    Mul_Elementary_Action(c,j,fn);
-                    b[j] /= A[j][j];
-                    A[j][j] = 1;
-                    Print_Status_System(A,b,fn);
                 }
             }
         }
@@ -1021,7 +1023,7 @@ public class System_Linear_Equations {
         float[][] B7 = {{2,3,1,-4,0,-3,0},{-3,1,1,1,0,-4,-1},{0,1,0,-2,1,-1,1},{-4,1,-3,1,0,-2,1},{1,-3,0,-2,-4,1,0},{1,-2,3,0,-4,-2,-4},{0,4,-4,-2,-3,-2,3}};
         float[] b7 = {0,0,0,0,0,0,0};
         try {
-            Check_System(A6,a6);
+            Check_System(A4,a4);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
