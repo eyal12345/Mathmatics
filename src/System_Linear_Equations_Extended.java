@@ -83,27 +83,27 @@ public class System_Linear_Equations_Extended {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if ((Math.round(A[i][j] * 1000.0) / 1000.0) % 1 == 0) {
-                    System.out.print((int) (Math.round(A[i][j] * 1000.0) / 1000.0) + " ");
+                    System.out.print((int) (Math.round(A[i][j] * 1000.0) / 1000.0));
                 } else if (fn.equals("d")) {
-                    System.out.print(Math.round(A[i][j] * 1000.0) / 1000.0 + " ");
+                    System.out.print(Math.round(A[i][j] * 1000.0) / 1000.0);
                 } else if (fn.equals("r")) {
-                    System.out.print(convertDecimalToFraction(A[i][j]) + " ");
+                    System.out.print(convertDecimalToFraction(A[i][j]));
                 } if (j != n - 1) {
-                    System.out.print(",");
+                    System.out.print(" ,");
                 }
             }
-            System.out.print("| ");
+            System.out.print(" | ");
             for (int j = 0; j < n + 1; j++) {
                 if ((Math.round(b[i][j] * 1000.0) / 1000.0) % 1 == 0) {
-                    System.out.print((int) (Math.round(b[i][j] * 1000.0) / 1000.0) + " ");
+                    System.out.print((int) (Math.round(b[i][j] * 1000.0) / 1000.0));
                 } else if (fn.equals("d")) {
-                    System.out.print(Math.round(b[i][j] * 1000.0) / 1000.0 + " ");
+                    System.out.print(Math.round(b[i][j] * 1000.0) / 1000.0);
                 } else if (fn.equals("r")) {
-                    System.out.print(convertDecimalToFraction(b[i][j]) + " ");
+                    System.out.print(convertDecimalToFraction(b[i][j]));
                 } if (Is_Zero_Col(b,j + 1)) {
                     break;
                 } if (j != n) {
-                    System.out.print(",");
+                    System.out.print(" ,");
                 }
             }
             System.out.println();
@@ -1091,7 +1091,7 @@ public class System_Linear_Equations_Extended {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*(0 ,1 ,0 ,0 ,1 ,1 ,1 ,1)
         try {
-            Check_System(A82,b82);
+            Check_System(A52,b52);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
