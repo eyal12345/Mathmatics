@@ -10,9 +10,9 @@ public class Invertible_Matrices {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if ((Math.round(M[i][j] * 1000.0) / 1000.0) % 1 == 0) {
-                    System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0) + " ");
+                    System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0));
                 } if (j != n - 1) {
-                    System.out.print(",");
+                    System.out.print(" ,");
                 }
             }
             System.out.println();
@@ -26,25 +26,25 @@ public class Invertible_Matrices {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if ((Math.round(M[i][j] * 1000.0) / 1000.0) % 1 == 0) {
-                    System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0) + " ");
+                    System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0));
                 } else if (fn.equals("d")) {
-                    System.out.print(Math.round(M[i][j] * 1000.0) / 1000.0 + " ");
+                    System.out.print(Math.round(M[i][j] * 1000.0) / 1000.0);
                 } else if (fn.equals("r")) {
-                    System.out.print(convertDecimalToFraction(M[i][j]) + " ");
+                    System.out.print(convertDecimalToFraction(M[i][j]));
                 } if (j != n - 1) {
-                    System.out.print(",");
+                    System.out.print(" ,");
                 }
             }
-            System.out.print("| ");
+            System.out.print(" | ");
             for (int j = 0; j < n; j++) {
                 if ((Math.round(InvM[i][j] * 1000.0) / 1000.0) % 1 == 0) {
-                    System.out.print((int) (Math.round(InvM[i][j] * 1000.0) / 1000.0) + " ");
+                    System.out.print((int) (Math.round(InvM[i][j] * 1000.0) / 1000.0));
                 } else if (fn.equals("d")) {
-                    System.out.print(Math.round(InvM[i][j] * 1000.0) / 1000.0 + " ");
+                    System.out.print(Math.round(InvM[i][j] * 1000.0) / 1000.0);
                 } else if (fn.equals("r")) {
-                    System.out.print(convertDecimalToFraction(InvM[i][j]) + " ");
+                    System.out.print(convertDecimalToFraction(InvM[i][j]));
                 } if (j != n - 1) {
-                    System.out.print(",");
+                    System.out.print(" ,");
                 }
             }
             System.out.println();
@@ -58,13 +58,13 @@ public class Invertible_Matrices {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if ((Math.round(M[i][j] * 1000.0) / 1000.0) % 1 == 0) {
-                    System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0) + " ");
+                    System.out.print((int) (Math.round(M[i][j] * 1000.0) / 1000.0));
                 } else if (fn.equals("d")) {
-                    System.out.print(Math.round(M[i][j] * 1000.0) / 1000.0 + " ");
+                    System.out.print(Math.round(M[i][j] * 1000.0) / 1000.0);
                 } else if (fn.equals("r")) {
-                    System.out.print(convertDecimalToFraction(M[i][j]) + " ");
+                    System.out.print(convertDecimalToFraction(M[i][j]));
                 } if (j != n - 1) {
-                    System.out.print(",");
+                    System.out.print(" ,");
                 }
             }
             System.out.println();
