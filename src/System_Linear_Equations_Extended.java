@@ -742,7 +742,7 @@ public class System_Linear_Equations_Extended {
                 return Lower_Ranking_Method(A,b,fn);
             }
         }
-        if (!Is_Lower_Triangular(A) || !Is_Unit_Matrix(A)) {
+        if (!Is_Unit_Matrix(A)) {
             System.out.println("still not yet received an unit matrix");
             return Lower_Ranking_Method(A,b,fn);
         }
@@ -830,7 +830,7 @@ public class System_Linear_Equations_Extended {
                 return Upper_Ranking_Method(A,b,fn);
             }
         }
-        if (!Is_Upper_Triangular(A) || !Is_Unit_Matrix(A)) {
+        if (!Is_Unit_Matrix(A)) {
             System.out.println("still not yet received an unit matrix");
             return Upper_Ranking_Method(A,b,fn);
         }
@@ -1149,7 +1149,7 @@ public class System_Linear_Equations_Extended {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A62,b62);
+            Check_System(A52,b52);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
