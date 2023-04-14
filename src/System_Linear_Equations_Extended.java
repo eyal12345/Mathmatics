@@ -662,18 +662,18 @@ public class System_Linear_Equations_Extended {
 
     /////////////////////////////////////////// Methods to Solution /////////////////////////////////////////////
     // solve system of linear equations Ax = b by an upper ranking and then a lower ranking
-    public static float[][] Upper_Ranking_Method(float[][] A, float[][] b, int t, String fn) {
+    public static float[][] Upper_Ranking_Method(float[][] A, float[][] b, String fn) {
         if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
             System.out.println("A is already parallel triangular so now will be change directly to I:");
         } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
             System.out.println("A is already upper triangular so now we'll go directly to the lower ranking:");
-            return Lower_Ranking_Method(A,b,t,fn);
+            return Lower_Ranking_Method(A,b,fn);
         } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
             System.out.println("transform L matrix to I by an upper ranking:");
         } else {
             System.out.println("transform A matrix to U by an upper ranking:");
         }
-        int n = A.length;
+        int n = A.length, t = b[0].length - 1;
         for (int i = 0; i < n; i++) {
             A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
             if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A)) {
@@ -739,29 +739,29 @@ public class System_Linear_Equations_Extended {
             }
             if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
                 System.out.print("and now ");
-                return Lower_Ranking_Method(A,b,t,fn);
+                return Lower_Ranking_Method(A,b,fn);
             }
         }
         if (!Is_Lower_Triangular(A) || !Is_Unit_Matrix(A)) {
             System.out.println("still not yet received an unit matrix");
-            return Lower_Ranking_Method(A,b,t,fn);
+            return Lower_Ranking_Method(A,b,fn);
         }
         return b;
     }
 
     // solve system of linear equations Ax = b by a lower ranking and then an upper ranking
-    public static float[][] Lower_Ranking_Method(float[][] A, float[][] b, int t, String fn) {
+    public static float[][] Lower_Ranking_Method(float[][] A, float[][] b, String fn) {
         if (Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
             System.out.println("A is already parallel triangular so now will be change directly to I:");
         } else if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
             System.out.println("A is already lower triangular so now we'll go directly to the upper ranking:");
-            return Upper_Ranking_Method(A,b,t,fn);
+            return Upper_Ranking_Method(A,b,fn);
         } else if (Is_Upper_Triangular(A) && !Is_Lower_Triangular(A)) {
             System.out.println("transform U matrix to I by an lower ranking:");
         } else {
             System.out.println("transform A matrix to L by an lower ranking:");
         }
-        int n = A.length;
+        int n = A.length, t = b[0].length - 1;
         for (int i = n - 1; i >= 0; i--) {
             A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
             if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A)) {
@@ -827,12 +827,12 @@ public class System_Linear_Equations_Extended {
             }
             if (!Is_Upper_Triangular(A) && Is_Lower_Triangular(A)) {
                 System.out.print("and now ");
-                return Upper_Ranking_Method(A,b,t,fn);
+                return Upper_Ranking_Method(A,b,fn);
             }
         }
         if (!Is_Upper_Triangular(A) || !Is_Unit_Matrix(A)) {
             System.out.println("still not yet received an unit matrix");
-            return Upper_Ranking_Method(A,b,t,fn);
+            return Upper_Ranking_Method(A,b,fn);
         }
         return b;
     }
@@ -840,9 +840,8 @@ public class System_Linear_Equations_Extended {
     // solve system of linear equations Ax = b by parallel ranking
     public static float[][] Parallel_Ranking_Method(float[][] A, float[][] b, String fn) {
         System.out.println("transform A matrix to I by a parallel ranking:");
-        int t = 0;
         while (!Is_Unit_Matrix(A)) {
-            int n = A.length;
+            int n = A.length, t = b[0].length - 1;
             for (int i = 0; i < n; i++) {
                 A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
                 if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A)) {
@@ -908,11 +907,11 @@ public class System_Linear_Equations_Extended {
     }
 
     // solve system of linear equations Ax = b by a parallel ranking (recursive)
-    public static float[][] Parallel_Ranking_Method_Rec(float[][] A, float[][] b, int i, int j, int t, String fn) {
+    public static float[][] Parallel_Ranking_Method_Rec(float[][] A, float[][] b, int i, int j, String fn) {
         if (Is_Unit_Matrix(A)) {
             return b;
         } else {
-            int n = A.length;
+            int n = A.length, t = b[0].length - 1;
             A[i][i] = (A[i][i] >= -0.0001 && A[i][i] <= 0.0001) ? 0 : A[i][i];
             if (Is_Zero_Row(A,i) && !Is_Linear_Dependent_Rows(A)) {
                 int d1 = Intersection_Zero_Row_Col(A,i);
@@ -972,7 +971,7 @@ public class System_Linear_Equations_Extended {
                 i = (i + 1) % n;
             }
             j = (j + 1) % n;
-            return Parallel_Ranking_Method_Rec(A,b,i,j,t,fn);
+            return Parallel_Ranking_Method_Rec(A,b,i,j,fn);
         }
     }
 
@@ -986,11 +985,11 @@ public class System_Linear_Equations_Extended {
         float[][] x;
         switch (op) {
             case 1:
-                x = Upper_Ranking_Method(A,b,0,fn);
+                x = Upper_Ranking_Method(A,b,fn);
                 Print_Solution(x,fn);
                 break;
             case 2:
-                x = Lower_Ranking_Method(A,b,0,fn);
+                x = Lower_Ranking_Method(A,b,fn);
                 Print_Solution(x,fn);
                 break;
             case 3:
@@ -998,7 +997,7 @@ public class System_Linear_Equations_Extended {
                 Print_Solution(x,fn);
                 break;
             case 4:
-                x = Parallel_Ranking_Method_Rec(A,b,0,0,0,fn);
+                x = Parallel_Ranking_Method_Rec(A,b,0,0,fn);
                 Print_Solution(x,fn);
                 break;
             default:
@@ -1089,7 +1088,7 @@ public class System_Linear_Equations_Extended {
         // lower: x = λ*( 1 , 0.03 , 0.818 , -2.697 , -0.242 ) = λ*( 1 , 1/33 , 9/11 , -89/33 , -8/33 )
         float[][] A54 = {{-2,2,2,-1,1},{-4,4,4,4,3}};
         float[] b54 = {1,31};
-        //
+        // x = ( 0 , -14 , 0 , 0 , 29 ) + s1*( 0 , -1 , 1 , 0 , 0 ) + s2*( 0 , 3.5 , 0 , 1 , -6 ) + s3*( 1 , 1 , 0 , 0 , 0 )
         float[][] A61 = {{6,1,3,3,-11,1},{11,-6,5,11,0,-4},{-2,-2,-4,2,-3,0},{2,12,-1,-7,3,0},{5,-11,-11,8,-8,-2},{3,2,2,-1,-1,1}};
         float[] b61 = {-1,41,-30,-8,-27,18};
         // x = ( 4.8 , -3.7 , 3.3 , -3.1 , 2.8 , 4.1 )
@@ -1150,7 +1149,7 @@ public class System_Linear_Equations_Extended {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*( 0 , 1 , 0 , 0 , 1 , 1 , 1 , 1 )
         try {
-            Check_System(A52,b52);
+            Check_System(A62,b62);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
