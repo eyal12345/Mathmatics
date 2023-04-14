@@ -1024,11 +1024,10 @@ public class System_Linear_Equations_Extended {
                 if (fn.equals("d") || fn.equals("r")) {
                     if (n > 1) { // R2 space or higher
                         if (m < n) {
-                            int rc = n - m;
-                            if (rc == 1) {
+                            if (n - m == 1) {
                                 System.out.println("added one more row of zeros in order to get a square completion");
                             } else {
-                                System.out.println("added " + rc + " more rows of zeros in order to get a square completion");
+                                System.out.println("added " + (n - m) + " more rows of zeros in order to get a square completion");
                             }
                             A = Increase_Rows_in_Matrix(A,m);
                         }
