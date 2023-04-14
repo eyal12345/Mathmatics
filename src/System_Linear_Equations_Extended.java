@@ -1,4 +1,3 @@
-import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -251,10 +250,7 @@ public class System_Linear_Equations_Extended {
     // check if exist in the vector a zeros column
     public static boolean Is_Zero_Col(float[][] b, int c) {
         int m = b.length, n = b[0].length;
-        if (c >= n) {
-            return true;
-        }
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < m && c < n; i++) {
             if (b[i][c] != 0) {
                 return false;
             }
@@ -491,22 +487,23 @@ public class System_Linear_Equations_Extended {
     public static String convertDecimalToFraction(float x){
         if (x < 0) {
             return "-" + convertDecimalToFraction(-x);
-        }
-        float tolerance = (float) 1.0E-5, h1 = 1, h2 = 0, k1 = 0, k2 = 1, b = x;
-        do {
-            float a = (float) Math.floor(b);
-            float aux = h1;
-            h1 = a*h1 + h2;
-            h2 = aux;
-            aux = k1;
-            k1 = a*k1 + k2;
-            k2 = aux;
-            b = 1 / (b - a);
-        } while (Math.abs(x - h1/k1) > x*tolerance);
-        if (k1 != 1) {
-            return String.valueOf((int) h1 + "/" + (int) k1);
         } else {
-            return String.valueOf((int) h1);
+            float tolerance = (float) 1.0E-5, h1 = 1, h2 = 0, k1 = 0, k2 = 1, b = x;
+            do {
+                float a = (float) Math.floor(b);
+                float aux = h1;
+                h1 = a*h1 + h2;
+                h2 = aux;
+                aux = k1;
+                k1 = a*k1 + k2;
+                k2 = aux;
+                b = 1 / (b - a);
+            } while (Math.abs(x - h1/k1) > x*tolerance);
+            if (k1 != 1) {
+                return String.valueOf((int) h1 + "/" + (int) k1);
+            } else {
+                return String.valueOf((int) h1);
+            }
         }
     }
 
@@ -1089,7 +1086,7 @@ public class System_Linear_Equations_Extended {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*(0 ,1 ,0 ,0 ,1 ,1 ,1 ,1)
         try {
-            Check_System(A43,b43);
+            Check_System(A62,b62);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
