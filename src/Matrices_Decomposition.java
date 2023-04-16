@@ -178,6 +178,22 @@ public class Matrices_Decomposition {
         return MT;
     }
 
+    // check if a matrix which is transpose of another
+    public static boolean isTranspose(float[][] M1, float[][] M2) {
+        int n = M1.length;
+        boolean flag = false;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (M2[j][i] == M1[i][j]) {
+                    flag = true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return flag;
+    }
+
     // convert a value to a format of rational number
     public static String convertDecimalToFraction(float x) {
         if (x < 0) {
@@ -266,10 +282,10 @@ public class Matrices_Decomposition {
     }
 
     // get the LL' decomposition by multiplication of L and L' (first algorithm)
-    public static float[][] From_LLT_To_M_V1(float[][] L, String fn) throws Exception {
+    public static float[][] From_LLT_To_M_V1(float[][] L, float[][] M2, String fn) throws Exception {
         System.out.println("L' = ");
-        Print_Matrix(Transpose(L),fn);
-        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L)) {
+        Print_Matrix(M2,fn);
+        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L) && isTranspose(L,M2)) {
             return Mul_Mats(L,Transpose(L));
         } else {
             throw new Exception("Not all conditions are held");
@@ -311,10 +327,10 @@ public class Matrices_Decomposition {
     }
 
     // get the LL' decomposition by multiplication of L and L' (second algorithm)
-    public static float[][] From_LLT_To_M_V2(float[][] L, String fn) throws Exception {
+    public static float[][] From_LLT_To_M_V2(float[][] L, float[][] M2, String fn) throws Exception {
         System.out.println("L' = ");
-        Print_Matrix(Transpose(L),fn);
-        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L)) {
+        Print_Matrix(M2,fn);
+        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L) && isTranspose(L,M2)) {
             int n = L.length;
             float[][] M = new float[n][n];
             for (int i = 0; i < n; i++) {
@@ -559,9 +575,10 @@ public class Matrices_Decomposition {
                         Print_Matrix(M,fn);
                         break;
                     case 2:
-                        M = From_LLT_To_M_V1(L,fn);
+                        M = From_LLT_To_M_V1(L,M2,fn);
                         System.out.println("M = ");
                         Print_Matrix(M,fn);
+                        break;
                     case 3:
                         M = From_LDLT_To_M_V1(L,M2,fn);
                         System.out.println("M = ");
@@ -573,9 +590,10 @@ public class Matrices_Decomposition {
                         Print_Matrix(M,fn);
                         break;
                     case 5:
-                        M = From_LLT_To_M_V2(L,fn);
+                        M = From_LLT_To_M_V2(L,M2,fn);
                         System.out.println("M = ");
                         Print_Matrix(M,fn);
+                        break;
                     case 6:
                         M = From_LDLT_To_M_V2(L,M2,fn);
                         System.out.println("M = ");
@@ -655,6 +673,7 @@ public class Matrices_Decomposition {
         float[][] LLT2 = {{4,-2,2},{-2,17,11},{2,11,35}};
         float[][] LDLT = {{-1,-3,4},{-3,-5,32},{4,32,75}};
         float[][] L = {{1,0,0},{-2,1,0},{-1,4,1}};
+        float[][] LTT = {{1,-2,-1},{0,1,4},{0,0,1}};
         float[][] U = {{2,1,-1},{0,3,1},{0,0,-1}};
         float[][] LT = {{2,0,0},{6,1,0},{-8,5,3}};
         float[][] D = {{-4,0,0},{0,-1,0},{0,0,9}};
@@ -666,7 +685,7 @@ public class Matrices_Decomposition {
             if (de.equals("d")) {
                 Decompose_Matrix(LU);
             } else if (de.equals("r")) {
-                Receive_Matrix(L,U);
+                Receive_Matrix(L,LTT);
             } else {
                 throw new Exception("you entered invalid value for a direction of the solution");
             }
