@@ -81,24 +81,6 @@ public class Matrices_Decomposition {
         return M.length == M[0].length;
     }
 
-    // check if the size of matrices is equals
-    public static boolean Is_Size_Matrices_Equals(float[][] L, float[][] M2) {
-        return L.length == M2.length && L[0].length == M2[0].length;
-    }
-
-    // check if the matrix is an upper triangular
-    public static boolean Is_Upper_Triangular(float[][] M) {
-        int n = M.length;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < i; j++) {
-                if (M[i][j] != 0) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     // check if the matrix is a lower triangular
     public static boolean Is_Lower_Triangular(float[][] M) {
         int n = M.length;
