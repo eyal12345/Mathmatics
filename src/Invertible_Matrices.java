@@ -261,22 +261,23 @@ public class Invertible_Matrices {
     public static String convertDecimalToFraction(float x) {
         if (x < 0) {
             return "-" + convertDecimalToFraction(-x);
-        }
-        float tolerance = (float) 1.0E-5, h1 = 1, h2 = 0, k1 = 0, k2 = 1, b = x;
-        do {
-            float a = (float) Math.floor(b);
-            float aux = h1;
-            h1 = a*h1 + h2;
-            h2 = aux;
-            aux = k1;
-            k1 = a*k1 + k2;
-            k2 = aux;
-            b = 1 / (b - a);
-        } while (Math.abs(x - h1/k1) > x*tolerance);
-        if (k1 != 1) {
-            return String.valueOf((int) h1 + "/" + (int) k1);
         } else {
-            return String.valueOf((int) h1);
+            float tolerance = (float) 1.0E-5, h1 = 1, h2 = 0, k1 = 0, k2 = 1, b = x;
+            do {
+                float a = (float) Math.floor(b);
+                float aux = h1;
+                h1 = a*h1 + h2;
+                h2 = aux;
+                aux = k1;
+                k1 = a*k1 + k2;
+                k2 = aux;
+                b = 1 / (b - a);
+            } while (Math.abs(x - h1/k1) > x*tolerance);
+            if (k1 != 1) {
+                return String.valueOf((int) h1 + "/" + (int) k1);
+            } else {
+                return String.valueOf((int) h1);
+            }
         }
     }
 
@@ -616,7 +617,7 @@ public class Invertible_Matrices {
     }
 
     //////////////////////////////////////////// Check Structure //////////////////////////////////////////////
-    // check the matrix M if it is reversible
+    // check is it the matrix reversible?
     public static void Check_Matrix(float[][] M) throws Exception {
         int m = M.length, n = M[0].length;
         if (m == n) {
