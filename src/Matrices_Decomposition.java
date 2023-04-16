@@ -179,7 +179,7 @@ public class Matrices_Decomposition {
     }
 
     // check if a matrix which is transpose of another
-    public static boolean isTranspose(float[][] M1, float[][] M2) {
+    public static boolean Is_Transpose_Matrices(float[][] M1, float[][] M2) {
         int n = M1.length;
         boolean flag = false;
         for (int i = 0; i < n; i++) {
@@ -285,7 +285,7 @@ public class Matrices_Decomposition {
     public static float[][] From_LLT_To_M_V1(float[][] L, float[][] M2, String fn) throws Exception {
         System.out.println("L' = ");
         Print_Matrix(M2,fn);
-        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L) && isTranspose(L,M2)) {
+        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L) && Is_Transpose_Matrices(L,M2)) {
             return Mul_Mats(L,Transpose(L));
         } else {
             throw new Exception("Not all conditions are held");
@@ -330,7 +330,7 @@ public class Matrices_Decomposition {
     public static float[][] From_LLT_To_M_V2(float[][] L, float[][] M2, String fn) throws Exception {
         System.out.println("L' = ");
         Print_Matrix(M2,fn);
-        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L) && isTranspose(L,M2)) {
+        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L) && Is_Transpose_Matrices(L,M2)) {
             int n = L.length;
             float[][] M = new float[n][n];
             for (int i = 0; i < n; i++) {
