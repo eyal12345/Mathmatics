@@ -6,7 +6,6 @@ public class Matrices_Decomposition {
     // display the matrix M in the matrices format
     public static void Display_Exercise(float[][] M) {
         int n = M.length;
-        System.out.println("decompose the next matrix (" + n + "*" + n + " size):");
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if ((Math.round(M[i][j] * 1000.0) / 1000.0) % 1 == 0) {
@@ -40,28 +39,40 @@ public class Matrices_Decomposition {
         System.out.println();
     }
 
-    // display user interface by selection method for solution
-    public static void User_Menu_System() {
+    // display user interface by selection method for receive matrices
+    public static void User_Menu_System_receive() {
         System.out.println("choose number method to solution:");
         System.out.println("1. LU decomposition by L and U multiplication (first method)");
-        System.out.println("2. get L and U matrices by decomposition of M (first method)");
-        System.out.println("3. LL' decomposition by L and L' multiplication (first method)");
-        System.out.println("4. get L and L' matrices by decomposition of M (first method)");
-        System.out.println("5. LDL' decomposition by L, D and L' multiplication (first method)");
-        System.out.println("6. get L, D and L' matrices by decomposition of M (first method)");
-        System.out.println("7. LU decomposition by L and U multiplication (second method)");
-        System.out.println("8. get L and U matrices by decomposition of M (second method)");
-        System.out.println("9. LL' decomposition by L and L' multiplication (second method)");
-        System.out.println("10. get L and L' matrices by decomposition of M (second method)");
-        System.out.println("11. LDL' decomposition by L, D and L' multiplication (second method)");
-        System.out.println("12. get L, D and L' matrices by decomposition of M (second method)");
+        System.out.println("2. LL' decomposition by L and L' multiplication (first method)");
+        System.out.println("3. LDL' decomposition by L, D and L' multiplication (first method)");
+        System.out.println("4. LU decomposition by L and U multiplication (second method)");
+        System.out.println("5. LL' decomposition by L and L' multiplication (second method)");
+        System.out.println("6. LDL' decomposition by L, D and L' multiplication (second method)");
+    }
+
+    // display user interface by selection method for decompose matrices
+    public static void User_Menu_System_decompose() {
+        System.out.println("choose number method to solution:");
+        System.out.println("1. get L and U matrices by decomposition of M (first method)");
+        System.out.println("2. get L and L' matrices by decomposition of M (first method)");
+        System.out.println("3. get L, D and L' matrices by decomposition of M (first method)");
+        System.out.println("4. get L and U matrices by decomposition of M (second method)");
+        System.out.println("5. get L and L' matrices by decomposition of M (second method)");
+        System.out.println("6. get L, D and L' matrices by decomposition of M (second method)");
     }
 
     // display user interface by selection format for solution
     public static void User_Menu_Solution() {
-        System.out.println("choose the character of format to representation of solution:");
+        System.out.println("choose a character of format to representation of solution:");
         System.out.println("d. decimal");
         System.out.println("r. rational");
+    }
+
+    // display user interface by direction of the solution
+    public static void User_Menu_Direction() {
+        System.out.println("choose a character for direction of the solution:");
+        System.out.println("d. get the components by M decomposition");
+        System.out.println("r. get M by multiplication of the components");
     }
 
     /////////////////////////////////////////// Auxiliary Operations /////////////////////////////////////////////
@@ -242,9 +253,11 @@ public class Matrices_Decomposition {
         }
     }
 
-    /////////////////////////////////////////// Methods to Solution /////////////////////////////////////////////
+    /////////////////////////////////////// Methods to Solution (Receive M) /////////////////////////////////////////
     // get the LU decomposition by multiplication of L and U (first algorithm)
-    public static float[][] From_LU_To_M_V1(float[][] L ,float[][] U) throws Exception {
+    public static float[][] From_LU_To_M_V1(float[][] L, float[][] U, String fn) throws Exception {
+        System.out.println("U = ");
+        Print_Matrix(U,fn);
         if (Is_Square_Matrix(L) && Is_Square_Matrix(U) && Is_Lower_Triangular(L) && Is_Upper_Triangular(U) && Is_One_Slant(L)) {
             return Mul_Mats(L,U);
         } else {
@@ -252,10 +265,98 @@ public class Matrices_Decomposition {
         }
     }
 
+    // get the LL' decomposition by multiplication of L and L' (first algorithm)
+    public static float[][] From_LLT_To_M_V1(float[][] L, String fn) throws Exception {
+        System.out.println("L' = ");
+        Print_Matrix(Transpose(L),fn);
+        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L)) {
+            return Mul_Mats(L,Transpose(L));
+        } else {
+            throw new Exception("Not all conditions are held");
+        }
+    }
+
+    // get the LDL' decomposition by multiplication of L, D and L' (first algorithm)
+    public static float[][] From_LDLT_To_M_V1(float[][] L, float[][] D, String fn) throws Exception {
+        System.out.println("D = ");
+        Print_Matrix(D,fn);
+        System.out.println("L' = ");
+        Print_Matrix(Transpose(L),fn);
+        if (Is_Square_Matrix(L) && Is_Square_Matrix(D) && Is_Lower_Triangular(L) && Is_One_Slant(L) && Is_Lower_Triangular(D) && Is_Upper_Triangular(D)) {
+            return Mul_Mats(Mul_Mats(L,D),Transpose(L));
+        } else {
+            throw new Exception("Not all conditions are held");
+        }
+    }
+
+    // get the LU decomposition by multiplication of L and U (second algorithm)
+    public static float[][] From_LU_To_M_V2(float[][] L, float[][] U, String fn) throws Exception {
+        System.out.println("U = ");
+        Print_Matrix(U,fn);
+        if (Is_Square_Matrix(L) && Is_Square_Matrix(U) && Is_Lower_Triangular(L) && Is_Upper_Triangular(U) && Is_One_Slant(L)) {
+            int n = L.length;
+            float[][] M = new float[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    int m = Math.min(i,j);
+                    for (int k = 0; k <= m; k++) {
+                        M[i][j] += L[i][k] * U[k][j];
+                    }
+                }
+            }
+            return M;
+        } else {
+            throw new Exception("Not all conditions are held");
+        }
+    }
+
+    // get the LL' decomposition by multiplication of L and L' (second algorithm)
+    public static float[][] From_LLT_To_M_V2(float[][] L, String fn) throws Exception {
+        System.out.println("L' = ");
+        Print_Matrix(Transpose(L),fn);
+        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L)) {
+            int n = L.length;
+            float[][] M = new float[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    int m = Math.min(i,j);
+                    for (int k = 0; k <= m; k++) {
+                        M[i][j] += L[i][k] * L[j][k];
+                    }
+                }
+            }
+            return M;
+        } else {
+            throw new Exception("Not all conditions are held");
+        }
+    }
+
+    // get the LDL' decomposition by multiplication of L, D and L' (second algorithm)
+    public static float[][] From_LDLT_To_M_V2(float[][] L, float[][] D, String fn) throws Exception {
+        System.out.println("D = ");
+        Print_Matrix(D,fn);
+        System.out.println("L' = ");
+        Print_Matrix(Transpose(L),fn);
+        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L) && Is_One_Slant(L) && Is_Square_Matrix(D) && Is_Lower_Triangular(D) && Is_Upper_Triangular(D)) {
+            int n = L.length;
+            float[][] M = new float[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    int m = Math.min(i,j);
+                    for (int k = 0; k <= m; k++) {
+                        M[i][j] += L[i][k] * L[j][k] * D[k][k];
+                    }
+                }
+            }
+            return M;
+        } else {
+            throw new Exception("Not all conditions are held");
+        }
+    }
+
+    ////////////////////////////////////// Methods to Solution (Decompose M) ////////////////////////////////////////
     // get the LU decomposition of M (first algorithm)
-    public static void From_M_To_LU_V1(float[][] M, String fn) throws Exception {
-        System.out.println("M = ");
-        Print_Matrix(M,fn);
+    public static float[][] From_M_To_LU_V1(float[][] M, String fn) throws Exception {
         if (Is_Square_Matrix(M)) {
             int n = M.length;
             float[][] L = new float[n][n];
@@ -280,26 +381,14 @@ public class Matrices_Decomposition {
             }
             System.out.println("L = ");
             Print_Matrix(L,fn);
-            System.out.println("U = ");
-            Print_Matrix(M,fn);
+            return M;
         } else {
             throw new Exception("The matrix is not square");
         }
     }
 
-    // get the LL' decomposition by multiplication of L and L' (first algorithm)
-    public static float[][] From_LLT_To_M_V1(float[][] L) throws Exception {
-        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L)) {
-            return Mul_Mats(L,Transpose(L));
-        } else {
-            throw new Exception("Not all conditions are held");
-        }
-    }
-
     // get the LL' decomposition of M (first algorithm)
-    public static void From_M_To_LLT_V1(float[][] M, String fn) throws Exception {
-        System.out.println("M = ");
-        Print_Matrix(M,fn);
+    public static float[][] From_M_To_LLT_V1(float[][] M, String fn) throws Exception {
         if (Is_Square_Matrix(M) && Is_Symmetrical_Matrix(M) && Is_Values_Positives(M)) {
             int n = M.length;
             float[][] L = new float[n][n];
@@ -327,26 +416,14 @@ public class Matrices_Decomposition {
             }
             System.out.println("L = ");
             Print_Matrix(L,fn);
-            System.out.println("L' = ");
-            Print_Matrix(M,fn);
-        } else {
-            throw new Exception("Not all conditions are held");
-        }
-    }
-
-    // get the LDL' decomposition by multiplication of L, D and L' (first algorithm)
-    public static float[][] From_LDLT_To_M_V1(float[][] L ,float[][] D) throws Exception {
-        if (Is_Square_Matrix(L) && Is_Square_Matrix(D) && Is_Lower_Triangular(L) && Is_One_Slant(L) && Is_Lower_Triangular(D) && Is_Upper_Triangular(D)) {
-            return Mul_Mats(Mul_Mats(L,D),Transpose(L));
+            return M;
         } else {
             throw new Exception("Not all conditions are held");
         }
     }
 
     // get the LDL' decomposition of M (first algorithm)
-    public static void From_M_To_LDLT_V1(float[][] M, String fn) throws Exception {
-        System.out.println("M = ");
-        Print_Matrix(M,fn);
+    public static float[][] From_M_To_LDLT_V1(float[][] M, String fn) throws Exception {
         if (Is_Square_Matrix(M) && Is_Symmetrical_Matrix(M)) {
             int n = M.length;
             float[][] L = new float[n][n];
@@ -377,26 +454,6 @@ public class Matrices_Decomposition {
             Print_Matrix(L,fn);
             System.out.println("D = ");
             Print_Matrix(D,fn);
-            System.out.println("L' = ");
-            Print_Matrix(M,fn);
-        } else {
-            throw new Exception("Not all conditions are held");
-        }
-    }
-
-    // get the LU decomposition by multiplication of L and U (second algorithm)
-    public static float[][] From_LU_To_M_V2(float[][] L ,float[][] U) throws Exception {
-        if (Is_Square_Matrix(L) && Is_Square_Matrix(U) && Is_Lower_Triangular(L) && Is_Upper_Triangular(U) && Is_One_Slant(L)) {
-            int n = L.length;
-            float[][] M = new float[n][n];
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    int m = Math.min(i,j);
-                    for (int k = 0; k <= m; k++) {
-                        M[i][j] += L[i][k] * U[k][j];
-                    }
-                }
-            }
             return M;
         } else {
             throw new Exception("Not all conditions are held");
@@ -404,9 +461,7 @@ public class Matrices_Decomposition {
     }
 
     // get the LU decomposition of M (second algorithm)
-    public static void From_M_To_LU_V2(float[][] M, String fn) throws Exception {
-        System.out.println("M = ");
-        Print_Matrix(M,fn);
+    public static float[][] From_M_To_LU_V2(float[][] M, String fn) throws Exception {
         if (Is_Square_Matrix(M)) {
             int n = M.length;
             float[][] L = new float[n][n];
@@ -427,36 +482,14 @@ public class Matrices_Decomposition {
             }
             System.out.println("L = ");
             Print_Matrix(L,fn);
-            System.out.println("U = ");
-            Print_Matrix(U,fn);
+            return M;
         } else {
             throw new Exception("The matrix is not square");
         }
     }
 
-    // get the LL' decomposition by multiplication of L and L' (second algorithm)
-    public static float[][] From_LLT_To_M_V2(float[][] L) throws Exception {
-        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L)) {
-            int n = L.length;
-            float[][] M = new float[n][n];
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    int m = Math.min(i,j);
-                    for (int k = 0; k <= m; k++) {
-                        M[i][j] += L[i][k] * L[j][k];
-                    }
-                }
-            }
-            return M;
-        } else {
-            throw new Exception("Not all conditions are held");
-        }
-    }
-
     // get the LL' decomposition of M (second algorithm)
-    public static void From_M_To_LLT_V2(float[][] M, String fn) throws Exception {
-        System.out.println("M = ");
-        Print_Matrix(M,fn);
+    public static float[][] From_M_To_LLT_V2(float[][] M, String fn) throws Exception {
         if (Is_Square_Matrix(M) && Is_Symmetrical_Matrix(M) && Is_Values_Positives(M)) {
             int n = M.length;
             float[][] L = new float[n][n];
@@ -470,26 +503,6 @@ public class Matrices_Decomposition {
             }
             System.out.println("L = ");
             Print_Matrix(L,fn);
-            System.out.println("L' = ");
-            Print_Matrix(Transpose(L),fn);
-        } else {
-            throw new Exception("Not all conditions are held");
-        }
-    }
-
-    // get the LDL' decomposition by multiplication of L, D and L' (second algorithm)
-    public static float[][] From_LDLT_To_M_V2(float[][] L ,float[][] D) throws Exception {
-        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L) && Is_One_Slant(L) && Is_Square_Matrix(D) && Is_Lower_Triangular(D) && Is_Upper_Triangular(D)) {
-            int n = L.length;
-            float[][] M = new float[n][n];
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    int m = Math.min(i,j);
-                    for (int k = 0; k <= m; k++) {
-                        M[i][j] += L[i][k] * L[j][k] * D[k][k];
-                    }
-                }
-            }
             return M;
         } else {
             throw new Exception("Not all conditions are held");
@@ -497,9 +510,7 @@ public class Matrices_Decomposition {
     }
 
     // get the LDL' decomposition of M (second algorithm)
-    public static void From_M_To_LDLT_V2(float[][] M, String fn) throws Exception {
-        System.out.println("M = ");
-        Print_Matrix(M,fn);
+    public static float[][] From_M_To_LDLT_V2(float[][] M, String fn) throws Exception {
         if (Is_Square_Matrix(M) && Is_Symmetrical_Matrix(M)) {
             int n = M.length;
             float[][] L = new float[n][n];
@@ -518,26 +529,118 @@ public class Matrices_Decomposition {
             Print_Matrix(L,fn);
             System.out.println("D = ");
             Print_Matrix(D,fn);
-            System.out.println("L' = ");
-            Print_Matrix(Transpose(L),fn);
+            return M;
         } else {
             throw new Exception("Not all conditions are held");
         }
     }
 
-    //////////////////////////////////////////// Check Structure //////////////////////////////////////////////
-    // check is it the matrix decomposable?
-    public static void Check_Matrix(float[][] M) throws Exception {
+    ///////////////////////////////////////////// User Interface ///////////////////////////////////////////////
+    // get the matrix by a multiplication components
+    public static void Receive_Matrix(float[][] L, float[][] M2) throws Exception {
+        int m1 = L.length, n1 = L[0].length, m2 = M2.length, n2 = M2[0].length;
+        if (m1 == m2 && n1 == n2) {
+            System.out.println("receive the M matrix from the two next matrices (" + n1 + "*" + n1 + " size):");
+            Display_Exercise(L);
+            Display_Exercise(M2);
+            Scanner sc = new Scanner(System.in);
+            User_Menu_Solution();
+            String fn = sc.next();
+            if (fn.equals("d") || fn.equals("r")) {
+                User_Menu_System_receive();
+                int op = sc.nextInt();
+                System.out.println("L = ");
+                Print_Matrix(L,fn);
+                float[][] M;
+                switch (op) {
+                    case 1:
+                        M = From_LU_To_M_V1(L,M2,fn);
+                        System.out.println("M = ");
+                        Print_Matrix(M,fn);
+                        break;
+                    case 2:
+                        M = From_LLT_To_M_V1(L,fn);
+                        System.out.println("M = ");
+                        Print_Matrix(M,fn);
+                    case 3:
+                        M = From_LDLT_To_M_V1(L,M2,fn);
+                        System.out.println("M = ");
+                        Print_Matrix(M,fn);
+                        break;
+                    case 4:
+                        M = From_LU_To_M_V2(L,M2,fn);
+                        System.out.println("M = ");
+                        Print_Matrix(M,fn);
+                        break;
+                    case 5:
+                        M = From_LLT_To_M_V2(L,fn);
+                        System.out.println("M = ");
+                        Print_Matrix(M,fn);
+                    case 6:
+                        M = From_LDLT_To_M_V2(L,M2,fn);
+                        System.out.println("M = ");
+                        Print_Matrix(M,fn);
+                        break;
+                    default:
+                        throw new Exception("you entered an invalid number");
+                }
+            } else {
+                throw new Exception("you entered invalid value for a representation elementary actions and solution");
+            }
+        } else {
+            throw new Exception("your input does not meet the conditions for invertible matrices");
+        }
+    }
+
+    // get the matrix components
+    public static void Decompose_Matrix(float[][] M) throws Exception {
         int m = M.length, n = M[0].length;
         if (m == n) {
+            System.out.println("decompose the next matrix (" + n + "*" + n + " size):");
             Display_Exercise(M);
             Scanner sc = new Scanner(System.in);
             User_Menu_Solution();
             String fn = sc.next();
             if (fn.equals("d") || fn.equals("r")) {
+                User_Menu_System_decompose();
+                int op = sc.nextInt();
                 System.out.println("M = ");
                 Print_Matrix(M,fn);
-                System.out.println("aaa");
+                float[][] M2;
+                switch (op) {
+                    case 1:
+                        M2 = From_M_To_LU_V1(M,fn);
+                        System.out.println("U = ");
+                        Print_Matrix(M2,fn);
+                        break;
+                    case 2:
+                        M2 = From_M_To_LLT_V1(M,fn);
+                        System.out.println("L' = ");
+                        Print_Matrix(M2,fn);
+                        break;
+                    case 3:
+                        M2 = From_M_To_LDLT_V1(M,fn);
+                        System.out.println("L' = ");
+                        Print_Matrix(M2,fn);
+                        break;
+                    case 4:
+                        M2 = From_M_To_LU_V2(M,fn);
+                        System.out.println("U = ");
+                        Print_Matrix(M2,fn);
+                        break;
+                    case 5:
+                        M2 = From_M_To_LLT_V2(M,fn);
+                        System.out.println("L' = ");
+                        Print_Matrix(M2,fn);
+                        break;
+                    case 6:
+                        M2 = From_M_To_LDLT_V2(M,fn);
+                        System.out.println("L' = ");
+                        Print_Matrix(M2,fn);
+                        break;
+                    default:
+                        throw new Exception("you entered an invalid number");
+                }
             } else {
                 throw new Exception("you entered invalid value for a representation elementary actions and solution");
             }
@@ -557,92 +660,15 @@ public class Matrices_Decomposition {
         float[][] D = {{-4,0,0},{0,-1,0},{0,0,9}};
         float[][] E = {{5}};
         try {
-            Display_Exercise(LLT);
             Scanner sc = new Scanner(System.in);
-            User_Menu_Solution();
-            String fn = sc.next();
-            User_Menu_System();
-            int op = sc.nextInt();
-            float[][] M;
-            switch (op) {
-                case 1:
-                    System.out.println("L = ");
-                    Print_Matrix(L,fn);
-                    System.out.println("U = ");
-                    Print_Matrix(U,fn);
-                    M = From_LU_To_M_V1(L,U);
-                    System.out.println("M = ");
-                    Print_Matrix(M,fn);
-                    break;
-                case 2:
-                    From_M_To_LU_V1(LU,fn);
-                    break;
-                case 3:
-                    System.out.println("L = ");
-                    Print_Matrix(L,fn);
-                    System.out.println("L' = ");
-                    Print_Matrix(Transpose(L),fn);
-                    M = From_LLT_To_M_V1(LT);
-                    System.out.println("M = ");
-                    Print_Matrix(M,fn);
-                    break;
-                case 4:
-                    From_M_To_LLT_V1(LLT,fn);
-                    break;
-                case 5:
-                    System.out.println("L = ");
-                    Print_Matrix(L,fn);
-                    System.out.println("D = ");
-                    Print_Matrix(D,fn);
-                    System.out.println("L' = ");
-                    Print_Matrix(Transpose(L),fn);
-                    M = From_LDLT_To_M_V1(L,D);
-                    System.out.println("M = ");
-                    Print_Matrix(M,fn);
-                    break;
-                case 6:
-                    From_M_To_LDLT_V1(LDLT,fn);
-                    break;
-                case 7:
-                    System.out.println("L = ");
-                    Print_Matrix(L,fn);
-                    System.out.println("U = ");
-                    Print_Matrix(U,fn);
-                    M = From_LU_To_M_V2(L,U);
-                    System.out.println("M = ");
-                    Print_Matrix(M,fn);
-                    break;
-                case 8:
-                    From_M_To_LU_V2(LU,fn);
-                    break;
-                case 9:
-                    System.out.println("L = ");
-                    Print_Matrix(L,fn);
-                    System.out.println("L' = ");
-                    Print_Matrix(Transpose(L),fn);
-                    M = From_LLT_To_M_V2(LT);
-                    System.out.println("M = ");
-                    Print_Matrix(M,fn);
-                    break;
-                case 10:
-                    From_M_To_LLT_V2(LLT,fn);
-                    break;
-                case 11:
-                    System.out.println("L = ");
-                    Print_Matrix(L,fn);
-                    System.out.println("D = ");
-                    Print_Matrix(D,fn);
-                    System.out.println("L' = ");
-                    Print_Matrix(Transpose(L),fn);
-                    M = From_LDLT_To_M_V2(L,D);
-                    System.out.println("M = ");
-                    Print_Matrix(M,fn);
-                    break;
-                case 12:
-                    From_M_To_LDLT_V2(LDLT,fn);
-                    break;
-                default:
-                    throw new Exception("you entered an invalid number");
+            User_Menu_Direction();
+            String de = sc.next();
+            if (de.equals("d")) {
+                Decompose_Matrix(LU);
+            } else if (de.equals("r")) {
+                Receive_Matrix(L,U);
+            } else {
+                throw new Exception("you entered invalid value for a direction of the solution");
             }
         } catch (Exception e) {
             e.printStackTrace();
