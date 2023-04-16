@@ -395,7 +395,7 @@ public class Matrices_Decomposition {
             }
             System.out.println("L = ");
             Print_Matrix(L,fn);
-            return M;
+            return Transpose(L);
         } else {
             throw new Exception("Not all conditions are held");
         }
@@ -421,7 +421,7 @@ public class Matrices_Decomposition {
             Print_Matrix(L,fn);
             System.out.println("D = ");
             Print_Matrix(D,fn);
-            return M;
+            return Transpose(L);
         } else {
             throw new Exception("Not all conditions are held");
         }
