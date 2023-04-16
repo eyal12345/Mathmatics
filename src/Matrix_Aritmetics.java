@@ -28,11 +28,12 @@ public class Matrix_Aritmetics {
         Scanner sc = new Scanner(System.in);
         float[][] M = new float[n][n];
         System.out.println("insert values to matrix:");
-        for(int i = 0 ;i < n ;i++)
-            for(int j = 0 ;j < n ;j++){
-                System.out.print("M["+i+"]["+j+"]->");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print("M[" + i + "][" + j + "]->");
                 M[i][j] = sc.nextFloat();
             }
+        }
         return M;
     }
 
