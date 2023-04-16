@@ -143,16 +143,6 @@ public class Matrices_Decomposition {
         return M;
     }
 
-    // replace between two rows in a matrix
-    public static void Retreat_Rows_Matrix(float[][] M, int r1, int r2) {
-        int n = M.length;
-        for (int j = 0; j < n; j++) {
-            float t = M[r1][j];
-            M[r1][j] = M[r2][j];
-            M[r2][j] = t;
-        }
-    }
-
     // calculate transpose matrix of a matrix
     public static float[][] Transpose(float[][] M) {
         int n = M.length;
@@ -274,12 +264,7 @@ public class Matrices_Decomposition {
         float[][] L = new float[n][n];
         for (int i = 0; i < n; i++) {
             L[i][i] = 1;
-            for (int j = i + 1; j < n; j++) {
-                if (M[i][i] == 0) {
-                    System.out.println("R" + (i + 1) + " <--> R" + (j + 1) + "\n");
-                    Retreat_Rows_Matrix(M,i,j);
-                    Print_Matrix(M,fn);
-                }
+            for (int j = i + 1; j < n && M[i][i] != 0; j++) {
                 L[j][i] = M[j][i] / M[i][i];
                 Sum_Elementary_Action(L[j][i],j,i,fn);
                 for (int k = 0; k < n; k++) {
@@ -383,14 +368,16 @@ public class Matrices_Decomposition {
                 }
                 if (i <= j) {
                     U[i][j] = M[i][j] / L[i][i];
-                } else {
+                } else if (U[j][j] != 0) {
                     L[i][j] = M[i][j] / U[j][j];
+                } else {
+                    U[i][j] = M[i][j];
                 }
             }
         }
         System.out.println("L = ");
         Print_Matrix(L,fn);
-        return M;
+        return U;
     }
 
     // get the LL' decomposition of M (second algorithm)
@@ -661,6 +648,7 @@ public class Matrices_Decomposition {
         float[][] L = {{1,0,0},{-2,1,0},{-1,4,1}};
         float[][] U = {{2,1,-1},{0,3,1},{0,0,-1}};
         float[][] LT = {{2,0,0},{6,1,0},{-8,5,3}};
+        float[][] LT2 = {{2,0,0},{6,4,0},{-8,5,0}};
         float[][] D = {{-4,0,0},{0,-1,0},{0,0,9}};
         float[][] E = {{5}};
         try {
