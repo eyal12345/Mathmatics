@@ -257,6 +257,8 @@ public class Matrices_Decomposition {
     public static float[][] From_M_To_LU_V1(float[][] M, String fn) {
         int n = M.length;
         float[][] L = new float[n][n];
+        float[][] U = new float[n][n];
+        System.out.println("transform M matrix to U by an upper ranking:");
         for (int i = 0; i < n; i++) {
             L[i][i] = 1;
             for (int j = i + 1; j < n && M[i][i] != 0; j++) {
@@ -270,10 +272,13 @@ public class Matrices_Decomposition {
                     Print_Matrix(M,fn);
                 }
             }
+            for (int k = i; k < n; k++) {
+                U[i][k] = M[i][k];
+            }
         }
         System.out.println("L = ");
         Print_Matrix(L,fn);
-        return M;
+        return U;
     }
 
     // get the LL' decomposition of M (first algorithm)
@@ -282,6 +287,7 @@ public class Matrices_Decomposition {
             int n = M.length;
             float[][] L = new float[n][n];
             float[][] LT = new float[n][n];
+            System.out.println("transform M matrix to L' by an upper ranking:");
             for (int i = 0; i < n && M[i][i] != 0; i++) {
                 for (int j = i + 1; j < n; j++) {
                     float c = M[j][i] / M[i][i];
@@ -309,7 +315,7 @@ public class Matrices_Decomposition {
             Print_Matrix(L,fn);
             return LT;
         } else {
-            throw new Exception("Not all conditions are held");
+            throw new Exception("you entered matrix which is not a symmetrical matrix or positive values on the main diagonal");
         }
     }
 
@@ -320,6 +326,7 @@ public class Matrices_Decomposition {
             float[][] L = new float[n][n];
             float[][] D = new float[n][n];
             float[][] LT = new float[n][n];
+            System.out.println("transform M matrix to L' by an upper ranking:");
             for (int i = 0; i < n; i++) {
                 L[i][i] = 1;
                 for (int j = i + 1; j < n && M[i][i] != 0; j++) {
@@ -354,7 +361,7 @@ public class Matrices_Decomposition {
             Print_Matrix(D,fn);
             return LT;
         } else {
-            throw new Exception("Not all conditions are held");
+            throw new Exception("you entered matrix which is not a symmetrical matrix");
         }
     }
 
@@ -401,7 +408,7 @@ public class Matrices_Decomposition {
             Print_Matrix(L,fn);
             return LT;
         } else {
-            throw new Exception("Not all conditions are held");
+            throw new Exception("you entered matrix which is not a symmetrical matrix or positive values on the main diagonal");
         }
     }
 
@@ -433,7 +440,7 @@ public class Matrices_Decomposition {
             Print_Matrix(D,fn);
             return LT;
         } else {
-            throw new Exception("Not all conditions are held");
+            throw new Exception("you entered matrix which is not a symmetrical matrix");
         }
     }
 
