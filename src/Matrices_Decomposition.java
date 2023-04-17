@@ -323,6 +323,7 @@ public class Matrices_Decomposition {
             float[][] L = new float[n][n];
             float[][] D = new float[n][n];
             for (int i = 0; i < n; i++) {
+                L[i][i] = 1;
                 for (int j = i + 1; j < n; j++) {
                     float c = M[j][i] / M[i][i];
                     Sum_Elementary_Action(c,j,i,fn);
@@ -346,7 +347,6 @@ public class Matrices_Decomposition {
                     }
                 } else {
                     M[i][i] = 1;
-                    L[i][i] = 1;
                 }
             }
             System.out.println("L = ");
@@ -664,7 +664,7 @@ public class Matrices_Decomposition {
             User_Menu_Direction();
             String de = sc.next();
             if (de.equals("d")) {
-                Decompose_Matrix(LLT);
+                Decompose_Matrix(LDLT4);
             } else if (de.equals("r")) {
                 Receive_Matrix(L4);
             } else {
