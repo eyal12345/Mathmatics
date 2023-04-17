@@ -494,10 +494,10 @@ public class Matrices_Decomposition {
     }
 
     // get the LL' decomposition by multiplication of L and L' (first algorithm)
-    public static float[][] From_LLT_To_M_V1(float[][] L, String fn) {
+    public static float[][] From_LLT_To_M_V1(float[][] L, float[][] LT, String fn) {
         System.out.println("L' = ");
-        Print_Matrix(Transpose(L),fn);
-        return Mul_Mats(L,Transpose(L));
+        Print_Matrix(LT,fn);
+        return Mul_Mats(L,LT);
     }
 
     // get the LDL' decomposition by multiplication of L, D and L' (first algorithm)
@@ -535,16 +535,16 @@ public class Matrices_Decomposition {
     }
 
     // get the LL' decomposition by multiplication of L and L' (second algorithm)
-    public static float[][] From_LLT_To_M_V2(float[][] L, String fn) {
+    public static float[][] From_LLT_To_M_V2(float[][] L, float[][] LT, String fn) {
         System.out.println("L' = ");
-        Print_Matrix(Transpose(L),fn);
+        Print_Matrix(LT,fn);
         int n = L.length;
         float[][] M = new float[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 int m = Math.min(i,j);
                 for (int k = 0; k <= m; k++) {
-                    M[i][j] += L[i][k] * L[j][k];
+                    M[i][j] += L[i][k] * LT[k][j];
                 }
             }
         }
@@ -598,7 +598,8 @@ public class Matrices_Decomposition {
                         Print_Matrix(M,fn);
                         break;
                     case 2:
-                        M = From_LLT_To_M_V1(L,fn);
+                        M2 = Transpose(L);
+                        M = From_LLT_To_M_V1(L,M2,fn);
                         System.out.println("M = ");
                         Print_Matrix(M,fn);
                         break;
@@ -615,7 +616,8 @@ public class Matrices_Decomposition {
                         Print_Matrix(M,fn);
                         break;
                     case 5:
-                        M = From_LLT_To_M_V2(L,fn);
+                        M2 = Transpose(L);
+                        M = From_LLT_To_M_V2(L,M2,fn);
                         System.out.println("M = ");
                         Print_Matrix(M,fn);
                         break;
@@ -674,7 +676,7 @@ public class Matrices_Decomposition {
         float[][] L4 = {{1,0,0},{6,1,0},{-8,5,1}};
         float[][] E = {{5}};
         try {
-            Check_User_Input(LDLT3);
+            Check_User_Input(L3);
         } catch (Exception e) {
             e.printStackTrace();
         }
