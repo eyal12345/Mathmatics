@@ -366,12 +366,10 @@ public class Matrices_Decomposition {
                 for (int k = 0 ;k < m ;k++) {
                     M[i][j] -= L[i][k] * U[k][j];
                 }
-                if (i <= j) {
-                    U[i][j] = M[i][j] / L[i][i];
-                } else if (U[j][j] != 0) {
-                    L[i][j] = M[i][j] / U[j][j];
-                } else {
+                if (i <= j || U[j][j] == 0) {
                     U[i][j] = M[i][j];
+                } else {
+                    L[i][j] = M[i][j] / U[j][j];
                 }
             }
         }
