@@ -486,7 +486,7 @@ public class Matrices_Decomposition {
                 throw new Exception("you entered invalid value for a representation elementary actions and solution");
             }
         } else {
-            throw new Exception("your input does not meet the conditions for invertible matrices");
+            throw new Exception("you entered matrix which is not a square matrix");
         }
     }
 
@@ -641,13 +641,15 @@ public class Matrices_Decomposition {
                 throw new Exception("you entered invalid values for the L matrix");
             }
         } else {
-            throw new Exception("your input does not meet the conditions for invertible matrices");
+            throw new Exception("you entered matrix which is not a square matrix or lower triangular");
         }
     }
 
     public static void main(String[] args) {
         float[][] LU = {{2,1,-1},{-3,-1,2},{-2,1,2}};
         float[][] LU2 = {{2,1,0},{6,0,4},{-8,5,0}};
+        float[][] LU3 = {{2,0,0},{6,4,0},{-8,5,0}};
+        float[][] LU4 = {{2,0,0},{6,0,0},{-8,5,0}};
         float[][] LLT = {{4,12,-16},{12,37,-43},{-16,-43,98}};
         float[][] LLT2 = {{4,-2,2},{-2,17,11},{2,11,35}};
         float[][] LLT3 = {{1,3,-4},{3,10,-7},{-4,-7,42}};
@@ -664,7 +666,7 @@ public class Matrices_Decomposition {
             User_Menu_Direction();
             String de = sc.next();
             if (de.equals("d")) {
-                Decompose_Matrix(LDLT4);
+                Decompose_Matrix(LU4);
             } else if (de.equals("r")) {
                 Receive_Matrix(L4);
             } else {
