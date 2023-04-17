@@ -501,13 +501,13 @@ public class Matrices_Decomposition {
     }
 
     // get the LDL' decomposition by multiplication of L, D and L' (first algorithm)
-    public static float[][] From_LDLT_To_M_V1(float[][] L, float[][] D, String fn) throws Exception {
+    public static float[][] From_LDLT_To_M_V1(float[][] L, float[][] D, float[][] LT, String fn) throws Exception {
         System.out.println("D = ");
         Print_Matrix(D,fn);
         System.out.println("L' = ");
-        Print_Matrix(Transpose(L),fn);
+        Print_Matrix(LT,fn);
         if (Is_One_Slant(L)) {
-            return Mul_Mats(Mul_Mats(L,D),Transpose(L));
+            return Mul_Mats(Mul_Mats(L,D),LT);
         } else {
             throw new Exception("you entered values other than 1 on the main diagonal of L matrix");
         }
@@ -552,11 +552,11 @@ public class Matrices_Decomposition {
     }
 
     // get the LDL' decomposition by multiplication of L, D and L' (second algorithm)
-    public static float[][] From_LDLT_To_M_V2(float[][] L, float[][] D, String fn) throws Exception {
+    public static float[][] From_LDLT_To_M_V2(float[][] L, float[][] D, float[][] LT, String fn) throws Exception {
         System.out.println("D = ");
         Print_Matrix(D,fn);
         System.out.println("L' = ");
-        Print_Matrix(Transpose(L),fn);
+        Print_Matrix(LT,fn);
         if (Is_One_Slant(L)) {
             int n = L.length;
             float[][] M = new float[n][n];
@@ -564,7 +564,7 @@ public class Matrices_Decomposition {
                 for (int j = 0; j < n; j++) {
                     int m = Math.min(i,j);
                     for (int k = 0; k <= m; k++) {
-                        M[i][j] += L[i][k] * L[j][k] * D[k][k];
+                        M[i][j] += L[i][k] * D[k][k] * LT[k][j];
                     }
                 }
             }
@@ -589,7 +589,7 @@ public class Matrices_Decomposition {
                 int op = sc.nextInt();
                 System.out.println("L = ");
                 Print_Matrix(L,fn);
-                float[][] M, M2;
+                float[][] M, M2, M3;
                 switch (op) {
                     case 1:
                         M2 = Create_Upper_Matrix(n);
@@ -605,7 +605,8 @@ public class Matrices_Decomposition {
                         break;
                     case 3:
                         M2 = Create_Diagonal_Matrix(n);
-                        M = From_LDLT_To_M_V1(L,M2,fn);
+                        M3 = Transpose(L);
+                        M = From_LDLT_To_M_V1(L,M2,M3,fn);
                         System.out.println("M = ");
                         Print_Matrix(M,fn);
                         break;
@@ -623,7 +624,8 @@ public class Matrices_Decomposition {
                         break;
                     case 6:
                         M2 = Create_Diagonal_Matrix(n);
-                        M = From_LDLT_To_M_V2(L,M2,fn);
+                        M3 = Transpose(L);
+                        M = From_LDLT_To_M_V2(L,M2,M3,fn);
                         System.out.println("M = ");
                         Print_Matrix(M,fn);
                         break;
@@ -660,6 +662,7 @@ public class Matrices_Decomposition {
 
     ////////////////////////////////////////////// Run Progress ////////////////////////////////////////////////
     public static void main(String[] args) {
+        ///////////////////////// Decompose M /////////////////////////
         float[][] LU = {{2,1,-1},{-3,-1,2},{-2,1,2}};
         float[][] LU2 = {{2,1,0},{6,0,4},{-8,5,0}};
         float[][] LU3 = {{2,0,0},{6,4,0},{-8,5,0}};
@@ -670,13 +673,13 @@ public class Matrices_Decomposition {
         float[][] LDLT = {{-1,-3,4},{-3,-5,32},{4,32,75}};
         float[][] LDLT2 = {{4,12,-16},{12,52,-28},{-16,-28,89}};
         float[][] LDLT3 = {{4,24,-32},{24,144,-192},{-32,-192,256}};
+        ////////////////////////// Receive M //////////////////////////
         float[][] L = {{1,0,0},{-2,1,0},{-1,4,1}};
         float[][] L2 = {{1,0,0},{3,1,0},{-4,5,1}};
         float[][] L3 = {{2,0,0},{6,1,0},{-8,5,3}};
         float[][] L4 = {{1,0,0},{6,1,0},{-8,5,1}};
-        float[][] E = {{5}};
         try {
-            Check_User_Input(L3);
+            Check_User_Input(LLT);
         } catch (Exception e) {
             e.printStackTrace();
         }
