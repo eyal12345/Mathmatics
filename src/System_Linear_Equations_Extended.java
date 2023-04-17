@@ -943,9 +943,9 @@ public class System_Linear_Equations_Extended {
         }
     }
 
-    //////////////////////////////////////////// Check Structure //////////////////////////////////////////////
-    // check the system of linear equations Ax = b and solve in the method requested
-    public static void Check_System(float[][] A, float[] b) throws Exception {
+    /////////////////////////////////////////////// Check Input ///////////////////////////////////////////////
+    // check if user input is valid
+    public static void Check_User_Input(float[][] A, float[] b) throws Exception {
         int m = A.length, n = A[0].length, k = b.length;
         if (m <= n && m == k) {
             Display_Exercise(A,b);
@@ -1086,7 +1086,7 @@ public class System_Linear_Equations_Extended {
         float[] b83 = {0,0,0,0,0,0,0,0};
         // x = λ*(0 ,1 ,0 ,0 ,1 ,1 ,1 ,1)
         try {
-            Check_System(A52,b52);
+            Check_User_Input(A52,b52);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

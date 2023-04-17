@@ -616,9 +616,9 @@ public class Invertible_Matrices {
         }
     }
 
-    //////////////////////////////////////////// Check Structure //////////////////////////////////////////////
-    // check is it the matrix reversible?
-    public static void Check_Matrix(float[][] M) throws Exception {
+    /////////////////////////////////////////////// Check Input ///////////////////////////////////////////////
+    // check if user input is valid
+    public static void Check_User_Input(float[][] M) throws Exception {
         int m = M.length, n = M[0].length;
         if (m == n) {
             Display_Exercise(M);
@@ -666,7 +666,7 @@ public class Invertible_Matrices {
         float[][] G = {{-1,0,4,-1,-2,5,-1},{6,-7,7,1,-7,-6,5},{0,2,6,1,-7,6,1},{2,2,0,-2,-6,6,-5},{3,3,-3,1,7,-1,-2},{1,-5,1,-4,3,1,-4},{7,-5,5,0,-4,-4,1}};
         float[][] Z = {{8}};
         try {
-            Check_Matrix(C);
+            Check_User_Input(C);
         } catch (Exception e) {
             e.printStackTrace();
         }

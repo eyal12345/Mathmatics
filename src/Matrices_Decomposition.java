@@ -76,11 +76,6 @@ public class Matrices_Decomposition {
     }
 
     /////////////////////////////////////////// Auxiliary Operations /////////////////////////////////////////////
-    // check if the matrix is a square matrix
-    public static boolean Is_Square_Matrix(float[][] M) {
-        return M.length == M[0].length;
-    }
-
     // check if the matrix is a lower triangular
     public static boolean Is_Lower_Triangular(float[][] M) {
         int n = M.length;
@@ -436,57 +431,53 @@ public class Matrices_Decomposition {
     // get the matrix components
     public static void Decompose_Matrix(float[][] M) throws Exception {
         int n = M.length;
-        if (Is_Square_Matrix(M)) {
-            System.out.println("decompose the next matrix (" + n + "*" + n + " size):");
-            Display_Exercise(M);
-            Scanner sc = new Scanner(System.in);
-            User_Menu_Solution();
-            String fn = sc.next();
-            if (fn.equals("d") || fn.equals("r")) {
-                User_Menu_System_Decompose();
-                int op = sc.nextInt();
-                System.out.println("M = ");
-                Print_Matrix(M,fn);
-                float[][] M2;
-                switch (op) {
-                    case 1:
-                        M2 = From_M_To_LU_V1(M,fn);
-                        System.out.println("U = ");
-                        Print_Matrix(M2,fn);
-                        break;
-                    case 2:
-                        M2 = From_M_To_LLT_V1(M,fn);
-                        System.out.println("L' = ");
-                        Print_Matrix(M2,fn);
-                        break;
-                    case 3:
-                        M2 = From_M_To_LDLT_V1(M,fn);
-                        System.out.println("L' = ");
-                        Print_Matrix(M2,fn);
-                        break;
-                    case 4:
-                        M2 = From_M_To_LU_V2(M,fn);
-                        System.out.println("U = ");
-                        Print_Matrix(M2,fn);
-                        break;
-                    case 5:
-                        M2 = From_M_To_LLT_V2(M,fn);
-                        System.out.println("L' = ");
-                        Print_Matrix(M2,fn);
-                        break;
-                    case 6:
-                        M2 = From_M_To_LDLT_V2(M,fn);
-                        System.out.println("L' = ");
-                        Print_Matrix(M2,fn);
-                        break;
-                    default:
-                        throw new Exception("you entered an invalid number");
-                }
-            } else {
-                throw new Exception("you entered invalid value for a representation elementary actions and solution");
+        System.out.println("decompose the next matrix (" + n + "*" + n + " size):");
+        Display_Exercise(M);
+        Scanner sc = new Scanner(System.in);
+        User_Menu_Solution();
+        String fn = sc.next();
+        if (fn.equals("d") || fn.equals("r")) {
+            User_Menu_System_Decompose();
+            int op = sc.nextInt();
+            System.out.println("M = ");
+            Print_Matrix(M,fn);
+            float[][] M2;
+            switch (op) {
+                case 1:
+                    M2 = From_M_To_LU_V1(M,fn);
+                    System.out.println("U = ");
+                    Print_Matrix(M2,fn);
+                    break;
+                case 2:
+                    M2 = From_M_To_LLT_V1(M,fn);
+                    System.out.println("L' = ");
+                    Print_Matrix(M2,fn);
+                    break;
+                case 3:
+                    M2 = From_M_To_LDLT_V1(M,fn);
+                    System.out.println("L' = ");
+                    Print_Matrix(M2,fn);
+                    break;
+                case 4:
+                    M2 = From_M_To_LU_V2(M,fn);
+                    System.out.println("U = ");
+                    Print_Matrix(M2,fn);
+                    break;
+                case 5:
+                    M2 = From_M_To_LLT_V2(M,fn);
+                    System.out.println("L' = ");
+                    Print_Matrix(M2,fn);
+                    break;
+                case 6:
+                    M2 = From_M_To_LDLT_V2(M,fn);
+                    System.out.println("L' = ");
+                    Print_Matrix(M2,fn);
+                    break;
+                default:
+                    throw new Exception("you entered an invalid number");
             }
         } else {
-            throw new Exception("you entered matrix which is not a square matrix");
+            throw new Exception("you entered invalid value for a representation elementary actions and solution");
         }
     }
 
@@ -587,7 +578,7 @@ public class Matrices_Decomposition {
     // get the matrix by a multiplication components
     public static void Receive_Matrix(float[][] L) throws Exception {
         int n = L.length;
-        if (Is_Square_Matrix(L) && Is_Lower_Triangular(L)) {
+        if (Is_Lower_Triangular(L)) {
             System.out.println("receive the M matrix from the L and another matrices (" + n + "*" + n + " size):");
             Display_Exercise(L);
             Scanner sc = new Scanner(System.in);
@@ -641,10 +632,31 @@ public class Matrices_Decomposition {
                 throw new Exception("you entered invalid values for the L matrix");
             }
         } else {
-            throw new Exception("you entered matrix which is not a square matrix or lower triangular");
+            throw new Exception("you entered matrix which is not a lower triangular");
         }
     }
 
+    /////////////////////////////////////////////// Check Input ///////////////////////////////////////////////
+    // check if user input is valid
+    public static void Check_User_Input(float[][] M) throws Exception {
+        int m = M.length, n = M[0].length;
+        if (m == n) {
+            Scanner sc = new Scanner(System.in);
+            User_Menu_Direction();
+            String de = sc.next();
+            if (de.equals("d")) {
+                Decompose_Matrix(M);
+            } else if (de.equals("r")) {
+                Receive_Matrix(M);
+            } else {
+                throw new Exception("you entered invalid value for a direction of the solution");
+            }
+        } else {
+            throw new Exception("you entered matrix which is not a square matrix");
+        }
+    }
+
+    ////////////////////////////////////////////// Run Progress ////////////////////////////////////////////////
     public static void main(String[] args) {
         float[][] LU = {{2,1,-1},{-3,-1,2},{-2,1,2}};
         float[][] LU2 = {{2,1,0},{6,0,4},{-8,5,0}};
@@ -662,16 +674,7 @@ public class Matrices_Decomposition {
         float[][] L4 = {{1,0,0},{6,1,0},{-8,5,1}};
         float[][] E = {{5}};
         try {
-            Scanner sc = new Scanner(System.in);
-            User_Menu_Direction();
-            String de = sc.next();
-            if (de.equals("d")) {
-                Decompose_Matrix(LDLT3);
-            } else if (de.equals("r")) {
-                Receive_Matrix(L4);
-            } else {
-                throw new Exception("you entered invalid value for a direction of the solution");
-            }
+            Check_User_Input(LDLT3);
         } catch (Exception e) {
             e.printStackTrace();
         }
