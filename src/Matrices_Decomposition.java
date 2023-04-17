@@ -281,6 +281,7 @@ public class Matrices_Decomposition {
         if (Is_Symmetrical_Matrix(M) && Is_Values_Positives(M)) {
             int n = M.length;
             float[][] L = new float[n][n];
+            float[][] LT = new float[n][n];
             for (int i = 0; i < n && M[i][i] != 0; i++) {
                 for (int j = i + 1; j < n; j++) {
                     float c = M[j][i] / M[i][i];
@@ -298,6 +299,7 @@ public class Matrices_Decomposition {
                 for (int k = i; k < n; k++) {
                     M[i][k] /= c;
                     L[k][i] = M[i][k];
+                    LT[i][k] = L[k][i];
                 }
                 if (c != 1) {
                     Print_Matrix(M,fn);
@@ -305,7 +307,7 @@ public class Matrices_Decomposition {
             }
             System.out.println("L = ");
             Print_Matrix(L,fn);
-            return M;
+            return LT;
         } else {
             throw new Exception("Not all conditions are held");
         }
@@ -317,9 +319,10 @@ public class Matrices_Decomposition {
             int n = M.length;
             float[][] L = new float[n][n];
             float[][] D = new float[n][n];
+            float[][] LT = new float[n][n];
             for (int i = 0; i < n; i++) {
                 L[i][i] = 1;
-                for (int j = i + 1; j < n; j++) {
+                for (int j = i + 1; j < n && M[i][i] != 0; j++) {
                     float c = M[j][i] / M[i][i];
                     Sum_Elementary_Action(c,j,i,fn);
                     for (int k = 0; k < n; k++) {
@@ -336,19 +339,20 @@ public class Matrices_Decomposition {
                     for (int k = i; k < n; k++) {
                         M[i][k] /= D[i][i];
                         L[k][i] = M[i][k];
+                        LT[i][k] = L[k][i];
                     }
                     if (D[i][i] != 1) {
                         Print_Matrix(M,fn);
                     }
                 } else {
-                    M[i][i] = 1;
+                    LT[i][i] = 1;
                 }
             }
             System.out.println("L = ");
             Print_Matrix(L,fn);
             System.out.println("D = ");
             Print_Matrix(D,fn);
-            return M;
+            return LT;
         } else {
             throw new Exception("Not all conditions are held");
         }
@@ -383,17 +387,19 @@ public class Matrices_Decomposition {
         if (Is_Symmetrical_Matrix(M) && Is_Values_Positives(M)) {
             int n = M.length;
             float[][] L = new float[n][n];
+            float[][] LT = new float[n][n];
             for (int j = 0; j < n; j++) {
                 for (int i = j; i < n; i++) {
                     for (int k = 0; k < j; k++) {
-                        M[i][j] -= L[i][k] * L[j][k];
+                        M[i][j] -= L[i][k] * LT[k][j];
                     }
                     L[i][j] = M[i][j] / (float) Math.sqrt(M[j][j]);
+                    LT[j][i] = L[i][j];
                 }
             }
             System.out.println("L = ");
             Print_Matrix(L,fn);
-            return Transpose(L);
+            return LT;
         } else {
             throw new Exception("Not all conditions are held");
         }
@@ -405,14 +411,18 @@ public class Matrices_Decomposition {
             int n = M.length;
             float[][] L = new float[n][n];
             float[][] D = new float[n][n];
+            float[][] LT = new float[n][n];
             for (int j = 0; j < n; j++) {
                 L[j][j] = 1;
                 for (int i = j; i < n; i++) {
                     for (int k = 0; k < j; k++) {
-                        M[i][j] -= L[i][k] * L[j][k] * D[k][k];
+                        M[i][j] -= L[i][k] * D[k][k] * LT[k][j];
                     }
                     if (M[j][j] != 0) {
                         L[i][j] = M[i][j] / M[j][j];
+                        LT[j][i] = L[i][j];
+                    } else {
+                        LT[i][i] = 1;
                     }
                 }
                 D[j][j] = M[j][j];
@@ -421,7 +431,7 @@ public class Matrices_Decomposition {
             Print_Matrix(L,fn);
             System.out.println("D = ");
             Print_Matrix(D,fn);
-            return Transpose(L);
+            return LT;
         } else {
             throw new Exception("Not all conditions are held");
         }
