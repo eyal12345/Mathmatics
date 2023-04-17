@@ -39,17 +39,6 @@ public class Matrices_Decomposition {
         System.out.println();
     }
 
-    // display user interface by selection method for receive matrices
-    public static void User_Menu_System_Receive() {
-        System.out.println("choose number method to solution:");
-        System.out.println("1. LU decomposition by L and U multiplication (first method)");
-        System.out.println("2. LL' decomposition by L and L' multiplication (first method)");
-        System.out.println("3. LDL' decomposition by L, D and L' multiplication (first method)");
-        System.out.println("4. LU decomposition by L and U multiplication (second method)");
-        System.out.println("5. LL' decomposition by L and L' multiplication (second method)");
-        System.out.println("6. LDL' decomposition by L, D and L' multiplication (second method)");
-    }
-
     // display user interface by selection method for decompose matrices
     public static void User_Menu_System_Decompose() {
         System.out.println("choose number method to solution:");
@@ -59,6 +48,17 @@ public class Matrices_Decomposition {
         System.out.println("4. get L and U matrices by decomposition of M (second method)");
         System.out.println("5. get L and L' matrices by decomposition of M (second method)");
         System.out.println("6. get L, D and L' matrices by decomposition of M (second method)");
+    }
+
+    // display user interface by selection method for receive matrices
+    public static void User_Menu_System_Receive() {
+        System.out.println("choose number method to solution:");
+        System.out.println("1. LU decomposition by L and U multiplication (first method)");
+        System.out.println("2. LL' decomposition by L and L' multiplication (first method)");
+        System.out.println("3. LDL' decomposition by L, D and L' multiplication (first method)");
+        System.out.println("4. LU decomposition by L and U multiplication (second method)");
+        System.out.println("5. LL' decomposition by L and L' multiplication (second method)");
+        System.out.println("6. LDL' decomposition by L, D and L' multiplication (second method)");
     }
 
     // display user interface by selection format for solution
