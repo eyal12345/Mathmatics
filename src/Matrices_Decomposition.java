@@ -335,13 +335,18 @@ public class Matrices_Decomposition {
                     }
                 }
                 D[i][i] = M[i][i];
-                Mul_Elementary_Action(1 / D[i][i],i,fn);
-                for (int k = i; k < n; k++) {
-                    M[i][k] /= D[i][i];
-                    L[k][i] = M[i][k];
-                }
-                if (D[i][i] != 1) {
-                    Print_Matrix(M,fn);
+                if (D[i][i] != 0) {
+                    Mul_Elementary_Action(1 / D[i][i],i,fn);
+                    for (int k = i; k < n; k++) {
+                        M[i][k] /= D[i][i];
+                        L[k][i] = M[i][k];
+                    }
+                    if (D[i][i] != 1) {
+                        Print_Matrix(M,fn);
+                    }
+                } else {
+                    M[i][i] = 1;
+                    L[i][i] = 1;
                 }
             }
             System.out.println("L = ");
@@ -411,7 +416,9 @@ public class Matrices_Decomposition {
                     for (int k = 0; k < j; k++) {
                         M[i][j] -= L[i][k] * L[j][k] * D[k][k];
                     }
-                    L[i][j] = M[i][j] / M[j][j];
+                    if (M[j][j] != 0) {
+                        L[i][j] = M[i][j] / M[j][j];
+                    }
                 }
                 D[j][j] = M[j][j];
             }
@@ -643,9 +650,14 @@ public class Matrices_Decomposition {
         float[][] LU2 = {{2,1,0},{6,0,4},{-8,5,0}};
         float[][] LLT = {{4,12,-16},{12,37,-43},{-16,-43,98}};
         float[][] LLT2 = {{4,-2,2},{-2,17,11},{2,11,35}};
+        float[][] LLT3 = {{1,3,-4},{3,10,-7},{-4,-7,42}};
         float[][] LDLT = {{-1,-3,4},{-3,-5,32},{4,32,75}};
+        float[][] LDLT2 = {{4,12,-16},{12,52,-28},{-16,-28,89}};
         float[][] L = {{1,0,0},{-2,1,0},{-1,4,1}};
-        float[][] LT = {{2,0,0},{6,1,0},{-8,5,3}};
+        float[][] L2 = {{1,0,0},{3,1,0},{-4,5,1}};
+        float[][] L3 = {{2,0,0},{6,1,0},{-8,5,3}};
+        float[][] L4 = {{1,0,0},{6,1,0},{-8,5,1}};
+        float[][] LDLT4 = {{4,24,-32},{24,144,-192},{-32,-192,256}};
         float[][] E = {{5}};
         try {
             Scanner sc = new Scanner(System.in);
@@ -654,7 +666,7 @@ public class Matrices_Decomposition {
             if (de.equals("d")) {
                 Decompose_Matrix(LLT);
             } else if (de.equals("r")) {
-                Receive_Matrix(L);
+                Receive_Matrix(L4);
             } else {
                 throw new Exception("you entered invalid value for a direction of the solution");
             }
