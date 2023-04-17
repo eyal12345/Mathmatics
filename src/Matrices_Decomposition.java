@@ -286,7 +286,7 @@ public class Matrices_Decomposition {
         if (Is_Symmetrical_Matrix(M) && Is_Values_Positives(M)) {
             int n = M.length;
             float[][] L = new float[n][n];
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < n && M[i][i] != 0; i++) {
                 for (int j = i + 1; j < n; j++) {
                     float c = M[j][i] / M[i][i];
                     Sum_Elementary_Action(c,j,i,fn);
@@ -655,18 +655,18 @@ public class Matrices_Decomposition {
         float[][] LLT3 = {{1,3,-4},{3,10,-7},{-4,-7,42}};
         float[][] LDLT = {{-1,-3,4},{-3,-5,32},{4,32,75}};
         float[][] LDLT2 = {{4,12,-16},{12,52,-28},{-16,-28,89}};
+        float[][] LDLT3 = {{4,24,-32},{24,144,-192},{-32,-192,256}};
         float[][] L = {{1,0,0},{-2,1,0},{-1,4,1}};
         float[][] L2 = {{1,0,0},{3,1,0},{-4,5,1}};
         float[][] L3 = {{2,0,0},{6,1,0},{-8,5,3}};
         float[][] L4 = {{1,0,0},{6,1,0},{-8,5,1}};
-        float[][] LDLT4 = {{4,24,-32},{24,144,-192},{-32,-192,256}};
         float[][] E = {{5}};
         try {
             Scanner sc = new Scanner(System.in);
             User_Menu_Direction();
             String de = sc.next();
             if (de.equals("d")) {
-                Decompose_Matrix(LU4);
+                Decompose_Matrix(LDLT3);
             } else if (de.equals("r")) {
                 Receive_Matrix(L4);
             } else {
